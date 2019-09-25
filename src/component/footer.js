@@ -1,9 +1,7 @@
-import * as React from "react";
+import React, { Component } from "react";
 import "../scss/footer.scss";
 
-export interface FooterProps {}
-
-export default class Footer extends React.Component<FooterProps, {}> {
+export default class Footer extends Component {
   render() {
     return (
       <footer>

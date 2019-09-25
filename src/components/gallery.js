@@ -1,14 +1,12 @@
-import * as React from "react";
+import React, { Component } from "react";
 import "../scss/section.scss";
+import Title from "../elements/Title/Title";
 
-export interface ContactProps {}
-
-export default class Contact extends React.Component<ContactProps, {}> {
+export default class Gallery extends Component {
   render() {
     return (
       <>
-        <h1>Kontakt</h1>
-        <div className="whiteLine" />
+        <Title name="GALERIA" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
           reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae

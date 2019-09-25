@@ -34,10 +34,11 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     height: 1px;
-    width: 150px;
+    width: 80px;
     max-width: 80%;
     background-color: #fff;
     margin-bottom: 30px;
+    border-radius: 20px;
   }
   .positionVertical {
     position: absolute;

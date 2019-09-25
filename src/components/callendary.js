@@ -1,14 +1,12 @@
-import * as React from "react";
+import React, { Component } from "react";
 import "../scss/section.scss";
+import Title from "../elements/Title/Title";
 
-export interface CallendaryProps {}
-
-export default class Callendary extends React.Component<CallendaryProps, {}> {
+export default class Callendary extends Component {
   render() {
     return (
       <>
-        <h1>Terminy</h1>
-        <div className="whiteLine" />
+        <Title name="KALENDARZ" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
           reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae

@@ -1,14 +1,12 @@
-import * as React from "react";
+import React, { Component } from "react";
 import "../scss/section.scss";
+import Title from "../elements/Title/Title";
 
-export interface GalleryProps {}
-
-export default class Gallery extends React.Component<GalleryProps, {}> {
+export default class AboutUs extends Component {
   render() {
     return (
-      <>
-        <h1>Galeria</h1>
-        <div className="whiteLine" />
+      <div id="about_us">
+        <Title name="O NAS" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
           reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae
@@ -18,7 +16,7 @@ export default class Gallery extends React.Component<GalleryProps, {}> {
           rem enim omnis, eos, odio tempore numquam, nobis nam dolore fugiat
           sequi. Distinctio asperiores sint debitis ut!
         </p>
-      </>
+      </div>
     );
   }
 }

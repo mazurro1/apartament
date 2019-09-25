@@ -1,14 +1,12 @@
-import * as React from "react";
+import React, { Component } from "react";
 import "../scss/section.scss";
+import Title from "../elements/Title/Title";
 
-export interface ReservationProps {}
-
-export default class Reservation extends React.Component<ReservationProps, {}> {
+export default class Reservation extends Component {
   render() {
     return (
       <>
-        <h1>Rezerwacja</h1>
-        <div className="whiteLine" />
+        <Title name="REZERWACJA" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
           reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae

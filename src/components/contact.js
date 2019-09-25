@@ -1,14 +1,12 @@
-import * as React from "react";
+import React, { Component } from "react";
 import "../scss/section.scss";
+import Title from "../elements/Title/Title";
 
-export interface AboutUsProps {}
-
-export default class AboutUs extends React.Component<AboutUsProps, {}> {
+export default class Contact extends Component {
   render() {
     return (
       <>
-        <h1>O NAS</h1>
-        <div className="whiteLine" />
+        <Title name="KONTAKT" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
           reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae
