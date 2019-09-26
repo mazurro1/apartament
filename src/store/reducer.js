@@ -17,7 +17,7 @@ const log_out = (state, action) => {
     newAccount: null,
     token: null,
     userId: null,
-    error: null
+    error: false
   };
 };
 
