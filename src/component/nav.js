@@ -8,15 +8,25 @@ class Nav extends Component {
   render() {
     const buttonsLogin = this.props.signed ? (
       <>
-        <button onClick={this.props.logOut}>Wyloguj</button>
+        {this.props.userName}
+        <button className="btn btn-danger" onClick={this.props.logOut}>
+          Wyloguj
+        </button>
       </>
     ) : (
       <>
-        <NavLink to="/login" className="mr-4">
-          <button onClick={this.props.isLogin}>Logowanie</button>
+        <NavLink to="/login">
+          <button className="btn btn-primary" onClick={this.props.isLogin}>
+            Logowanie
+          </button>
         </NavLink>
-        <NavLink to="/registration" className="mr-4">
-          <button onClick={this.props.isRegistration}>Rejestracja</button>
+        <NavLink to="/registration">
+          <button
+            className="btn btn-primary ml-1"
+            onClick={this.props.isRegistration}
+          >
+            Rejestracja
+          </button>
         </NavLink>
       </>
     );
@@ -75,7 +85,8 @@ class Nav extends Component {
 
 const mapStateToProps = state => {
   return {
-    signed: state.signed
+    signed: state.signed,
+    userName: state.userName
   };
 };
 

@@ -4,9 +4,11 @@ const initialState = {
   login: null,
   signed: null,
   newAccount: null,
-  token: null,
+  userToken: null,
   userId: null,
-  error: false
+  userName: null,
+  errorLogin: false,
+  errorAccount: false
 };
 
 const log_out = (state, action) => {
@@ -15,16 +17,25 @@ const log_out = (state, action) => {
     login: null,
     signed: null,
     newAccount: null,
-    token: null,
+    userToken: null,
     userId: null,
-    error: false
+    userName: null,
+    errorLogin: false,
+    errorAccount: false
   };
 };
 
-const is_error = (state, action) => {
+const is_error_login = (state, action) => {
   return {
     ...state,
-    error: action.value
+    errorLogin: action.value
+  };
+};
+
+const is_error_account = (state, action) => {
+  return {
+    ...state,
+    errorAccount: action.value
   };
 };
 
@@ -42,6 +53,19 @@ const is_signed = (state, action) => {
   };
 };
 
+const is_signed_token = (state, action) => {
+  let userName = action.email;
+  let index = userName.lastIndexOf("@");
+  userName = userName.slice(0, index);
+  return {
+    ...state,
+    userToken: action.token,
+    userId: action.userId,
+    userName: userName,
+    signed: true
+  };
+};
+
 const is_registration = (state, action) => {
   return {
     ...state,
@@ -56,6 +80,18 @@ const is_newAccount = (state, action) => {
   };
 };
 
+const create_user = (state, action) => {
+  let userName = action.userName;
+  let index = userName.lastIndexOf("@");
+  userName = userName.slice(0, index);
+  return {
+    ...state,
+    userToken: action.userToken,
+    userId: action.userId,
+    userName: userName
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.IS_LOGIN:
@@ -64,14 +100,26 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOG_OUT:
       return log_out(state, action);
 
-    case actionTypes.IS_ERROR:
-      return is_error(state, action);
+    case actionTypes.IS_ERROR_LOGIN:
+      return is_error_login(state, action);
+
+    case actionTypes.IS_ERROR_ACCOUNT:
+      return is_error_account(state, action);
+
+    case actionTypes.RESET_ERROR:
+      return is_login(state, action);
 
     case actionTypes.IS_NEWACCOUNT:
       return is_newAccount(state, action);
 
     case actionTypes.IS_SIGNED:
       return is_signed(state, action);
+
+    case actionTypes.IS_SIGNED_TOKEN:
+      return is_signed_token(state, action);
+
+    case actionTypes.CREATE_USER:
+      return create_user(state, action);
 
     case actionTypes.IS_REGISTRATION:
       return is_registration(state, action);

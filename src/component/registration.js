@@ -3,6 +3,7 @@ import Title from "../elements/Title/Title";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
+import Modal from "../elements/Modal/Modal";
 
 class Login extends Component {
   state = {
@@ -95,15 +96,19 @@ class Login extends Component {
   render() {
     const { form } = this.state;
     const changePage = this.props.newAccount ? <Redirect to="/login" /> : null;
-    const errorMessage = this.props.error ? (
-      <div className="text-center">Podany e-mail juz istnieje</div>
+    const errorMessage = this.props.errorAccount ? (
+      <Modal
+        name="Podany e-mail już istnieje."
+        onClickButton={() => this.props.is_error_account(false)}
+      />
     ) : null;
     return (
       <div className="sectionBg">
         {changePage}
+        {errorMessage}
         <div className="container">
           <Title name="ZAŁÓŻ KONTO" />
-          {errorMessage}
+
           <div className="row">
             <div className="col-2 offset-3">Adres e-mail:</div>
             <div className="col-4">
@@ -169,7 +174,7 @@ class Login extends Component {
                   disabled={false}
                   onClick={this.handleOnClickSave}
                 >
-                  Rejestuj
+                  Zatwierdź
                 </button>
               </div>
             </div>
@@ -185,7 +190,7 @@ const mapStateToProps = state => {
     login: state.login,
     signed: state.signed,
     newAccount: state.newAccount,
-    error: state.error
+    errorAccount: state.errorAccount
   };
 };
 
@@ -193,7 +198,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actionTypes.auth(email, password, isSignUp)),
-    isSigned: value => dispatch(actionTypes.is_signed(value))
+    isSigned: value => dispatch(actionTypes.is_signed(value)),
+    is_error_account: value => dispatch(actionTypes.is_error_account(value))
   };
 };
 

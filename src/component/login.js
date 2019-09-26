@@ -3,6 +3,7 @@ import Title from "../elements/Title/Title";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
+import Modal from "../elements/Modal/Modal";
 
 class Login extends Component {
   state = {
@@ -77,16 +78,20 @@ class Login extends Component {
   render() {
     const { form } = this.state;
     const changePage = this.props.signed ? <Redirect to="/" /> : null;
-    const errorMessage = this.props.error ? (
-      <div className="text-center">Zły login lub hasło</div>
+    const errorMessage = this.props.errorLogin ? (
+      <Modal
+        name="Zły login lub hasło."
+        onClickButton={() => this.props.is_error_login(false)}
+      />
     ) : null;
 
     return (
       <div className="sectionBg">
         {changePage}
+        {errorMessage}
         <div className="container">
           <Title name="LOGOWANIE" />
-          {errorMessage}
+
           <div className="row">
             <div className="col-2 offset-3">Adres e-mail:</div>
             <div className="col-4">
@@ -138,14 +143,15 @@ const mapStateToProps = state => {
   return {
     login: state.login,
     signed: state.signed,
-    error: state.error
+    errorLogin: state.errorLogin
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
-      dispatch(actionTypes.auth(email, password, isSignUp))
+      dispatch(actionTypes.auth(email, password, isSignUp)),
+    is_error_login: value => dispatch(actionTypes.is_error_login(value))
   };
 };
 

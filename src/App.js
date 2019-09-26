@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Section from "./component/section";
-// import * as actionTypes from "./store/actions";
+import * as actionTypes from "./store/actions";
 import "./scss/app.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "./component/footer";
@@ -14,15 +14,21 @@ import Registration from "./component/registration";
 class App extends React.Component {
   state = {};
 
+  componentDidMount() {
+    this.props.authChechState();
+  }
+
   render() {
     return (
       <div className="App">
         <BrowserRouter>
           <Nav />
-          <Route path="/" exact component={Header} />
-          <Route path="/" exact component={Section} />
-          <Route path="/login" component={Login} />
-          <Route path="/registration" component={Registration} />
+          <div className="positionRelative">
+            <Route path="/" exact component={Header} />
+            <Route path="/" exact component={Section} />
+            <Route path="/login" component={Login} />
+            <Route path="/registration" component={Registration} />
+          </div>
           <Footer />
           <Redirect to="/" />
         </BrowserRouter>
@@ -36,7 +42,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    authChechState: () => dispatch(actionTypes.authChechState())
+  };
 };
 
 export default connect(

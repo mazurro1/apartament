@@ -9,8 +9,8 @@ import App from "./App";
 const logger = store => {
   return next => {
     return action => {
-      console.log("Action: ", action); //pokazuje akcję, która została wykonana przy zmianie stanu w redux
-      console.log("New state:", store.getState()); //Pokazuje zaktualizowany stan w redux, jeżeli zmienimy wynik jakieś zmiennej
+      // console.log("Action: ", action); //pokazuje akcję, która została wykonana przy zmianie stanu w redux
+      // console.log("New state:", store.getState()); //Pokazuje zaktualizowany stan w redux, jeżeli zmienimy wynik jakieś zmiennej
       const result = next(action);
       return result;
     };
