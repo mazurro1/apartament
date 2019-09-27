@@ -235,6 +235,8 @@ body {
     -moz-transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -o-transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+
+    outline: transparent !important;
   }
 
   .button:hover {
@@ -244,6 +246,8 @@ body {
     -moz-transition: all 500ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -o-transition: all 500ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     transition: all 500ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+
+    outline: transparent !important;
   }
 
   .button:focus {
@@ -255,5 +259,7 @@ body {
     -moz-transition: all 601ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -o-transition: all 601ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     transition: all 601ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
+
+    outline: transparent !important;
   }
 }

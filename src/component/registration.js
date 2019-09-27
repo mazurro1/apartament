@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Input from "../elements/Input/Input";
 
 class Login extends Component {
   state = {
@@ -97,7 +98,7 @@ class Login extends Component {
 
   render() {
     const { form } = this.state;
-    const changePage = this.props.newAccount ? <Redirect to="/login" /> : null;
+    const changePage = this.props.newAccount ? <Redirect to="/" /> : null;
     const errorMessage = this.props.errorAccount ? (
       <Modal
         name="Podany e-mail już istnieje."
@@ -123,7 +124,19 @@ class Login extends Component {
           <div className="row">
             <div className="col-2 offset-3">Adres e-mail:</div>
             <div className="col-4">
-              <input
+              <Input
+                className={
+                  this.state.validation && !form.email.validated
+                    ? "formInvalid"
+                    : null
+                }
+                value={form.email.value}
+                onChange={this.handleInputOnChange}
+                name="email"
+                type="text"
+                placeholder=""
+              />
+              {/* <input
                 className={
                   this.state.validation && !form.email.validated
                     ? "formInvalid"
@@ -133,11 +146,11 @@ class Login extends Component {
                 value={form.email.value}
                 onChange={this.handleInputOnChange}
                 name="email"
-              />
+              /> */}
             </div>
             <div className="col-2 offset-3">Hasło:</div>
             <div className="col-4">
-              <input
+              {/* <input
                 className={
                   this.state.validation && !form.password.validated
                     ? "formInvalid"
@@ -147,11 +160,23 @@ class Login extends Component {
                 value={form.password.value}
                 onChange={this.handleInputOnChange}
                 name="password"
+              /> */}
+              <Input
+                className={
+                  this.state.validation && !form.password.validated
+                    ? "formInvalid"
+                    : null
+                }
+                value={form.password.value}
+                onChange={this.handleInputOnChange}
+                name="password"
+                type="password"
+                placeholder=""
               />
             </div>
             <div className="col-2 offset-3">Powtórz hasło:</div>
             <div className="col-4">
-              <input
+              {/* <input
                 className={
                   this.state.validation && !form.passwordSecond.validated
                     ? "formInvalid"
@@ -161,6 +186,18 @@ class Login extends Component {
                 value={form.passwordSecond.value}
                 onChange={this.handleInputOnChange}
                 name="passwordSecond"
+              /> */}
+              <Input
+                className={
+                  this.state.validation && !form.passwordSecond.validated
+                    ? "formInvalid"
+                    : null
+                }
+                value={form.passwordSecond.value}
+                onChange={this.handleInputOnChange}
+                name="passwordSecond"
+                type="password"
+                placeholder=""
               />
             </div>
             <div className="col-2 offset-3">Regulamin*:</div>
@@ -171,11 +208,18 @@ class Login extends Component {
                   : "col-4"
               }
             >
-              <input
+              {/* <input
                 type="checkbox"
                 checked={form.regulations.value}
                 onChange={this.handleInputOnChange}
                 name="regulations"
+              /> */}
+              <Input
+                checked={form.regulations.value}
+                onChange={this.handleInputOnChange}
+                name="regulations"
+                type="checkbox"
+                placeholder=""
               />
             </div>
             <div className="col-12">
@@ -189,8 +233,6 @@ class Login extends Component {
                 </button>
               </div>
             </div>
-
-            <input class="button" placeholder="Your name ..." />
           </div>
         </div>
       </div>
