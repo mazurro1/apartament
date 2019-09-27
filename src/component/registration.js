@@ -189,6 +189,8 @@ class Login extends Component {
                 </button>
               </div>
             </div>
+
+            <input class="button" placeholder="Your name ..." />
           </div>
         </div>
       </div>
