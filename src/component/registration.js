@@ -129,7 +129,7 @@ class Login extends Component {
                     ? "formInvalid"
                     : null
                 }
-                type="email"
+                type="text"
                 value={form.email.value}
                 onChange={this.handleInputOnChange}
                 name="email"
