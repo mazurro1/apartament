@@ -1,6 +1,4 @@
 import axios from "axios";
-export const IS_REGISTRATION = "IS_REGISTRATION";
-export const IS_LOGIN = "IS_LOGIN";
 export const IS_SIGNED = "IS_SIGNED";
 export const IS_SIGNED_TOKEN = "IS_SIGNED_TOKEN";
 export const AUTH_START = "AUTH_START";
@@ -10,6 +8,11 @@ export const IS_ERROR_LOGIN = "IS_ERROR_LOGIN";
 export const IS_ERROR_ACCOUNT = "IS_ERROR_ACCOUNT";
 export const RESET_ERROR = "RESET_ERROR";
 export const CREATE_USER = "CREATE_USER";
+export const ORDER_VISIBLE = "ORDER_VISIBLE";
+export const SETTINGS_ACCOUNT_VISIBLE = "SETTINGS_ACCOUNT_VISIBLE";
+export const SPINNER = "SPINNER";
+export const LOGIN_VISIBLE = "LOGIN_VISIBLE";
+export const REGISTRATION_VISIBLE = "REGISTRATION_VISIBLE";
 
 export const log_out = () => {
   localStorage.removeItem("token"); //usuwanie z przeglądarki tokena
@@ -17,6 +20,37 @@ export const log_out = () => {
   localStorage.removeItem("userId");
   return {
     type: LOG_OUT
+  };
+};
+
+export const login_visible = () => {
+  return {
+    type: LOGIN_VISIBLE
+  };
+};
+
+export const registration_visible = () => {
+  return {
+    type: REGISTRATION_VISIBLE
+  };
+};
+
+export const spinner = value => {
+  return {
+    type: SPINNER,
+    value: value
+  };
+};
+
+export const order_visible = () => {
+  return {
+    type: ORDER_VISIBLE
+  };
+};
+
+export const settings_account_visible = () => {
+  return {
+    type: SETTINGS_ACCOUNT_VISIBLE
   };
 };
 
@@ -31,12 +65,6 @@ export const is_error_account = value => {
   return {
     type: IS_ERROR_ACCOUNT,
     value: value
-  };
-};
-
-export const is_login = () => {
-  return {
-    type: IS_LOGIN
   };
 };
 
@@ -63,12 +91,6 @@ export const is_newAccount = value => {
   };
 };
 
-export const is_registration = () => {
-  return {
-    type: IS_REGISTRATION
-  };
-};
-
 export const create_user = (userToken, userId, userName) => {
   return {
     type: CREATE_USER,
@@ -77,6 +99,8 @@ export const create_user = (userToken, userId, userName) => {
     userName: userName
   };
 };
+
+// export const reset
 
 ////////////////////////////////////////////////////
 
@@ -89,7 +113,7 @@ export const checkAuthTimeout = experationTime => {
 };
 export const auth = (email, password, isSignUp) => {
   return dispatch => {
-    // dispatch(authStart());
+    dispatch(spinner(true));
     const authData = {
       email: email,
       password: password,
@@ -105,6 +129,7 @@ export const auth = (email, password, isSignUp) => {
       .post(url, authData)
       .then(response => {
         console.log(response);
+        dispatch(spinner(false));
         // const expirationDate = 3600 * 1000;
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
@@ -116,9 +141,11 @@ export const auth = (email, password, isSignUp) => {
         if (!isSignUp) {
           dispatch(is_signed(true));
           dispatch(is_error_login(false));
+          dispatch(login_visible());
         } else {
           dispatch(is_newAccount(true));
           dispatch(is_error_account(false));
+          dispatch(login_visible());
         }
         dispatch(
           create_user(
@@ -130,7 +157,7 @@ export const auth = (email, password, isSignUp) => {
       })
       .catch(error => {
         console.log(error);
-
+        dispatch(spinner(false));
         if (!isSignUp) {
           dispatch(is_signed(false));
           dispatch(is_error_login(true));
@@ -144,6 +171,7 @@ export const auth = (email, password, isSignUp) => {
 
 export const authChechState = () => {
   return dispatch => {
+    dispatch(spinner(true));
     const token = localStorage.getItem("token");
     if (!token) {
       dispatch(log_out());
@@ -166,9 +194,10 @@ export const authChechState = () => {
           .then(response => {
             const email = response.data.users[0].email;
             dispatch(is_signed_token(token, userId, email));
+            dispatch(spinner(false));
           })
           .catch(error => {
-            // console.log(error);
+            dispatch(spinner(false));
           });
 
         dispatch(

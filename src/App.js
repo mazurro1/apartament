@@ -10,6 +10,9 @@ import Nav from "./component/nav";
 import Header from "./component/header";
 import Login from "./component/login";
 import Registration from "./component/registration";
+import Spinner from "./elements/Spinner/Spinner";
+import Orders from "./component/orders";
+import AccountSettings from "./component/accountSettings";
 
 class App extends React.Component {
   state = {};
@@ -19,17 +22,22 @@ class App extends React.Component {
   }
 
   render() {
+    const spinner = this.props.spinner ? <Spinner /> : null;
+
     return (
       <div className="App">
+        {spinner}
         <BrowserRouter>
           <Nav />
           <div className="positionRelative">
-            <Route path="/" exact component={Header} />
+            <Route path="/" component={Login} />
+            <Route path="/" component={Registration} />
+            <Route path="/" component={Orders} />
+            <Route path="/" component={AccountSettings} />
+            {/* <Route path="/" exact component={Header} /> */}
             <Route path="/" exact component={Section} />
-            <Route path="/login" component={Login} />
-            <Route path="/registration" component={Registration} />
           </div>
-          <Footer />
+          {/* <Footer /> */}
           <Redirect to="/" />
         </BrowserRouter>
       </div>
@@ -38,7 +46,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    spinner: state.spinner
+  };
 };
 
 const mapDispatchToProps = dispatch => {

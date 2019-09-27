@@ -1,27 +1,74 @@
 import * as actionTypes from "./actions";
 
 const initialState = {
-  login: null,
   signed: null,
   newAccount: null,
   userToken: null,
   userId: null,
   userName: null,
   errorLogin: false,
-  errorAccount: false
+  errorAccount: false,
+  orderVisible: false,
+  settingsAccountVisible: false,
+  spinner: false,
+  loginVisible: false,
+  registrationVisible: false
 };
 
 const log_out = (state, action) => {
   return {
     ...state,
-    login: null,
     signed: null,
     newAccount: null,
     userToken: null,
     userId: null,
     userName: null,
     errorLogin: false,
-    errorAccount: false
+    errorAccount: false,
+    orderVisible: false,
+    settingsAccountVisible: false,
+    spinner: false,
+    loginVisible: false,
+    registrationVisible: false
+  };
+};
+
+const login_visible = (state, action) => {
+  return {
+    ...state,
+    loginVisible: !state.loginVisible,
+    registrationVisible: false
+  };
+};
+
+const registration_visible = (state, action) => {
+  return {
+    ...state,
+    registrationVisible: !state.registrationVisible,
+    loginVisible: false
+  };
+};
+
+const spinner = (state, action) => {
+  return {
+    ...state,
+    spinner: action.value
+  };
+};
+
+const order_visible = (state, action) => {
+  return {
+    ...state,
+    orderVisible: !state.orderVisible,
+    settingsAccountVisible: false
+  };
+};
+
+const settings_account_visible = (state, action) => {
+  return {
+    ...state,
+    settingsAccountVisible: !state.settingsAccountVisible,
+    orderVisible: false
   };
 };
 
@@ -36,13 +83,6 @@ const is_error_account = (state, action) => {
   return {
     ...state,
     errorAccount: action.value
-  };
-};
-
-const is_login = (state, action) => {
-  return {
-    ...state,
-    login: true
   };
 };
 
@@ -63,13 +103,6 @@ const is_signed_token = (state, action) => {
     userId: action.userId,
     userName: userName,
     signed: true
-  };
-};
-
-const is_registration = (state, action) => {
-  return {
-    ...state,
-    login: false
   };
 };
 
@@ -94,8 +127,11 @@ const create_user = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.IS_LOGIN:
-      return is_login(state, action);
+    case actionTypes.LOGIN_VISIBLE:
+      return login_visible(state, action);
+
+    case actionTypes.REGISTRATION_VISIBLE:
+      return registration_visible(state, action);
 
     case actionTypes.LOG_OUT:
       return log_out(state, action);
@@ -105,9 +141,6 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.IS_ERROR_ACCOUNT:
       return is_error_account(state, action);
-
-    case actionTypes.RESET_ERROR:
-      return is_login(state, action);
 
     case actionTypes.IS_NEWACCOUNT:
       return is_newAccount(state, action);
@@ -121,8 +154,15 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CREATE_USER:
       return create_user(state, action);
 
-    case actionTypes.IS_REGISTRATION:
-      return is_registration(state, action);
+    case actionTypes.ORDER_VISIBLE:
+      return order_visible(state, action);
+
+    case actionTypes.SETTINGS_ACCOUNT_VISIBLE:
+      return settings_account_visible(state, action);
+
+    case actionTypes.SPINNER:
+      return spinner(state, action);
+
     default:
       return state;
   }

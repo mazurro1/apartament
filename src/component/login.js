@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class Login extends Component {
   state = {
@@ -86,9 +88,12 @@ class Login extends Component {
     ) : null;
 
     return (
-      <div className="sectionBg">
+      <div className={this.props.loginVisible ? "login loginDown" : "login"}>
         {changePage}
         {errorMessage}
+        <div className="closePage" onClick={this.props.login_visible}>
+          <FontAwesomeIcon icon={faTimes} size="2x" />
+        </div>
         <div className="container">
           <Title name="LOGOWANIE" />
 
@@ -143,7 +148,8 @@ const mapStateToProps = state => {
   return {
     login: state.login,
     signed: state.signed,
-    errorLogin: state.errorLogin
+    errorLogin: state.errorLogin,
+    loginVisible: state.loginVisible
   };
 };
 
@@ -151,7 +157,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actionTypes.auth(email, password, isSignUp)),
-    is_error_login: value => dispatch(actionTypes.is_error_login(value))
+    is_error_login: value => dispatch(actionTypes.is_error_login(value)),
+    login_visible: () => dispatch(actionTypes.login_visible())
   };
 };
 

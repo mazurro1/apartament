@@ -17,14 +17,6 @@ class Login extends Component {
       password: {
         value: "",
         validated: null
-      },
-      passwordSecond: {
-        value: "",
-        validated: null
-      },
-      regulations: {
-        value: false,
-        validated: null
       }
     },
     validation: false
@@ -35,10 +27,6 @@ class Login extends Component {
 
     if (name === "password") {
       isValid = value.length >= 6 ? true : false;
-    }
-
-    if (name === "passwordSecond") {
-      isValid = this.state.form.password.value === value ? true : false;
     }
 
     if (name === "email") {
@@ -80,45 +68,41 @@ class Login extends Component {
       validation: true
     });
 
-    if (
-      this.state.form.email.validated &&
-      this.state.form.password.validated &&
-      this.state.form.passwordSecond.validated &&
-      this.state.form.regulations.validated
-    ) {
-      this.props.isSigned(false);
+    if (this.state.form.email.validated && this.state.form.password.validated) {
       this.props.onAuth(
         this.state.form.email.value,
         this.state.form.password.value,
-        true
+        false
       );
     }
   };
 
   render() {
     const { form } = this.state;
-    const changePage = this.props.newAccount ? <Redirect to="/login" /> : null;
-    const errorMessage = this.props.errorAccount ? (
+    const changePage = this.props.signed ? <Redirect to="/" /> : null;
+    const errorMessage = this.props.errorLogin ? (
       <Modal
-        name="Podany e-mail już istnieje."
-        onClickButton={() => this.props.is_error_account(false)}
+        name="Zły login lub hasło."
+        onClickButton={() => this.props.is_error_login(false)}
       />
     ) : null;
+
     return (
       <div
         className={
-          this.props.registrationVisible
-            ? "login registrationDown"
-            : "registration"
+          this.props.settingsAccountVisible ? "login loginDown" : "login"
         }
       >
         {changePage}
         {errorMessage}
-        <div className="closePage" onClick={this.props.registration_visible}>
+        <div
+          className="closePage"
+          onClick={this.props.settings_account_visible}
+        >
           <FontAwesomeIcon icon={faTimes} size="2x" />
         </div>
         <div className="container">
-          <Title name="ZAŁÓŻ KONTO" />
+          <Title name="USTAWIENIA KONTA" />
 
           <div className="row">
             <div className="col-2 offset-3">Adres e-mail:</div>
@@ -149,35 +133,6 @@ class Login extends Component {
                 name="password"
               />
             </div>
-            <div className="col-2 offset-3">Powtórz hasło:</div>
-            <div className="col-4">
-              <input
-                className={
-                  this.state.validation && !form.passwordSecond.validated
-                    ? "formInvalid"
-                    : null
-                }
-                type="password"
-                value={form.passwordSecond.value}
-                onChange={this.handleInputOnChange}
-                name="passwordSecond"
-              />
-            </div>
-            <div className="col-2 offset-3">Regulamin*:</div>
-            <div
-              className={
-                this.state.validation && !form.regulations.validated
-                  ? "formInvalid col-4"
-                  : "col-4"
-              }
-            >
-              <input
-                type="checkbox"
-                checked={form.regulations.value}
-                onChange={this.handleInputOnChange}
-                name="regulations"
-              />
-            </div>
             <div className="col-12">
               <div className="text-center mt-4">
                 <button
@@ -185,7 +140,7 @@ class Login extends Component {
                   disabled={false}
                   onClick={this.handleOnClickSave}
                 >
-                  Zatwierdź
+                  Zaloguj
                 </button>
               </div>
             </div>
@@ -200,9 +155,8 @@ const mapStateToProps = state => {
   return {
     login: state.login,
     signed: state.signed,
-    newAccount: state.newAccount,
-    errorAccount: state.errorAccount,
-    registrationVisible: state.registrationVisible
+    errorLogin: state.errorLogin,
+    settingsAccountVisible: state.settingsAccountVisible
   };
 };
 
@@ -210,9 +164,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actionTypes.auth(email, password, isSignUp)),
-    isSigned: value => dispatch(actionTypes.is_signed(value)),
-    is_error_account: value => dispatch(actionTypes.is_error_account(value)),
-    registration_visible: () => dispatch(actionTypes.registration_visible())
+    is_error_login: value => dispatch(actionTypes.is_error_login(value)),
+    settings_account_visible: () =>
+      dispatch(actionTypes.settings_account_visible())
   };
 };
 
