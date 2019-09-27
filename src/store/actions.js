@@ -13,6 +13,7 @@ export const SETTINGS_ACCOUNT_VISIBLE = "SETTINGS_ACCOUNT_VISIBLE";
 export const SPINNER = "SPINNER";
 export const LOGIN_VISIBLE = "LOGIN_VISIBLE";
 export const REGISTRATION_VISIBLE = "REGISTRATION_VISIBLE";
+export const MENU_VISIBLE = "MENU_VISIBLE";
 
 export const log_out = () => {
   localStorage.removeItem("token"); //usuwanie z przeglądarki tokena
@@ -20,6 +21,12 @@ export const log_out = () => {
   localStorage.removeItem("userId");
   return {
     type: LOG_OUT
+  };
+};
+
+export const menu_visible = () => {
+  return {
+    type: MENU_VISIBLE
   };
 };
 

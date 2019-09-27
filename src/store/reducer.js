@@ -12,7 +12,8 @@ const initialState = {
   settingsAccountVisible: false,
   spinner: false,
   loginVisible: false,
-  registrationVisible: false
+  registrationVisible: false,
+  menuVisible: false
 };
 
 const log_out = (state, action) => {
@@ -29,7 +30,15 @@ const log_out = (state, action) => {
     settingsAccountVisible: false,
     spinner: false,
     loginVisible: false,
-    registrationVisible: false
+    registrationVisible: false,
+    menuVisible: false
+  };
+};
+
+const menu_visible = (state, action) => {
+  return {
+    ...state,
+    menuVisible: !state.menuVisible
   };
 };
 
@@ -127,6 +136,9 @@ const create_user = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.MENU_VISIBLE:
+      return menu_visible(state, action);
+
     case actionTypes.LOGIN_VISIBLE:
       return login_visible(state, action);
 

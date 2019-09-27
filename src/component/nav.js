@@ -5,12 +5,12 @@ import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faBars } from "@fortawesome/free-solid-svg-icons";
 
 class Nav extends Component {
   render() {
     const buttonsLogin = this.props.signed ? (
-      <div className="col-4 dropDownMenu">
+      <div className="dropDownMenu text-right">
         <div className="d-inline-block">{this.props.userName}</div>
         <div className="d-inline-block">
           <DropdownButton
@@ -42,7 +42,7 @@ class Nav extends Component {
         </div>
       </div>
     ) : (
-      <div className="col-4">
+      <div className="text-right">
         <NavLink to="/">
           <button
             className="btn btn-primary"
@@ -63,54 +63,57 @@ class Nav extends Component {
     );
     return (
       <nav>
-        <div className="row">
-          <div className="col-8">
-            <NavLink to="/" className="mr-4">
-              Img
-            </NavLink>
-            <NavLink
-              className="mr-4"
-              to={{
-                hash: "#about_us"
-              }}
-            >
-              O nas
-            </NavLink>
-            <NavLink
-              className="mr-4"
-              to={{
-                hash: "#reserwation"
-              }}
-            >
-              Rezerwacja
-            </NavLink>
-            <NavLink
-              className="mr-4"
-              to={{
-                hash: "#callendary"
-              }}
-            >
-              Kalendarz
-            </NavLink>
-            <NavLink
-              className="mr-4"
-              to={{
-                hash: "#gallery"
-              }}
-            >
-              Galeria
-            </NavLink>
-            <NavLink
-              className="mr-4"
-              to={{
-                hash: "#contact"
-              }}
-            >
-              Kontakt
-            </NavLink>
-          </div>
-          {buttonsLogin}
+        {/* <NavLink to="/" className="mr-4">
+          Img
+        </NavLink>
+        <NavLink
+          className="mr-4"
+          to={{
+            hash: "#about_us"
+          }}
+        >
+          O nas
+        </NavLink>
+        <NavLink
+          className="mr-4"
+          to={{
+            hash: "#reserwation"
+          }}
+        >
+          Rezerwacja
+        </NavLink>
+        <NavLink
+          className="mr-4"
+          to={{
+            hash: "#callendary"
+          }}
+        >
+          Kalendarz
+        </NavLink>
+        <NavLink
+          className="mr-4"
+          to={{
+            hash: "#gallery"
+          }}
+        >
+          Galeria
+        </NavLink>
+        <NavLink
+          className="mr-4"
+          to={{
+            hash: "#contact"
+          }}
+        >
+          Kontakt
+        </NavLink> */}
+        <div className="logo">
+          <FontAwesomeIcon
+            icon={faBars}
+            size="2x"
+            onClick={this.props.menu_visible}
+          />
         </div>
+        {buttonsLogin}
       </nav>
     );
   }
@@ -131,7 +134,8 @@ const mapDispatchToProps = dispatch => {
     settings_account_visible: () =>
       dispatch(actionTypes.settings_account_visible()),
     login_visible: () => dispatch(actionTypes.login_visible()),
-    registration_visible: () => dispatch(actionTypes.registration_visible())
+    registration_visible: () => dispatch(actionTypes.registration_visible()),
+    menu_visible: () => dispatch(actionTypes.menu_visible())
   };
 };
 

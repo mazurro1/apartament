@@ -1,9 +1,16 @@
 nav {
   position: sticky;
   top: 0px;
+  left: 0px;
   z-index: 99;
   background-color: rgba(230, 230, 230, 0.95);
   // color: white;
   padding: 20px 10px;
   z-index: 180;
+
+  .logo {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
 }

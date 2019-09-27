@@ -37,7 +37,7 @@ class App extends React.Component {
             {/* <Route path="/" exact component={Header} /> */}
             <Route path="/" exact component={Section} />
           </div>
-          {/* <Footer /> */}
+          <Footer />
           <Redirect to="/" />
         </BrowserRouter>
       </div>
