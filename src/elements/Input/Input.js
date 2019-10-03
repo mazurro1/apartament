@@ -9,13 +9,13 @@ const input = ({
   className
 }) => {
   const inputs =
-    type === "chechbox" ? (
+    type === "checkbox" ? (
       <input
         checked={checked}
         onChange={onChange}
         name={name}
         type={type}
-        className={`button ${className}`}
+        className={`button2 ${className}`}
         placeholder={placeholder}
       />
     ) : (

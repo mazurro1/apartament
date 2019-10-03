@@ -9,6 +9,17 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 class Login extends Component {
   state = {};
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.orderVisible !== this.props.orderVisible ||
+      nextState !== this.state
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     return (
       <div

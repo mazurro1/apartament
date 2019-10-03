@@ -13,7 +13,9 @@ const initialState = {
   spinner: false,
   loginVisible: false,
   registrationVisible: false,
-  menuVisible: false
+  menuVisible: false,
+  errorNetwork: false,
+  errorNetworkRegistration: false
 };
 
 const log_out = (state, action) => {
@@ -31,7 +33,8 @@ const log_out = (state, action) => {
     spinner: false,
     loginVisible: false,
     registrationVisible: false,
-    menuVisible: false
+    menuVisible: false,
+    errorNetwork: false
   };
 };
 
@@ -46,7 +49,8 @@ const login_visible = (state, action) => {
   return {
     ...state,
     loginVisible: !state.loginVisible,
-    registrationVisible: false
+    registrationVisible: false,
+    errorNetwork: false
   };
 };
 
@@ -54,7 +58,8 @@ const registration_visible = (state, action) => {
   return {
     ...state,
     registrationVisible: !state.registrationVisible,
-    loginVisible: false
+    loginVisible: false,
+    errorNetwork: false
   };
 };
 
@@ -134,6 +139,13 @@ const create_user = (state, action) => {
   };
 };
 
+const error_network = (state, action) => {
+  return {
+    ...state,
+    errorNetwork: action.value
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.MENU_VISIBLE:
@@ -174,6 +186,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.SPINNER:
       return spinner(state, action);
+
+    case actionTypes.ERROR_NETWORK:
+      return error_network(state, action);
 
     default:
       return state;

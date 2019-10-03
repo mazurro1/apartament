@@ -54,10 +54,6 @@ body {
     position: relative;
   }
 
-  .formInvalid {
-    border: 2px solid red;
-  }
-
   .dropdown-item.active,
   .dropdown-item:active {
     color: black;
@@ -169,7 +165,7 @@ body {
     transform: translate(150%, 0);
     width: 100%;
     background: rgba(0, 0, 0, 0.95);
-    padding: 50px 0;
+    padding: 80px 0;
     height: 100%;
     color: white;
     transition-property: transform;
@@ -189,7 +185,7 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.95);
     color: white;
-    padding: 50px 0;
+    padding: 80px 0;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
@@ -206,12 +202,17 @@ body {
     cursor: pointer;
   }
 
+  .formInvalid {
+    // border: 3px solid rgb(112, 6, 6) !important;
+    background-color: rgb(185, 143, 143) !important;
+  }
+
   .button {
     display: inline-block;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    width: 150px;
+    width: 80%;
     height: 42px;
     cursor: pointer;
     top: 0;
@@ -220,15 +221,15 @@ body {
     left: 0;
     padding: 0 20px;
     overflow: hidden;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.8);
     -webkit-border-radius: 21px;
     border-radius: 21px;
-    font: normal 20px / normal "Antic", Helvetica, sans-serif;
-    color: rgba(140, 140, 140, 1);
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
     text-decoration: normal;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    background: rgba(40, 40, 40, 0.4);
+    background: rgba(255, 255, 255, 0.9);
     -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5) inset;
     box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5) inset;
     -webkit-transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
@@ -240,8 +241,8 @@ body {
   }
 
   .button:hover {
-    color: rgba(181, 181, 181, 1);
-    background: rgba(0, 0, 0, 0.4);
+    color: rgb(0, 0, 0);
+    background: rgba(255, 255, 255, 0.7);
     -webkit-transition: all 500ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -moz-transition: all 500ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -o-transition: all 500ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
@@ -251,10 +252,10 @@ body {
   }
 
   .button:focus {
-    width: 213px;
+    width: 100%;
     cursor: default;
     padding: -13px 20px 0;
-    color: rgba(255, 255, 255, 1);
+    color: rgb(0, 0, 0);
     -webkit-transition: all 601ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -moz-transition: all 601ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -o-transition: all 601ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
@@ -262,4 +263,38 @@ body {
 
     outline: transparent !important;
   }
+
+  .positionTop {
+    @media all and (min-width: 768px) {
+      & {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+
+  .font-20 {
+    font-size: 1.25rem;
+  }
+  .font-12 {
+    font-size: 0.75rem;
+  }
+  .font-10 {
+    font-size: 0.625rem;
+  }
+
+  // .textForm {
+  //   @media all and (max-width: 767px) {
+  //     & {
+  //       padding-left: 30px;
+  //     }
+  //   }
+  //   @media all and (min-width: 768px) {
+  //     & {
+  //       position: relative;
+  //       top: 10px;
+  //     }
+  //   }
+  // }
 }

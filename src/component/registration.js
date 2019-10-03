@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import Input from "../elements/Input/Input";
+import FormItem from "../elements/formElement/formElement";
 
 class Login extends Component {
   state = {
@@ -28,10 +28,35 @@ class Login extends Component {
         validated: null
       }
     },
-    validation: false
+    validation: false,
+    message: ""
   };
 
-  checkValidity(value, validated, name) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.registrationVisible !== this.props.registrationVisible ||
+      nextState !== this.state
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let newState = {
+      ...prevState
+    };
+    if (newState.form.password.value.length && nextProps.registrationVisible) {
+      if (newState.form.password.value !== newState.form.passwordSecond.value) {
+        newState.form.passwordSecond.validated = false;
+      } else {
+        newState.form.passwordSecond.validated = true;
+      }
+    }
+    return newState;
+  }
+
+  checkValidity(value, validated, name, newPassword, newPasswordSecond) {
     let isValid = false;
 
     if (name === "password") {
@@ -39,7 +64,7 @@ class Login extends Component {
     }
 
     if (name === "passwordSecond") {
-      isValid = this.state.form.password.value === value ? true : false;
+      isValid = newPassword === value ? true : false;
     }
 
     if (name === "email") {
@@ -65,7 +90,9 @@ class Login extends Component {
       updateFormElement.validated = this.checkValidity(
         updateFormElement.value,
         updateFormElement.validated,
-        e.target.name
+        e.target.name,
+        newForm.password.value,
+        newForm.passwordSecond.value
       );
     }
     newForm[e.target.name] = updateFormElement;
@@ -105,6 +132,87 @@ class Login extends Component {
         onClickButton={() => this.props.is_error_account(false)}
       />
     ) : null;
+
+    const errorNetwork = this.props.errorNetwork ? (
+      <Modal
+        name="Brak internetu."
+        onClickButton={() => this.props.error_network(false)}
+      />
+    ) : null;
+
+    const formInputs = [
+      {
+        id: 1,
+        formName: "Adres e-mail:",
+        itemFalseName: "Niepoprawny e-mail",
+        formValidation: this.state.validation,
+        itemValidation: form.email.validated,
+        itemOnChange: this.handleInputOnChange,
+        itemValue: form.email.value,
+        itemName: "email",
+        itemType: "email",
+        itemPlaceholder: "",
+        itemChecked: false
+      },
+      {
+        id: 2,
+        formName: "Hasło:",
+        itemFalseName: "Niepoprawne hasło",
+        formValidation: this.state.validation,
+        itemValidation: form.password.validated,
+        itemOnChange: this.handleInputOnChange,
+        itemValue: form.password.value,
+        itemName: "password",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false
+      },
+      {
+        id: 3,
+        formName: "Powtórz hasło:",
+        itemFalseName: "Hasłą nie są identyczne",
+        formValidation: this.state.validation,
+        itemValidation: this.state.form.passwordSecond
+          ? form.passwordSecond.validated
+          : this.state.form.passwordSecond.value ===
+            this.state.form.password.value,
+        itemOnChange: this.handleInputOnChange,
+        itemValue: form.passwordSecond.value,
+        itemName: "passwordSecond",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false
+      },
+      {
+        id: 4,
+        formName: "Regulamin*:",
+        itemFalseName: "Zaakceptuj regulamin",
+        formValidation: this.state.validation,
+        itemValidation: form.regulations.validated,
+        itemOnChange: this.handleInputOnChange,
+        itemValue: false,
+        itemName: "regulations",
+        itemType: "checkbox",
+        itemPlaceholder: "",
+        itemChecked: form.regulations.value
+      }
+    ];
+
+    const formInputsMap = formInputs.map(item => (
+      <FormItem
+        key={item.id}
+        formName={item.formName}
+        itemFalseName={item.itemFalseName}
+        formValidation={item.formValidation}
+        itemValidation={item.itemValidation}
+        itemOnChange={item.itemOnChange}
+        itemValue={item.itemValue}
+        itemName={item.itemName}
+        itemType={item.itemType}
+        itemPlaceholder={item.itemPlaceholder}
+        itemChecked={item.itemChecked}
+      />
+    ));
     return (
       <div
         className={
@@ -115,113 +223,15 @@ class Login extends Component {
       >
         {changePage}
         {errorMessage}
+        {errorNetwork}
         <div className="closePage" onClick={this.props.registration_visible}>
           <FontAwesomeIcon icon={faTimes} size="2x" />
         </div>
         <div className="container">
           <Title name="ZAŁÓŻ KONTO" />
+          {formInputsMap}
 
-          <div className="row">
-            <div className="col-2 offset-3">Adres e-mail:</div>
-            <div className="col-4">
-              <Input
-                className={
-                  this.state.validation && !form.email.validated
-                    ? "formInvalid"
-                    : null
-                }
-                value={form.email.value}
-                onChange={this.handleInputOnChange}
-                name="email"
-                type="text"
-                placeholder=""
-              />
-              {/* <input
-                className={
-                  this.state.validation && !form.email.validated
-                    ? "formInvalid"
-                    : null
-                }
-                type="text"
-                value={form.email.value}
-                onChange={this.handleInputOnChange}
-                name="email"
-              /> */}
-            </div>
-            <div className="col-2 offset-3">Hasło:</div>
-            <div className="col-4">
-              {/* <input
-                className={
-                  this.state.validation && !form.password.validated
-                    ? "formInvalid"
-                    : null
-                }
-                type="password"
-                value={form.password.value}
-                onChange={this.handleInputOnChange}
-                name="password"
-              /> */}
-              <Input
-                className={
-                  this.state.validation && !form.password.validated
-                    ? "formInvalid"
-                    : null
-                }
-                value={form.password.value}
-                onChange={this.handleInputOnChange}
-                name="password"
-                type="password"
-                placeholder=""
-              />
-            </div>
-            <div className="col-2 offset-3">Powtórz hasło:</div>
-            <div className="col-4">
-              {/* <input
-                className={
-                  this.state.validation && !form.passwordSecond.validated
-                    ? "formInvalid"
-                    : null
-                }
-                type="password"
-                value={form.passwordSecond.value}
-                onChange={this.handleInputOnChange}
-                name="passwordSecond"
-              /> */}
-              <Input
-                className={
-                  this.state.validation && !form.passwordSecond.validated
-                    ? "formInvalid"
-                    : null
-                }
-                value={form.passwordSecond.value}
-                onChange={this.handleInputOnChange}
-                name="passwordSecond"
-                type="password"
-                placeholder=""
-              />
-            </div>
-            <div className="col-2 offset-3">Regulamin*:</div>
-            <div
-              className={
-                this.state.validation && !form.regulations.validated
-                  ? "formInvalid col-4"
-                  : "col-4"
-              }
-            >
-              {/* <input
-                type="checkbox"
-                checked={form.regulations.value}
-                onChange={this.handleInputOnChange}
-                name="regulations"
-              /> */}
-              <Input
-                checked={form.regulations.value}
-                onChange={this.handleInputOnChange}
-                name="regulations"
-                type="checkbox"
-                placeholder=""
-              />
-            </div>
+          <div className="row mt-2">
             <div className="col-12">
               <div className="text-center mt-4">
                 <button
@@ -246,7 +256,8 @@ const mapStateToProps = state => {
     signed: state.signed,
     newAccount: state.newAccount,
     errorAccount: state.errorAccount,
-    registrationVisible: state.registrationVisible
+    registrationVisible: state.registrationVisible,
+    errorNetwork: state.errorNetwork
   };
 };
 
@@ -256,7 +267,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionTypes.auth(email, password, isSignUp)),
     isSigned: value => dispatch(actionTypes.is_signed(value)),
     is_error_account: value => dispatch(actionTypes.is_error_account(value)),
-    registration_visible: () => dispatch(actionTypes.registration_visible())
+    registration_visible: () => dispatch(actionTypes.registration_visible()),
+    error_network: value => dispatch(actionTypes.error_network(value))
   };
 };
 

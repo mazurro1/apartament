@@ -14,6 +14,7 @@ export const SPINNER = "SPINNER";
 export const LOGIN_VISIBLE = "LOGIN_VISIBLE";
 export const REGISTRATION_VISIBLE = "REGISTRATION_VISIBLE";
 export const MENU_VISIBLE = "MENU_VISIBLE";
+export const ERROR_NETWORK = "ERROR_NETWORK";
 
 export const log_out = () => {
   localStorage.removeItem("token"); //usuwanie z przeglądarki tokena
@@ -107,6 +108,13 @@ export const create_user = (userToken, userId, userName) => {
   };
 };
 
+export const error_network = value => {
+  return {
+    type: ERROR_NETWORK,
+    value: value
+  };
+};
+
 // export const reset
 
 ////////////////////////////////////////////////////
@@ -135,7 +143,7 @@ export const auth = (email, password, isSignUp) => {
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         dispatch(spinner(false));
         // const expirationDate = 3600 * 1000;
         const expirationDate = new Date(
@@ -163,15 +171,25 @@ export const auth = (email, password, isSignUp) => {
         );
       })
       .catch(error => {
-        console.log(error);
+        dispatch(error_network(false));
         dispatch(spinner(false));
         if (!isSignUp) {
           dispatch(is_signed(false));
-          dispatch(is_error_login(true));
+          if (error.request.status === 0) {
+            dispatch(error_network(true));
+          } else {
+            dispatch(is_error_login(true));
+          }
         } else {
           dispatch(is_newAccount(false));
-          dispatch(is_error_account(true));
+          if (error.request.status === 0) {
+            dispatch(error_network(true));
+            // dispatch(error_network_registration(true));
+          } else {
+            dispatch(is_error_account(true));
+          }
         }
+        // }
       });
   };
 };

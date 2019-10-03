@@ -22,6 +22,17 @@ class Login extends Component {
     validation: false
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.settingsAccountVisible !== this.props.settingsAccountVisible ||
+      nextState !== this.state
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   checkValidity(value, validated, name) {
     let isValid = false;
 
