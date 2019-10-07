@@ -6,6 +6,8 @@ import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import FormButton from "../elements/formButton/FormButton";
+import FormItem from "../elements/formElement/formElement";
 
 class Login extends Component {
   state = {
@@ -98,10 +100,57 @@ class Login extends Component {
       />
     ) : null;
 
+    const formInputs = [
+      {
+        id: 1,
+        formName: "Adres e-mail:",
+        itemFalseName: "Niepoprawny e-mail",
+        formValidation: this.state.validation,
+        itemValidation: form.email.validated,
+        itemOnChange: this.handleInputOnChange,
+        itemValue: form.email.value,
+        itemName: "email",
+        itemType: "email",
+        itemPlaceholder: "",
+        itemChecked: false
+      },
+      {
+        id: 2,
+        formName: "Hasło:",
+        itemFalseName: "Niepoprawne hasło",
+        formValidation: this.state.validation,
+        itemValidation: form.password.validated,
+        itemOnChange: this.handleInputOnChange,
+        itemValue: form.password.value,
+        itemName: "password",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false
+      }
+    ];
+
+    const formInputsMap = formInputs.map(item => (
+      <FormItem
+        key={item.id}
+        formName={item.formName}
+        itemFalseName={item.itemFalseName}
+        formValidation={item.formValidation}
+        itemValidation={item.itemValidation}
+        itemOnChange={item.itemOnChange}
+        itemValue={item.itemValue}
+        itemName={item.itemName}
+        itemType={item.itemType}
+        itemPlaceholder={item.itemPlaceholder}
+        itemChecked={item.itemChecked}
+      />
+    ));
+    console.log(this.props.userEmail);
     return (
       <div
         className={
-          this.props.settingsAccountVisible ? "login loginDown" : "login"
+          this.props.settingsAccountVisible
+            ? "login loginDown scrollbar scrollbar-primary"
+            : "login scrollbar scrollbar-primary"
         }
       >
         {changePage}
@@ -114,48 +163,13 @@ class Login extends Component {
         </div>
         <div className="container">
           <Title name="USTAWIENIA KONTA" />
-
-          <div className="row">
-            <div className="col-2 offset-3">Adres e-mail:</div>
-            <div className="col-4">
-              <input
-                className={
-                  this.state.validation && !form.email.validated
-                    ? "formInvalid"
-                    : null
-                }
-                type="email"
-                value={form.email.value}
-                onChange={this.handleInputOnChange}
-                name="email"
-              />
-            </div>
-            <div className="col-2 offset-3">Hasło:</div>
-            <div className="col-4">
-              <input
-                className={
-                  this.state.validation && !form.password.validated
-                    ? "formInvalid"
-                    : null
-                }
-                type="password"
-                value={form.password.value}
-                onChange={this.handleInputOnChange}
-                name="password"
-              />
-            </div>
-            <div className="col-12">
-              <div className="text-center mt-4">
-                <button
-                  className="btn btn-primary"
-                  disabled={false}
-                  onClick={this.handleOnClickSave}
-                >
-                  Zaloguj
-                </button>
-              </div>
-            </div>
-          </div>
+          {formInputsMap}
+          <FormButton
+            buttonName="Zatwierdź"
+            buttonOnClick={() => {
+              console.log("click");
+            }}
+          />
         </div>
       </div>
     );
@@ -164,10 +178,10 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    login: state.login,
     signed: state.signed,
     errorLogin: state.errorLogin,
-    settingsAccountVisible: state.settingsAccountVisible
+    settingsAccountVisible: state.settingsAccountVisible,
+    userEmail: state.userEmail
   };
 };
 

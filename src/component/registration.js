@@ -7,6 +7,7 @@ import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormItem from "../elements/formElement/formElement";
+import FormButton from "../elements/formButton/FormButton";
 
 class Login extends Component {
   state = {
@@ -217,8 +218,8 @@ class Login extends Component {
       <div
         className={
           this.props.registrationVisible
-            ? "login registrationDown"
-            : "registration"
+            ? "login registrationDown scrollbar scrollbar-primary"
+            : "registration scrollbar scrollbar-primary"
         }
       >
         {changePage}
@@ -230,20 +231,10 @@ class Login extends Component {
         <div className="container">
           <Title name="ZAŁÓŻ KONTO" />
           {formInputsMap}
-
-          <div className="row mt-2">
-            <div className="col-12">
-              <div className="text-center mt-4">
-                <button
-                  className="btn btn-primary"
-                  disabled={false}
-                  onClick={this.handleOnClickSave}
-                >
-                  Zatwierdź
-                </button>
-              </div>
-            </div>
-          </div>
+          <FormButton
+            buttonName="Zatwierdź"
+            buttonOnClick={this.handleOnClickSave}
+          />
         </div>
       </div>
     );

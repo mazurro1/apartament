@@ -6,6 +6,7 @@ const initialState = {
   userToken: null,
   userId: null,
   userName: null,
+  userEmail: null,
   errorLogin: false,
   errorAccount: false,
   orderVisible: false,
@@ -26,6 +27,7 @@ const log_out = (state, action) => {
     userToken: null,
     userId: null,
     userName: null,
+    userEmail: null,
     errorLogin: false,
     errorAccount: false,
     orderVisible: false,
@@ -116,6 +118,7 @@ const is_signed_token = (state, action) => {
     userToken: action.token,
     userId: action.userId,
     userName: userName,
+    userEmail: action.email,
     signed: true
   };
 };

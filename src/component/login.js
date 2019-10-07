@@ -7,6 +7,7 @@ import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormItem from "../elements/formElement/formElement";
+import FormButton from "../elements/formButton/FormButton";
 
 class Login extends Component {
   state = {
@@ -152,7 +153,13 @@ class Login extends Component {
     ));
 
     return (
-      <div className={this.props.loginVisible ? "login loginDown" : "login"}>
+      <div
+        className={
+          this.props.loginVisible
+            ? "login loginDown scrollbar scrollbar-primary"
+            : "login scrollbar scrollbar-primary"
+        }
+      >
         {changePage}
         {errorMessage}
         {errorNetwork}
@@ -162,20 +169,10 @@ class Login extends Component {
         <div className="container">
           <Title name="LOGOWANIE" />
           {formInputsMap}
-
-          <div className="row">
-            <div className="col-12">
-              <div className="text-center mt-4">
-                <button
-                  className="btn btn-primary"
-                  disabled={false}
-                  onClick={this.handleOnClickSave}
-                >
-                  Zaloguj
-                </button>
-              </div>
-            </div>
-          </div>
+          <FormButton
+            buttonName="Zaloguj"
+            buttonOnClick={this.handleOnClickSave}
+          />
         </div>
       </div>
     );

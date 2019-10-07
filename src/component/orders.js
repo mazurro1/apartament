@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 // import { Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FormButton from "../elements/formButton/FormButton";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class Login extends Component {
@@ -25,8 +26,8 @@ class Login extends Component {
       <div
         className={
           this.props.orderVisible
-            ? "registration registrationDown"
-            : "registration"
+            ? "registration registrationDown scrollbar scrollbar-primary"
+            : "registration scrollbar scrollbar-primary"
         }
       >
         <div className="closePage" onClick={this.props.order_visible}>
@@ -34,6 +35,12 @@ class Login extends Component {
         </div>
         <div className="container">
           <Title name="ZAMÓWIENIA" />
+          <FormButton
+            buttonName="Zatwierdź"
+            buttonOnClick={() => {
+              console.log("click");
+            }}
+          />
         </div>
       </div>
     );
