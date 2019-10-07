@@ -45,18 +45,18 @@ class Nav extends Component {
       <div className="text-right">
         <NavLink to="/">
           <button
-            className="btn btn-primary"
-            onClick={this.props.login_visible}
+            className="btn btn-primary "
+            onClick={this.props.registration_visible}
           >
-            Logowanie
+            Rejestracja
           </button>
         </NavLink>
         <NavLink to="/">
           <button
             className="btn btn-primary ml-1"
-            onClick={this.props.registration_visible}
+            onClick={this.props.login_visible}
           >
-            Rejestracja
+            Logowanie
           </button>
         </NavLink>
       </div>

@@ -15,6 +15,8 @@ export const LOGIN_VISIBLE = "LOGIN_VISIBLE";
 export const REGISTRATION_VISIBLE = "REGISTRATION_VISIBLE";
 export const MENU_VISIBLE = "MENU_VISIBLE";
 export const ERROR_NETWORK = "ERROR_NETWORK";
+export const RESET_PASSWORD_VISIBLE = "RESET_PASSWORD_VISIBLE";
+export const ERROR_RESET_PASSWORD = "ERROR_RESET_PASSWORD";
 
 export const log_out = () => {
   localStorage.removeItem("token"); //usuwanie z przeglądarki tokena
@@ -22,6 +24,12 @@ export const log_out = () => {
   localStorage.removeItem("userId");
   return {
     type: LOG_OUT
+  };
+};
+
+export const reset_password_visible = () => {
+  return {
+    type: RESET_PASSWORD_VISIBLE
   };
 };
 
@@ -111,6 +119,13 @@ export const create_user = (userToken, userId, userName) => {
 export const error_network = value => {
   return {
     type: ERROR_NETWORK,
+    value: value
+  };
+};
+
+export const error_reset_password = value => {
+  return {
+    type: ERROR_RESET_PASSWORD,
     value: value
   };
 };
@@ -232,6 +247,35 @@ export const authChechState = () => {
         );
       }
     }
+  };
+};
+
+export const onAuth_Reset_Password = email => {
+  return dispatch => {
+    dispatch(spinner(true));
+
+    const authData = {
+      requestType: "PASSWORD_RESET",
+      email: email
+    };
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
+
+    axios
+      .post(url, authData)
+      .then(response => {
+        console.log(response);
+        dispatch(error_reset_password(true));
+        dispatch(spinner(false));
+      })
+      .catch(error => {
+        if (error.request.status === 0) {
+          dispatch(error_network(true));
+        } else {
+          dispatch(error_reset_password(false));
+        }
+        dispatch(spinner(false));
+      });
   };
 };
 

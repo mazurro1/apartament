@@ -7,7 +7,7 @@ import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
-import FormItem from "../elements/formElement/formElement";
+import FormElement from "../elements/formElement/formElement";
 
 class Login extends Component {
   state = {
@@ -130,7 +130,7 @@ class Login extends Component {
     ];
 
     const formInputsMap = formInputs.map(item => (
-      <FormItem
+      <FormElement
         key={item.id}
         formName={item.formName}
         itemFalseName={item.itemFalseName}
@@ -144,7 +144,7 @@ class Login extends Component {
         itemChecked={item.itemChecked}
       />
     ));
-    console.log(this.props.userEmail);
+
     return (
       <div
         className={

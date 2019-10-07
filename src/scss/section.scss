@@ -65,6 +65,10 @@ body {
     position: relative;
   }
 
+  .positionAbsolute {
+    position: absolute;
+  }
+
   .dropdown-item.active,
   .dropdown-item:active {
     color: black;
@@ -73,6 +77,7 @@ body {
   }
 
   .dropDownMenu {
+    min-height: 38px;
     .logOut {
       width: 100%;
     }
@@ -109,6 +114,23 @@ body {
     width: 100%;
     padding: 5px 0;
     background-color: rgba(151, 46, 46, 0.9);
+    color: white;
+    text-align: center;
+    font-weight: 700;
+
+    button {
+      background: transparent;
+      border: none;
+      color: white;
+    }
+  }
+
+  .modalSuccess {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 5px 0;
+    background-color: rgba(25, 107, 25, 0.9);
     color: white;
     text-align: center;
     font-weight: 700;
@@ -194,6 +216,29 @@ body {
     height: 100%;
   }
 
+  .loginAccount {
+    position: fixed;
+    left: 0;
+    z-index: 150;
+    transform: translate(150%, 0);
+    width: 100%;
+    background: transparent;
+    height: 80%;
+    color: white;
+    transition-property: transform;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    // @media all and (max-width: 767px) {
+    //   & {
+    //     padding: 40px 0;
+    //   }
+    // }
+  }
+  .loginAccountDown {
+    transform: translate(0, 0px);
+    height: 80%;
+  }
+
   .registration {
     position: fixed;
     z-index: 150;
@@ -225,6 +270,29 @@ body {
   .registrationDown {
     transform: translate(0, 0px);
     height: 100%;
+  }
+
+  .resetPassword {
+    position: fixed;
+    left: 0;
+    z-index: 150;
+    transform: translate(-150%, 0);
+    width: 100%;
+    height: 80%;
+    background: transparent;
+    color: white;
+    transition-property: transform;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    // @media all and (max-width: 767px) {
+    //   & {
+    //     padding-top: 40px;
+    //   }
+    // }
+  }
+  .resetPasswordDown {
+    transform: translate(0, 0px);
+    height: 80%;
   }
 
   .closePage {
@@ -317,7 +385,7 @@ body {
   }
 
   .margin-60 {
-    margin-bottom: 20px;
+    margin-bottom: 60px;
   }
 
   .scrollbar {

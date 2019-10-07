@@ -16,7 +16,9 @@ const initialState = {
   registrationVisible: false,
   menuVisible: false,
   errorNetwork: false,
-  errorNetworkRegistration: false
+  errorNetworkRegistration: false,
+  resetPasswordVisible: false,
+  errorResetPassword: null
 };
 
 const log_out = (state, action) => {
@@ -36,7 +38,17 @@ const log_out = (state, action) => {
     loginVisible: false,
     registrationVisible: false,
     menuVisible: false,
-    errorNetwork: false
+    errorNetwork: false,
+    resetPasswordVisible: false,
+    errorResetPassword: null
+  };
+};
+
+const reset_password_visible = (state, action) => {
+  return {
+    ...state,
+    resetPasswordVisible: !state.resetPasswordVisible,
+    errorResetPassword: null
   };
 };
 
@@ -52,7 +64,9 @@ const login_visible = (state, action) => {
     ...state,
     loginVisible: !state.loginVisible,
     registrationVisible: false,
-    errorNetwork: false
+    errorNetwork: false,
+    resetPasswordVisible: false,
+    errorResetPassword: null
   };
 };
 
@@ -61,7 +75,8 @@ const registration_visible = (state, action) => {
     ...state,
     registrationVisible: !state.registrationVisible,
     loginVisible: false,
-    errorNetwork: false
+    errorNetwork: false,
+    errorResetPassword: null
   };
 };
 
@@ -149,8 +164,18 @@ const error_network = (state, action) => {
   };
 };
 
+const error_reset_password = (state, action) => {
+  return {
+    ...state,
+    errorResetPassword: action.value
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.RESET_PASSWORD_VISIBLE:
+      return reset_password_visible(state, action);
+
     case actionTypes.MENU_VISIBLE:
       return menu_visible(state, action);
 
@@ -192,6 +217,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ERROR_NETWORK:
       return error_network(state, action);
+
+    case actionTypes.ERROR_RESET_PASSWORD:
+      return error_reset_password(state, action);
 
     default:
       return state;

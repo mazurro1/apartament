@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Title from "../elements/Title/Title";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
@@ -7,7 +6,8 @@ import Modal from "../elements/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormItem from "../elements/formElement/formElement";
-import FormButton from "../elements/formButton/FormButton";
+import LoginAccount from "./loginAccount";
+import ResetPassword from "./resetPassword";
 
 class Login extends Component {
   state = {
@@ -21,12 +21,23 @@ class Login extends Component {
         validated: null
       }
     },
+    resetPassword: {
+      email: {
+        value: "",
+        validated: null
+      }
+    },
+    resetPasswordValidation: false,
     validation: false
   };
 
   shouldComponentUpdate(nextProps, nextState) {
     if (
       nextProps.loginVisible !== this.props.loginVisible ||
+      nextProps.resetPasswordVisible !== this.props.resetPasswordVisible ||
+      nextProps.errorNetwork !== this.props.errorNetwork ||
+      nextProps.errorResetPassword !== this.props.errorResetPassword ||
+      nextProps.errorLogin !== this.props.errorLogin ||
       nextState !== this.state
     ) {
       return true;
@@ -75,6 +86,31 @@ class Login extends Component {
     });
   };
 
+  handleInputOnChangePassword = e => {
+    const newForm = {
+      ...this.state.resetPassword
+    };
+    const updateFormElement = {
+      ...newForm[e.target.name]
+    };
+    if (e.target.type === "checkbox") {
+      updateFormElement.value = e.target.checked;
+      updateFormElement.validated = e.target.checked;
+    } else {
+      updateFormElement.value = e.target.value;
+      updateFormElement.validated = this.checkValidity(
+        updateFormElement.value,
+        updateFormElement.validated,
+        e.target.name
+      );
+    }
+    newForm[e.target.name] = updateFormElement;
+
+    this.setState({
+      resetPassword: newForm
+    });
+  };
+
   handleOnClickSave = e => {
     e.preventDefault();
     this.setState({
@@ -87,6 +123,16 @@ class Login extends Component {
         this.state.form.password.value,
         false
       );
+    }
+  };
+
+  handleOnClickResetPassword = e => {
+    e.preventDefault();
+    this.setState({
+      resetPasswordValidation: true
+    });
+    if (this.state.resetPassword.email.validated) {
+      this.props.onAuth_Reset_Password(this.state.resetPassword.email.value);
     }
   };
 
@@ -106,6 +152,27 @@ class Login extends Component {
         onClickButton={() => this.props.error_network(false)}
       />
     ) : null;
+
+    const modalErrorEmail = () => {
+      if (this.props.errorResetPassword === true) {
+        return (
+          <Modal
+            modalError={false}
+            name="Wiadomosć została wysłana na podany adres e-mail"
+            onClickButton={() => this.props.error_reset_password(null)}
+          />
+        );
+      } else if (this.props.errorResetPassword === false) {
+        return (
+          <Modal
+            name="Podany e-mail nie istnieje"
+            onClickButton={() => this.props.error_reset_password(null)}
+          />
+        );
+      } else {
+        return null;
+      }
+    };
 
     const formInputs = [
       {
@@ -160,6 +227,7 @@ class Login extends Component {
             : "login scrollbar scrollbar-primary"
         }
       >
+        {modalErrorEmail()}
         {changePage}
         {errorMessage}
         {errorNetwork}
@@ -167,11 +235,20 @@ class Login extends Component {
           <FontAwesomeIcon icon={faTimes} size="2x" />
         </div>
         <div className="container">
-          <Title name="LOGOWANIE" />
-          {formInputsMap}
-          <FormButton
-            buttonName="Zaloguj"
-            buttonOnClick={this.handleOnClickSave}
+          <LoginAccount
+            inputs={formInputsMap}
+            handleResetPassword={this.props.reset_password_visible}
+            handleOnClickSave={this.handleOnClickSave}
+            resetPasswordVisible={this.props.resetPasswordVisible}
+          />
+
+          <ResetPassword
+            resetPasswordVisible={this.props.resetPasswordVisible}
+            reset_password_visible={this.props.reset_password_visible}
+            resetPasswordValidation={this.state.resetPasswordValidation}
+            resetPassword={this.state.resetPassword}
+            handleInputOnChangePassword={this.handleInputOnChangePassword}
+            handleOnClickResetPassword={this.handleOnClickResetPassword}
           />
         </div>
       </div>
@@ -185,7 +262,9 @@ const mapStateToProps = state => {
     signed: state.signed,
     errorLogin: state.errorLogin,
     loginVisible: state.loginVisible,
-    errorNetwork: state.errorNetwork
+    errorNetwork: state.errorNetwork,
+    resetPasswordVisible: state.resetPasswordVisible,
+    errorResetPassword: state.errorResetPassword
   };
 };
 
@@ -195,7 +274,13 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionTypes.auth(email, password, isSignUp)),
     is_error_login: value => dispatch(actionTypes.is_error_login(value)),
     login_visible: () => dispatch(actionTypes.login_visible()),
-    error_network: value => dispatch(actionTypes.error_network(value))
+    error_network: value => dispatch(actionTypes.error_network(value)),
+    reset_password_visible: () =>
+      dispatch(actionTypes.reset_password_visible()),
+    onAuth_Reset_Password: email =>
+      dispatch(actionTypes.onAuth_Reset_Password(email)),
+    error_reset_password: value =>
+      dispatch(actionTypes.error_reset_password(value))
   };
 };
 
