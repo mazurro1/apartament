@@ -1,6 +1,7 @@
 import React from "react";
 import Title from "../elements/Title/Title";
 import FormElement from "../elements/formElement/formElement";
+import FormButton from "../elements/formButton/FormButton";
 
 const resetPassword = ({
   resetPasswordVisible,
@@ -31,23 +32,20 @@ const resetPassword = ({
           itemType="email"
           itemPlaceholder=""
         />
-        <div className="row mt-2 margin-60">
-          <div className="col-12">
-            <div className="text-center mt-4">
-              <button
-                className="btn btn-danger mr-2"
-                onClick={reset_password_visible}
-              >
-                Powrót
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={handleOnClickResetPassword}
-              >
-                Dalej
-              </button>
-            </div>
-          </div>
+
+        <div className="text-center margin-top-80">
+          <FormButton
+            buttonName="Powrót"
+            buttonColor="red"
+            buttonInline={true}
+            buttonOnClick={reset_password_visible}
+          />
+          <FormButton
+            buttonName="Wyślij"
+            buttonColor="gray"
+            buttonInline={true}
+            buttonOnClick={handleOnClickResetPassword}
+          />
         </div>
       </div>
     </div>

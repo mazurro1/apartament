@@ -8,27 +8,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
 import FormElement from "../elements/formElement/formElement";
+import ChangeEmail from "./changeEmail";
 
 class Login extends Component {
   state = {
-    form: {
+    formEmail: {
       email: {
         value: "",
-        validated: null
+        validated: true
       },
-      password: {
+      newEmail: {
         value: "",
         validated: null
       }
     },
-    validation: false
+
+    validationEmail: false
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.settingsAccountVisible !== this.props.settingsAccountVisible ||
-      nextState !== this.state
-    ) {
+    if (nextProps !== this.props || nextState !== this.state) {
       return true;
     } else {
       return false;
@@ -42,9 +41,9 @@ class Login extends Component {
       isValid = value.length >= 6 ? true : false;
     }
 
-    if (name === "email") {
+    if (name === "newEmail") {
       const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value);
+      isValid = pattern.test(value) && this.props.userEmail !== value;
     }
 
     return isValid;
@@ -75,23 +74,56 @@ class Login extends Component {
     });
   };
 
+  handleInputOnChangeEmail = e => {
+    const newForm = {
+      ...this.state.formEmail
+    };
+    const updateFormElement = {
+      ...newForm[e.target.name]
+    };
+    if (e.target.type === "checkbox") {
+      updateFormElement.value = e.target.checked;
+      updateFormElement.validated = e.target.checked;
+    } else {
+      updateFormElement.value = e.target.value;
+      updateFormElement.validated = this.checkValidity(
+        updateFormElement.value,
+        updateFormElement.validated,
+        e.target.name
+      );
+    }
+    newForm[e.target.name] = updateFormElement;
+
+    this.setState({
+      formEmail: newForm
+    });
+  };
+
   handleOnClickSave = e => {
     e.preventDefault();
+    const validation = this.state.validationEmail ? true : true;
     this.setState({
-      validation: true
+      validationEmail: validation
     });
 
-    if (this.state.form.email.validated && this.state.form.password.validated) {
-      this.props.onAuth(
-        this.state.form.email.value,
-        this.state.form.password.value,
-        false
+    if (this.state.formEmail.newEmail.validated && validation) {
+      this.props.change_email(
+        this.props.userToken,
+        this.state.formEmail.newEmail.value,
+        this.props.userEmail
       );
+      //?????????????????????????????????????????
+      let newForm = { ...this.state.formEmail };
+      newForm.newEmail.value = "";
+      newForm.newEmail.validated = false;
+      this.setState({
+        validationEmail: false
+      });
     }
   };
 
   render() {
-    const { form } = this.state;
+    const { formEmail } = this.state;
     const changePage = this.props.signed ? <Redirect to="/" /> : null;
     const errorMessage = this.props.errorLogin ? (
       <Modal
@@ -100,36 +132,38 @@ class Login extends Component {
       />
     ) : null;
 
-    const formInputs = [
+    const formChangeEmail = [
       {
         id: 1,
-        formName: "Adres e-mail:",
+        formName: "Aktualny adres e-mail:",
         itemFalseName: "Niepoprawny e-mail",
-        formValidation: this.state.validation,
-        itemValidation: form.email.validated,
-        itemOnChange: this.handleInputOnChange,
-        itemValue: form.email.value,
+        formValidation: this.state.validationEmail,
+        itemValidation: formEmail.email.validated,
+        itemOnChange: this.handleInputOnChangeEmail,
+        itemValue: this.props.userEmail,
         itemName: "email",
         itemType: "email",
         itemPlaceholder: "",
-        itemChecked: false
+        itemChecked: false,
+        disabled: true
       },
       {
         id: 2,
-        formName: "Hasło:",
-        itemFalseName: "Niepoprawne hasło",
-        formValidation: this.state.validation,
-        itemValidation: form.password.validated,
-        itemOnChange: this.handleInputOnChange,
-        itemValue: form.password.value,
-        itemName: "password",
-        itemType: "password",
+        formName: "Nowy adres e-mail:",
+        itemFalseName: "Niepoprawny e-maila",
+        formValidation: this.state.validationEmail,
+        itemValidation: formEmail.newEmail.validated,
+        itemOnChange: this.handleInputOnChangeEmail,
+        itemValue: formEmail.newEmail.value,
+        itemName: "newEmail",
+        itemType: "email",
         itemPlaceholder: "",
-        itemChecked: false
+        itemChecked: false,
+        disabled: false
       }
     ];
 
-    const formInputsMap = formInputs.map(item => (
+    const formEmailsMap = formChangeEmail.map(item => (
       <FormElement
         key={item.id}
         formName={item.formName}
@@ -142,6 +176,7 @@ class Login extends Component {
         itemType={item.itemType}
         itemPlaceholder={item.itemPlaceholder}
         itemChecked={item.itemChecked}
+        disabled={item.disabled}
       />
     ));
 
@@ -161,14 +196,48 @@ class Login extends Component {
         >
           <FontAwesomeIcon icon={faTimes} size="2x" />
         </div>
-        <div className="container">
-          <Title name="USTAWIENIA KONTA" />
-          {formInputsMap}
-          <FormButton
-            buttonName="Zatwierdź"
-            buttonOnClick={() => {
-              console.log("click");
-            }}
+        <div className="container text-center">
+          <div
+            className={
+              this.props.changeEmailVisible === false
+                ? "loginAccount loginAccountDown "
+                : "loginAccount"
+            }
+          >
+            <Title name="USTAWIENIA KONTA" />
+            <div className="text-center">
+              <FormButton
+                buttonName="Zmień adres e-mail"
+                buttonColor="gray"
+                buttonInline={true}
+                buttonOnClick={this.props.change_email_visible}
+              />
+            </div>
+            <div className="text-center">
+              <FormButton
+                buttonName="Zmień hasło"
+                buttonColor="gray"
+                buttonInline={true}
+                buttonOnClick={() =>
+                  this.props.onAuth_Reset_Password(this.props.userEmail)
+                }
+              />
+            </div>
+            <FormButton
+              buttonName="Usuń konto"
+              buttonColor="red"
+              buttonInline={true}
+              buttonOnClick={() =>
+                this.props.delete_account(this.props.userToken)
+              }
+            />
+          </div>
+
+          <ChangeEmail
+            inputs={formEmailsMap}
+            handleOnClickSave={this.handleOnClickSave}
+            changeEmailVisible={this.props.changeEmailVisible}
+            change_email_visible={this.props.change_email_visible}
           />
         </div>
       </div>
@@ -181,7 +250,10 @@ const mapStateToProps = state => {
     signed: state.signed,
     errorLogin: state.errorLogin,
     settingsAccountVisible: state.settingsAccountVisible,
-    userEmail: state.userEmail
+    userEmail: state.userEmail,
+    userToken: state.userToken,
+    userId: state.userId,
+    changeEmailVisible: state.changeEmailVisible
   };
 };
 
@@ -191,7 +263,14 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionTypes.auth(email, password, isSignUp)),
     is_error_login: value => dispatch(actionTypes.is_error_login(value)),
     settings_account_visible: () =>
-      dispatch(actionTypes.settings_account_visible())
+      dispatch(actionTypes.settings_account_visible()),
+    delete_account: userToken =>
+      dispatch(actionTypes.delete_account(userToken)),
+    onAuth_Reset_Password: email =>
+      dispatch(actionTypes.onAuth_Reset_Password(email)),
+    change_email: (userId, newEmail, email) =>
+      dispatch(actionTypes.change_email(userId, newEmail, email)),
+    change_email_visible: () => dispatch(actionTypes.change_email_visible())
   };
 };
 

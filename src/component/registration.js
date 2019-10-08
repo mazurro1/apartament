@@ -231,10 +231,14 @@ class Login extends Component {
         <div className="container">
           <Title name="ZAŁÓŻ KONTO" />
           {formInputsMap}
-          <FormButton
-            buttonName="Zatwierdź"
-            buttonOnClick={this.handleOnClickSave}
-          />
+          <div className="text-center margin-top-80 margin-80">
+            <FormButton
+              buttonName="Zatwierdź"
+              buttonOnClick={this.handleOnClickSave}
+              buttonColor="gray"
+              buttonInline={true}
+            />
+          </div>
         </div>
       </div>
     );

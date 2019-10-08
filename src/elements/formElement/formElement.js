@@ -3,16 +3,17 @@ import Input from "../Input/Input";
 import PropTypes from "prop-types";
 
 const formElement = ({
-  itemName,
+  itemName = "",
   formName = "",
   itemFalseName,
   formValidation = true,
   itemValidation = false,
-  itemValue,
+  itemValue = "",
   itemOnChange,
   itemType,
   itemPlaceholder = "",
-  itemChecked = false
+  itemChecked = false,
+  disabled = false
 }) => {
   return (
     <div className="row mt-2">
@@ -29,12 +30,13 @@ const formElement = ({
       <div className="col-lg-4 col-md-5 col-12">
         <Input
           className={formValidation && !itemValidation ? "formInvalid" : null}
-          value={itemValue}
+          value={itemValue === null ? "" : itemValue}
           onChange={itemOnChange}
           name={itemName}
           type={itemType}
           placeholder={itemPlaceholder}
           checked={itemChecked}
+          disabled={disabled}
         />
       </div>
     </div>
@@ -42,12 +44,12 @@ const formElement = ({
 };
 
 formElement.propTypes = {
-  itemName: PropTypes.string.isRequired,
+  itemName: PropTypes.string,
   formName: PropTypes.string,
   itemFalseName: PropTypes.string,
   formValidation: PropTypes.bool,
   itemValidation: PropTypes.bool,
-  itemValue: PropTypes.any.isRequired,
+  itemValue: PropTypes.any,
   itemOnChange: PropTypes.func.isRequired,
   itemType: PropTypes.string.isRequired,
   itemPlaceholder: PropTypes.string,

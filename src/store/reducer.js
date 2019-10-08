@@ -18,7 +18,8 @@ const initialState = {
   errorNetwork: false,
   errorNetworkRegistration: false,
   resetPasswordVisible: false,
-  errorResetPassword: null
+  errorResetPassword: null,
+  changeEmailVisible: false
 };
 
 const log_out = (state, action) => {
@@ -40,7 +41,8 @@ const log_out = (state, action) => {
     menuVisible: false,
     errorNetwork: false,
     resetPasswordVisible: false,
-    errorResetPassword: null
+    errorResetPassword: null,
+    changeEmailVisible: false
   };
 };
 
@@ -120,7 +122,8 @@ const is_error_account = (state, action) => {
 const is_signed = (state, action) => {
   return {
     ...state,
-    signed: action.value
+    signed: action.value,
+    userEmail: action.email
   };
 };
 
@@ -153,7 +156,8 @@ const create_user = (state, action) => {
     ...state,
     userToken: action.userToken,
     userId: action.userId,
-    userName: userName
+    userName: userName,
+    userEmail: action.userName
   };
 };
 
@@ -168,6 +172,13 @@ const error_reset_password = (state, action) => {
   return {
     ...state,
     errorResetPassword: action.value
+  };
+};
+
+const change_email_visible = (state, action) => {
+  return {
+    ...state,
+    changeEmailVisible: !state.changeEmailVisible
   };
 };
 
@@ -220,6 +231,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ERROR_RESET_PASSWORD:
       return error_reset_password(state, action);
+
+    case actionTypes.CHANGE_EMAIL_VISIBLE:
+      return change_email_visible(state, action);
 
     default:
       return state;

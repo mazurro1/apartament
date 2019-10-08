@@ -35,12 +35,15 @@ class Login extends Component {
         </div>
         <div className="container">
           <Title name="ZAMÓWIENIA" />
-          <FormButton
-            buttonName="Zatwierdź"
-            buttonOnClick={() => {
-              console.log("click");
-            }}
-          />
+
+          <div className="text-center">
+            <FormButton
+              buttonName="Zatwierdź"
+              // buttonOnClick={handleOnClickSave}
+              buttonColor="gray"
+              buttonInline={true}
+            />
+          </div>
         </div>
       </div>
     );

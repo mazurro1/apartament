@@ -1,5 +1,6 @@
 import React from "react";
 import Title from "../elements/Title/Title";
+import FormButton from "../elements/formButton/FormButton";
 
 const loginAccount = ({
   inputs,
@@ -18,26 +19,22 @@ const loginAccount = ({
       <div className="container">
         <Title name="LOGOWANIE" />
         {inputs}
-        {/* <FormButton
-            buttonName="Zaloguj"
-            buttonOnClick={this.handleOnClickSave}
-          /> */}
-        {/* <FormButton
-            buttonName="Odzyskaj hasło"
-            buttonOnClick={this.handleOnClickSave}
-          /> */}
-        <div className="row mt-2 margin-60">
+
+        <div className="row margin-top-80 margin-120">
           <div className="col-12">
-            <div className="text-center mt-4">
-              <button
-                className="btn btn-danger mr-2"
-                onClick={handleResetPassword}
-              >
-                Odzyskaj hasło
-              </button>
-              <button className="btn btn-primary" onClick={handleOnClickSave}>
-                Zaloguj
-              </button>
+            <div className="text-center">
+              <FormButton
+                buttonName="Odzyskaj hasło"
+                buttonOnClick={handleResetPassword}
+                buttonColor="red"
+                buttonInline={true}
+              />
+              <FormButton
+                buttonName="Zaloguj"
+                buttonOnClick={handleOnClickSave}
+                buttonColor="gray"
+                buttonInline={true}
+              />
             </div>
           </div>
         </div>

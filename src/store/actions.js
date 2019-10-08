@@ -10,6 +10,7 @@ export const RESET_ERROR = "RESET_ERROR";
 export const CREATE_USER = "CREATE_USER";
 export const ORDER_VISIBLE = "ORDER_VISIBLE";
 export const SETTINGS_ACCOUNT_VISIBLE = "SETTINGS_ACCOUNT_VISIBLE";
+export const CHANGE_EMAIL_VISIBLE = "CHANGE_EMAIL_VISIBLE";
 export const SPINNER = "SPINNER";
 export const LOGIN_VISIBLE = "LOGIN_VISIBLE";
 export const REGISTRATION_VISIBLE = "REGISTRATION_VISIBLE";
@@ -70,6 +71,12 @@ export const settings_account_visible = () => {
   };
 };
 
+export const change_email_visible = () => {
+  return {
+    type: CHANGE_EMAIL_VISIBLE
+  };
+};
+
 export const is_error_login = value => {
   return {
     type: IS_ERROR_LOGIN,
@@ -93,10 +100,11 @@ export const is_signed_token = (token, userId, email) => {
   };
 };
 
-export const is_signed = value => {
+export const is_signed = (value, email) => {
   return {
     type: IS_SIGNED,
-    value: value
+    value: value,
+    email: email
   };
 };
 
@@ -151,6 +159,7 @@ export const auth = (email, password, isSignUp) => {
     };
     let url = //link, jeżeli uzytkownik chce zrobić konto
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
+
     if (!isSignUp) {
       url = //link jeżeli uzytkownik chce się zalogować
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
@@ -169,7 +178,7 @@ export const auth = (email, password, isSignUp) => {
         localStorage.setItem("userId", response.data.localId);
         dispatch(checkAuthTimeout(response.data.expiresIn)); //przechwytuje nasz token, który powoduje nam zalogowanie przez godzine przez nasza funkcje
         if (!isSignUp) {
-          dispatch(is_signed(true));
+          dispatch(is_signed(true, email));
           dispatch(is_error_login(false));
           dispatch(login_visible());
         } else {
@@ -189,7 +198,7 @@ export const auth = (email, password, isSignUp) => {
         dispatch(error_network(false));
         dispatch(spinner(false));
         if (!isSignUp) {
-          dispatch(is_signed(false));
+          dispatch(is_signed(false, null));
           if (error.request.status === 0) {
             dispatch(error_network(true));
           } else {
@@ -264,7 +273,6 @@ export const onAuth_Reset_Password = email => {
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response);
         dispatch(error_reset_password(true));
         dispatch(spinner(false));
       })
@@ -273,6 +281,82 @@ export const onAuth_Reset_Password = email => {
           dispatch(error_network(true));
         } else {
           dispatch(error_reset_password(false));
+        }
+        dispatch(spinner(false));
+      });
+  };
+};
+
+export const delete_account = userToken => {
+  return dispatch => {
+    dispatch(spinner(true));
+
+    const authData = {
+      idToken: userToken
+    };
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
+
+    axios
+      .post(url, authData)
+      .then(response => {
+        console.log(response);
+        // dispatch(error_reset_password(true));
+        dispatch(spinner(false));
+        dispatch(log_out());
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.request.status === 0) {
+          dispatch(error_network(true));
+        } else {
+          // dispatch(error_reset_password(false));
+        }
+        dispatch(spinner(false));
+      });
+  };
+};
+
+export const change_email = (userId, newEmail, email) => {
+  return dispatch => {
+    dispatch(spinner(true));
+    console.log(userId);
+    console.log(newEmail);
+    const authData = {
+      idToken: userId,
+      email: newEmail,
+      returnSecureToken: true
+    };
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
+
+    axios
+      .post(url, authData)
+      .then(response => {
+        console.log(response);
+        dispatch(spinner(false));
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("userId", response.data.localId);
+        dispatch(checkAuthTimeout(response.data.expiresIn));
+        dispatch(
+          create_user(
+            response.data.idToken,
+            response.data.localId,
+            response.data.email
+          )
+        );
+        dispatch(change_email_visible());
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.request.status === 0) {
+          dispatch(error_network(true));
+        } else {
+          // dispatch(error_reset_password(false));
         }
         dispatch(spinner(false));
       });

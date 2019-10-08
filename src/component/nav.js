@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faBars } from "@fortawesome/free-solid-svg-icons";
+import FormButton from "../elements/formButton/FormButton";
 
 class Nav extends Component {
   render() {
@@ -36,28 +37,44 @@ class Nav extends Component {
               onClick={this.props.logOut}
               className="text-center pl-1 pr-1"
             >
-              <div className="btn btn-danger logOut">Wyloguj</div>
+              <FormButton
+                buttonName="Wyloguj"
+                buttonColor="red"
+                buttonInline={false}
+              />
             </Dropdown.Item>
           </DropdownButton>
         </div>
       </div>
     ) : (
-      <div className="text-right">
+      <div className="text-right min-height">
         <NavLink to="/">
-          <button
+          {/* <button
             className="btn btn-primary "
             onClick={this.props.registration_visible}
           >
             Rejestracja
-          </button>
+          </button> */}
+          <FormButton
+            buttonName="Rejestracja"
+            buttonOnClick={this.props.registration_visible}
+            buttonColor="gray"
+            buttonInline={true}
+          />
         </NavLink>
         <NavLink to="/">
-          <button
+          {/* <button
             className="btn btn-primary ml-1"
             onClick={this.props.login_visible}
           >
             Logowanie
-          </button>
+          </button> */}
+          <FormButton
+            buttonName="Logowanie"
+            buttonOnClick={this.props.login_visible}
+            buttonColor="blue"
+            buttonInline={true}
+          />
         </NavLink>
       </div>
     );

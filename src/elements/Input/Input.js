@@ -6,7 +6,8 @@ const input = ({
   name,
   value,
   placeholder,
-  className
+  className,
+  disabled
 }) => {
   const inputs =
     type === "checkbox" ? (
@@ -17,6 +18,7 @@ const input = ({
         type={type}
         className={`button2 ${className}`}
         placeholder={placeholder}
+        disabled={disabled}
       />
     ) : (
       <input
@@ -26,6 +28,7 @@ const input = ({
         type={type}
         className={`button ${className}`}
         placeholder={placeholder}
+        disabled={disabled}
       />
     );
   return <>{inputs}</>;

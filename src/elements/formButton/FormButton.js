@@ -1,27 +1,46 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const formButton = ({ buttonName, buttonOnClick, buttonDisabled = false }) => {
+const formButton = ({
+  buttonName,
+  buttonOnClick,
+  buttonDisabled = false,
+  buttonColor = "gray",
+  buttonInline = false
+}) => {
+  const buttonColorClass =
+    buttonColor === "gray"
+      ? "bg-normalGray"
+      : buttonColor === "blue"
+      ? "bg-normalBlue"
+      : buttonColor === "red"
+      ? "bg-normalRed"
+      : "bg-normalGray";
+  const buttonInlineClass = buttonInline ? "d-inline-flex" : "";
   return (
-    <div className="row mt-2 margin-60">
-      <div className="col-12">
-        <div className="text-center mt-4">
-          <button
-            className="btn btn-primary"
-            disabled={buttonDisabled}
-            onClick={buttonOnClick}
-          >
-            {buttonName}
-          </button>
-        </div>
-      </div>
-    </div>
+    <button
+      className={`btn buttonEffect p-1 ${buttonColorClass} ${buttonInlineClass}`}
+      disabled={buttonDisabled}
+      onClick={buttonOnClick}
+    >
+      <span>{buttonName}</span>
+      <svg>
+        <polyline
+          className="o1"
+          points="0 0, 180 0, 180 40, 0 40, 0 0"
+        ></polyline>
+        <polyline
+          className="o2"
+          points="0 0, 180 0, 180 40, 0 40, 0 0"
+        ></polyline>
+      </svg>
+    </button>
   );
 };
 
 formButton.propTypes = {
   buttonName: PropTypes.string.isRequired,
-  buttonOnClick: PropTypes.func.isRequired,
+  buttonOnClick: PropTypes.func,
   buttonDisabled: PropTypes.bool
 };
 
