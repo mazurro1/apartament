@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import ClosePage from "../elements/closePage/closePage";
 import FormItem from "../elements/formElement/formElement";
 import LoginAccount from "./loginAccount";
 import ResetPassword from "./resetPassword";
@@ -27,19 +26,12 @@ class Login extends Component {
         validated: null
       }
     },
-    resetPasswordValidation: false,
-    validation: false
+    resetPasswordValidation: false
+    // validation: false
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.loginVisible !== this.props.loginVisible ||
-      nextProps.resetPasswordVisible !== this.props.resetPasswordVisible ||
-      nextProps.errorNetwork !== this.props.errorNetwork ||
-      nextProps.errorResetPassword !== this.props.errorResetPassword ||
-      nextProps.errorLogin !== this.props.errorLogin ||
-      nextState !== this.state
-    ) {
+    if (nextProps !== this.props || nextState !== this.state) {
       return true;
     } else {
       return false;
@@ -113,9 +105,10 @@ class Login extends Component {
 
   handleOnClickSave = e => {
     e.preventDefault();
-    this.setState({
-      validation: true
-    });
+    // this.setState({
+    //   validation: true
+    // });
+    this.props.login_validation_change(true);
 
     if (this.state.form.email.validated && this.state.form.password.validated) {
       this.props.onAuth(
@@ -142,35 +135,66 @@ class Login extends Component {
     const errorMessage = this.props.errorLogin ? (
       <Modal
         name="Zły login lub hasło."
+        modalOn={true}
         onClickButton={() => this.props.is_error_login(false)}
       />
-    ) : null;
-
-    const errorNetwork = this.props.errorNetwork ? (
+    ) : (
       <Modal
-        name="Brak internetu."
-        onClickButton={() => this.props.error_network(false)}
+        name="Zły login lub hasło."
+        modalOn={false}
+        onClickButton={() => this.props.is_error_login(false)}
       />
-    ) : null;
+    );
 
     const modalErrorEmail = () => {
       if (this.props.errorResetPassword === true) {
         return (
-          <Modal
-            modalError={false}
-            name="Wiadomosć została wysłana na podany adres e-mail"
-            onClickButton={() => this.props.error_reset_password(null)}
-          />
+          <>
+            <Modal
+              modalError={false}
+              name="Wiadomosć została wysłana na podany adres e-mail"
+              modalOn={true}
+              onClickButton={() => this.props.error_reset_password(null)}
+            />
+            <Modal
+              name="Podany e-mail nie istnieje"
+              modalOn={false}
+              onClickButton={() => this.props.error_reset_password(null)}
+            />
+          </>
         );
       } else if (this.props.errorResetPassword === false) {
         return (
-          <Modal
-            name="Podany e-mail nie istnieje"
-            onClickButton={() => this.props.error_reset_password(null)}
-          />
+          <>
+            <Modal
+              modalError={false}
+              name="Wiadomosć została wysłana na podany adres e-mail"
+              modalOn={false}
+              onClickButton={() => this.props.error_reset_password(null)}
+            />
+            <Modal
+              name="Podany e-mail nie istnieje"
+              modalOn={true}
+              onClickButton={() => this.props.error_reset_password(null)}
+            />
+          </>
         );
       } else {
-        return null;
+        return (
+          <>
+            <Modal
+              modalError={false}
+              name="Wiadomosć została wysłana na podany adres e-mail"
+              modalOn={false}
+              onClickButton={() => this.props.error_reset_password(null)}
+            />
+            <Modal
+              name="Podany e-mail nie istnieje"
+              modalOn={false}
+              onClickButton={() => this.props.error_reset_password(null)}
+            />
+          </>
+        );
       }
     };
 
@@ -179,7 +203,7 @@ class Login extends Component {
         id: 1,
         formName: "Adres e-mail:",
         itemFalseName: "Niepoprawny e-mail",
-        formValidation: this.state.validation,
+        formValidation: this.props.loginValidation,
         itemValidation: form.email.validated,
         itemOnChange: this.handleInputOnChange,
         itemValue: form.email.value,
@@ -192,7 +216,7 @@ class Login extends Component {
         id: 2,
         formName: "Hasło:",
         itemFalseName: "Niepoprawne hasło",
-        formValidation: this.state.validation,
+        formValidation: this.props.loginValidation,
         itemValidation: form.password.validated,
         itemOnChange: this.handleInputOnChange,
         itemValue: form.password.value,
@@ -230,11 +254,9 @@ class Login extends Component {
         {modalErrorEmail()}
         {changePage}
         {errorMessage}
-        {errorNetwork}
-        <div className="closePage" onClick={this.props.login_visible}>
-          <FontAwesomeIcon icon={faTimes} size="2x" />
-        </div>
-        <div className="container">
+
+        <div className="container positionRelative">
+          <ClosePage onClick={this.props.login_visible} />
           <LoginAccount
             inputs={formInputsMap}
             handleResetPassword={this.props.reset_password_visible}
@@ -264,7 +286,8 @@ const mapStateToProps = state => {
     loginVisible: state.loginVisible,
     errorNetwork: state.errorNetwork,
     resetPasswordVisible: state.resetPasswordVisible,
-    errorResetPassword: state.errorResetPassword
+    errorResetPassword: state.errorResetPassword,
+    loginValidation: state.loginValidation
   };
 };
 
@@ -280,7 +303,9 @@ const mapDispatchToProps = dispatch => {
     onAuth_Reset_Password: email =>
       dispatch(actionTypes.onAuth_Reset_Password(email)),
     error_reset_password: value =>
-      dispatch(actionTypes.error_reset_password(value))
+      dispatch(actionTypes.error_reset_password(value)),
+    login_validation_change: value =>
+      dispatch(actionTypes.login_validation_change(value))
   };
 };
 

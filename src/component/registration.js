@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import ClosePage from "../elements/closePage/closePage";
 import FormItem from "../elements/formElement/formElement";
 import FormButton from "../elements/formButton/FormButton";
 
@@ -29,15 +28,12 @@ class Login extends Component {
         validated: null
       }
     },
-    validation: false,
+    // validation: false,
     message: ""
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.registrationVisible !== this.props.registrationVisible ||
-      nextState !== this.state
-    ) {
+    if (nextProps !== this.props || nextState !== this.state) {
       return true;
     } else {
       return false;
@@ -105,10 +101,10 @@ class Login extends Component {
 
   handleOnClickSave = e => {
     e.preventDefault();
-    this.setState({
-      validation: true
-    });
-
+    // this.setState({
+    //   validation: true
+    // });
+    this.props.registration_validation_change(true);
     if (
       this.state.form.email.validated &&
       this.state.form.password.validated &&
@@ -131,22 +127,22 @@ class Login extends Component {
       <Modal
         name="Podany e-mail już istnieje."
         onClickButton={() => this.props.is_error_account(false)}
+        modalOn={true}
       />
-    ) : null;
-
-    const errorNetwork = this.props.errorNetwork ? (
+    ) : (
       <Modal
-        name="Brak internetu."
-        onClickButton={() => this.props.error_network(false)}
+        name="Podany e-mail już istnieje."
+        onClickButton={() => this.props.is_error_account(false)}
+        modalOn={false}
       />
-    ) : null;
+    );
 
     const formInputs = [
       {
         id: 1,
         formName: "Adres e-mail:",
         itemFalseName: "Niepoprawny e-mail",
-        formValidation: this.state.validation,
+        formValidation: this.props.registrationValidation,
         itemValidation: form.email.validated,
         itemOnChange: this.handleInputOnChange,
         itemValue: form.email.value,
@@ -159,7 +155,7 @@ class Login extends Component {
         id: 2,
         formName: "Hasło:",
         itemFalseName: "Niepoprawne hasło",
-        formValidation: this.state.validation,
+        formValidation: this.props.registrationValidation,
         itemValidation: form.password.validated,
         itemOnChange: this.handleInputOnChange,
         itemValue: form.password.value,
@@ -172,7 +168,7 @@ class Login extends Component {
         id: 3,
         formName: "Powtórz hasło:",
         itemFalseName: "Hasłą nie są identyczne",
-        formValidation: this.state.validation,
+        formValidation: this.props.registrationValidation,
         itemValidation: this.state.form.passwordSecond
           ? form.passwordSecond.validated
           : this.state.form.passwordSecond.value ===
@@ -188,7 +184,7 @@ class Login extends Component {
         id: 4,
         formName: "Regulamin*:",
         itemFalseName: "Zaakceptuj regulamin",
-        formValidation: this.state.validation,
+        formValidation: this.props.registrationValidation,
         itemValidation: form.regulations.validated,
         itemOnChange: this.handleInputOnChange,
         itemValue: false,
@@ -224,16 +220,14 @@ class Login extends Component {
       >
         {changePage}
         {errorMessage}
-        {errorNetwork}
-        <div className="closePage" onClick={this.props.registration_visible}>
-          <FontAwesomeIcon icon={faTimes} size="2x" />
-        </div>
-        <div className="container">
+
+        <div className="container positionRelative">
+          <ClosePage onClick={this.props.registration_visible} />
           <Title name="ZAŁÓŻ KONTO" />
           {formInputsMap}
           <div className="text-center margin-top-80 margin-80">
             <FormButton
-              buttonName="Zatwierdź"
+              buttonName="Utwórz konto"
               buttonOnClick={this.handleOnClickSave}
               buttonColor="gray"
               buttonInline={true}
@@ -252,7 +246,8 @@ const mapStateToProps = state => {
     newAccount: state.newAccount,
     errorAccount: state.errorAccount,
     registrationVisible: state.registrationVisible,
-    errorNetwork: state.errorNetwork
+    errorNetwork: state.errorNetwork,
+    registrationValidation: state.registrationValidation
   };
 };
 
@@ -263,7 +258,9 @@ const mapDispatchToProps = dispatch => {
     isSigned: value => dispatch(actionTypes.is_signed(value)),
     is_error_account: value => dispatch(actionTypes.is_error_account(value)),
     registration_visible: () => dispatch(actionTypes.registration_visible()),
-    error_network: value => dispatch(actionTypes.error_network(value))
+    error_network: value => dispatch(actionTypes.error_network(value)),
+    registration_validation_change: value =>
+      dispatch(actionTypes.registration_validation_change(value))
   };
 };
 

@@ -80,11 +80,38 @@ body {
     padding: 4px 0;
   }
 
+  .user {
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    transform: translate(0, -50%);
+    color: white;
+    font-weight: 500;
+  }
+
   .dropDownMenu {
-    // min-height: 50px;
-    padding: 10px 0;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    transform: translate(0, -50%);
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    &:hover {
+      background-color: #c82333;
+    }
+    button {
+      padding: 5px 10px;
+    }
     .logOut {
       width: 100%;
+    }
+
+    .btn {
+      color: white;
     }
 
     .dropdown-menu {
@@ -115,10 +142,11 @@ body {
 
   .modalError {
     position: absolute;
+    z-index: 200;
     top: 0;
     width: 100%;
-    padding: 5px 0;
-    background-color: rgba(151, 46, 46, 0.9);
+    // padding: 1px 0;
+    background-color: rgba(#c82333, 0.9);
     color: white;
     text-align: center;
     font-weight: 700;
@@ -132,10 +160,11 @@ body {
 
   .modalSuccess {
     position: absolute;
+    z-index: 200;
     top: 0;
     width: 100%;
-    padding: 5px 0;
-    background-color: rgba(25, 107, 25, 0.9);
+    // padding: 5px 0;
+    background-color: rgba(#218838, 0.9);
     color: white;
     text-align: center;
     font-weight: 700;
@@ -147,11 +176,27 @@ body {
     }
   }
 
+  .modalOff {
+    transform: translate(0, -100%);
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+
+  .modalOn {
+    transform: translate(0);
+    opacity: 1;
+    transition-property: transform, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+
   .spinner {
     position: fixed;
     height: 100%;
     width: 100%;
-    z-index: 200;
+    z-index: 250;
     background-color: rgba(0, 0, 0, 0.9);
     .loader,
     .loader:after {
@@ -302,9 +347,87 @@ body {
 
   .closePage {
     position: absolute;
-    right: 5vw;
-    top: 3vw;
+    z-index: 200;
+    right: 0;
+    top: -60px;
+    padding: 25px 35px;
+    padding-left: 45px;
     cursor: pointer;
+    .positionArrow {
+      position: relative;
+      top: -19px;
+      left: -6px;
+    }
+    .allLines {
+      position: absolute;
+      transition-property: all;
+      transition-duration: 0.2s;
+      transition-timing-function: ease;
+      .line1 {
+        position: absolute;
+        height: 40px;
+        width: 4px;
+        border-radius: 2px;
+        background-color: white;
+        margin: 0 5px;
+        transform: rotate(-45deg);
+        transition-property: transform, height, background-color;
+        transition-duration: 0.2s;
+        transition-timing-function: ease;
+      }
+
+      .linesArrow {
+        position: absolute;
+        transform: rotate(45deg);
+        transition-property: transform, background-color;
+        transition-duration: 0.2s;
+        transition-timing-function: ease;
+        .line3 {
+          position: relative;
+          height: 20px;
+          width: 4px;
+          border-radius: 2px;
+          background-color: white;
+          margin: 0 5px;
+          transition-property: transform, background-color;
+          transition-duration: 0.2s;
+          transition-timing-function: ease;
+        }
+        .line4 {
+          position: relative;
+          height: 20px;
+          width: 4px;
+          border-radius: 2px;
+          background-color: white;
+          // bottom: 0;
+          margin: 0 5px;
+          transition-property: transform, background-color;
+          transition-duration: 0.2s;
+          transition-timing-function: ease;
+        }
+      }
+    }
+    &:hover {
+      .allLines {
+        .line1 {
+          transform: rotate(-90deg) translate(5px, -10px);
+          height: 50px;
+          background-color: #c82333;
+        }
+
+        .linesArrow {
+          transform: rotate(0deg) translateX(12px);
+          .line3 {
+            transform: rotate(-45deg) translate(-3px, 2px);
+            background-color: #c82333;
+          }
+          .line4 {
+            transform: rotate(45deg) translate(-3px, -2px);
+            background-color: #c82333;
+          }
+        }
+      }
+    }
   }
 
   .formInvalid {
@@ -328,7 +451,7 @@ body {
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.8);
     -webkit-border-radius: 21px;
-    border-radius: 21px;
+    border-radius: 5px;
     font-size: 1.2rem;
     color: rgb(0, 0, 0);
     text-decoration: normal;
@@ -581,6 +704,21 @@ body {
     &:hover {
       .o1 {
         fill: rgba(#5a6268, 1);
+      }
+    }
+  }
+
+  .bg-normalGreen {
+    svg {
+      .o1 {
+        stroke: rgba(#28a745, 1);
+        fill: #28a745;
+        transition: all 1s ease-in-out;
+      }
+    }
+    &:hover {
+      .o1 {
+        fill: rgba(#218838, 1);
       }
     }
   }

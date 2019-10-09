@@ -15,6 +15,8 @@ const formButton = ({
       ? "bg-normalBlue"
       : buttonColor === "red"
       ? "bg-normalRed"
+      : buttonColor === "green"
+      ? "bg-normalGreen"
       : "bg-normalGray";
   const buttonInlineClass = buttonInline ? "d-inline-flex" : "";
   return (

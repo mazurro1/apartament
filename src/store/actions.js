@@ -18,6 +18,12 @@ export const MENU_VISIBLE = "MENU_VISIBLE";
 export const ERROR_NETWORK = "ERROR_NETWORK";
 export const RESET_PASSWORD_VISIBLE = "RESET_PASSWORD_VISIBLE";
 export const ERROR_RESET_PASSWORD = "ERROR_RESET_PASSWORD";
+export const REGISTRATION_VALIDATION_CHANGE = "REGISTRATION_VALIDATION_CHANGE";
+export const LOGIN_VALIDATION_CHANGE = "LOGIN_VALIDATION_CHANGE";
+export const DELETE_ACCOUNT_CONFIRM = "DELETE_ACCOUNT_CONFIRM";
+export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+export const CHANGE_EMAIL = "CHANGE_EMAIL";
+export const CHANGE_EMAIL_BUSY = "CHANGE_EMAIL_BUSY";
 
 export const log_out = () => {
   localStorage.removeItem("token"); //usuwanie z przeglądarki tokena
@@ -25,6 +31,47 @@ export const log_out = () => {
   localStorage.removeItem("userId");
   return {
     type: LOG_OUT
+  };
+};
+
+export const delete_account_confirm = () => {
+  return {
+    type: DELETE_ACCOUNT_CONFIRM
+  };
+};
+
+export const change_email_bool = value => {
+  return {
+    type: CHANGE_EMAIL,
+    value: value
+  };
+};
+
+export const change_email_busy = value => {
+  return {
+    type: CHANGE_EMAIL_BUSY,
+    value: value
+  };
+};
+
+export const delete_account_bool = value => {
+  return {
+    type: DELETE_ACCOUNT,
+    value: value
+  };
+};
+
+export const login_validation_change = value => {
+  return {
+    type: LOGIN_VALIDATION_CHANGE,
+    value: value
+  };
+};
+
+export const registration_validation_change = value => {
+  return {
+    type: REGISTRATION_VALIDATION_CHANGE,
+    value: value
   };
 };
 
@@ -172,19 +219,21 @@ export const auth = (email, password, isSignUp) => {
         // const expirationDate = 3600 * 1000;
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
+          // new Date().getTime() + 300 * 1000
         );
         localStorage.setItem("token", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
         dispatch(checkAuthTimeout(response.data.expiresIn)); //przechwytuje nasz token, który powoduje nam zalogowanie przez godzine przez nasza funkcje
+        // dispatch(checkAuthTimeout(300));
         if (!isSignUp) {
           dispatch(is_signed(true, email));
           dispatch(is_error_login(false));
           dispatch(login_visible());
         } else {
-          dispatch(is_newAccount(true));
           dispatch(is_error_account(false));
           dispatch(login_visible());
+          dispatch(is_newAccount(true));
         }
         dispatch(
           create_user(
@@ -277,6 +326,7 @@ export const onAuth_Reset_Password = email => {
         dispatch(spinner(false));
       })
       .catch(error => {
+        console.log(error.message);
         if (error.request.status === 0) {
           dispatch(error_network(true));
         } else {
@@ -300,13 +350,14 @@ export const delete_account = userToken => {
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         // dispatch(error_reset_password(true));
         dispatch(spinner(false));
         dispatch(log_out());
+        dispatch(delete_account_bool(true));
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
         if (error.request.status === 0) {
           dispatch(error_network(true));
         } else {
@@ -320,8 +371,8 @@ export const delete_account = userToken => {
 export const change_email = (userId, newEmail, email) => {
   return dispatch => {
     dispatch(spinner(true));
-    console.log(userId);
-    console.log(newEmail);
+    // console.log(userId);
+    // console.log(newEmail);
     const authData = {
       idToken: userId,
       email: newEmail,
@@ -333,15 +384,17 @@ export const change_email = (userId, newEmail, email) => {
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         dispatch(spinner(false));
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
+          // new Date().getTime() + 300 * 1000
         );
         localStorage.setItem("token", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
         dispatch(checkAuthTimeout(response.data.expiresIn));
+        // dispatch(checkAuthTimeout(300));
         dispatch(
           create_user(
             response.data.idToken,
@@ -350,13 +403,15 @@ export const change_email = (userId, newEmail, email) => {
           )
         );
         dispatch(change_email_visible());
+        dispatch(change_email_bool(true));
+        dispatch(change_email_busy(false));
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.message);
         if (error.request.status === 0) {
           dispatch(error_network(true));
         } else {
-          // dispatch(error_reset_password(false));
+          dispatch(change_email_busy(true));
         }
         dispatch(spinner(false));
       });

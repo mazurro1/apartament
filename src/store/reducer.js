@@ -2,7 +2,7 @@ import * as actionTypes from "./actions";
 
 const initialState = {
   signed: null,
-  newAccount: null,
+  newAccount: false,
   userToken: null,
   userId: null,
   userName: null,
@@ -18,15 +18,21 @@ const initialState = {
   errorNetwork: false,
   errorNetworkRegistration: false,
   resetPasswordVisible: false,
-  errorResetPassword: null,
-  changeEmailVisible: false
+  errorResetPassword: false,
+  changeEmailVisible: false,
+  registrationValidation: false,
+  loginValidation: false,
+  deleteAccountConfirm: false,
+  deleteAccount: false,
+  changeEmail: false,
+  changeEmailBusy: false
 };
 
 const log_out = (state, action) => {
   return {
     ...state,
     signed: null,
-    newAccount: null,
+    newAccount: false,
     userToken: null,
     userId: null,
     userName: null,
@@ -41,8 +47,60 @@ const log_out = (state, action) => {
     menuVisible: false,
     errorNetwork: false,
     resetPasswordVisible: false,
-    errorResetPassword: null,
-    changeEmailVisible: false
+    errorResetPassword: false,
+    changeEmailVisible: false,
+    registrationValidation: false,
+    loginValidation: false,
+    deleteAccountConfirm: false,
+    deleteAccount: false,
+    changeEmail: false,
+    changeEmailBusy: false
+  };
+};
+
+const change_email = (state, action) => {
+  return {
+    ...state,
+    changeEmail: action.value,
+    errorNetwork: false
+  };
+};
+
+const change_email_busy = (state, action) => {
+  return {
+    ...state,
+    changeEmailBusy: action.value,
+    errorNetwork: false
+  };
+};
+
+const delete_account = (state, action) => {
+  return {
+    ...state,
+    deleteAccount: action.value
+  };
+};
+
+const delete_account_confirm = (state, action) => {
+  return {
+    ...state,
+    deleteAccountConfirm: !state.deleteAccountConfirm,
+    changeEmail: false,
+    errorResetPassword: false
+  };
+};
+
+const login_validation_change = (state, action) => {
+  return {
+    ...state,
+    loginValidation: action.value
+  };
+};
+
+const registration_validation_change = (state, action) => {
+  return {
+    ...state,
+    registrationValidation: action.value
   };
 };
 
@@ -50,7 +108,9 @@ const reset_password_visible = (state, action) => {
   return {
     ...state,
     resetPasswordVisible: !state.resetPasswordVisible,
-    errorResetPassword: null
+    errorResetPassword: false,
+    loginValidation: false,
+    error_network: false
   };
 };
 
@@ -68,7 +128,12 @@ const login_visible = (state, action) => {
     registrationVisible: false,
     errorNetwork: false,
     resetPasswordVisible: false,
-    errorResetPassword: null
+    errorResetPassword: null,
+    loginValidation: false,
+    errorLogin: false,
+    errorAccount: false,
+    deleteAccount: false,
+    newAccount: false
   };
 };
 
@@ -78,7 +143,12 @@ const registration_visible = (state, action) => {
     registrationVisible: !state.registrationVisible,
     loginVisible: false,
     errorNetwork: false,
-    errorResetPassword: null
+    errorResetPassword: null,
+    registrationValidation: false,
+    errorLogin: false,
+    errorAccount: false,
+    deleteAccount: false,
+    newAccount: false
   };
 };
 
@@ -93,7 +163,12 @@ const order_visible = (state, action) => {
   return {
     ...state,
     orderVisible: !state.orderVisible,
-    settingsAccountVisible: false
+    settingsAccountVisible: false,
+    deleteAccountConfirm: false,
+    changeEmailVisible: false,
+    changeEmail: false,
+    errorResetPassword: false,
+    changeEmailBusy: false
   };
 };
 
@@ -101,21 +176,28 @@ const settings_account_visible = (state, action) => {
   return {
     ...state,
     settingsAccountVisible: !state.settingsAccountVisible,
-    orderVisible: false
+    orderVisible: false,
+    changeEmailVisible: false,
+    deleteAccountConfirm: false,
+    changeEmail: false,
+    errorResetPassword: false,
+    changeEmailBusy: false
   };
 };
 
 const is_error_login = (state, action) => {
   return {
     ...state,
-    errorLogin: action.value
+    errorLogin: action.value,
+    errorNetwork: false
   };
 };
 
 const is_error_account = (state, action) => {
   return {
     ...state,
-    errorAccount: action.value
+    errorAccount: action.value,
+    errorNetwork: false
   };
 };
 
@@ -144,7 +226,8 @@ const is_signed_token = (state, action) => {
 const is_newAccount = (state, action) => {
   return {
     ...state,
-    newAccount: action.value
+    newAccount: action.value,
+    errorNetwork: false
   };
 };
 
@@ -164,21 +247,32 @@ const create_user = (state, action) => {
 const error_network = (state, action) => {
   return {
     ...state,
-    errorNetwork: action.value
+    errorNetwork: action.value,
+    errorAccount: false,
+    errorLogin: false,
+    errorResetPassword: null,
+    changeEmail: false,
+    changeEmailBusy: false,
+    newAccount: false
   };
 };
 
 const error_reset_password = (state, action) => {
   return {
     ...state,
-    errorResetPassword: action.value
+    errorResetPassword: action.value,
+    errorNetwork: false,
+    changeEmail: false
   };
 };
 
 const change_email_visible = (state, action) => {
   return {
     ...state,
-    changeEmailVisible: !state.changeEmailVisible
+    changeEmailVisible: !state.changeEmailVisible,
+    changeEmail: false,
+    errorResetPassword: false,
+    changeEmailBusy: false
   };
 };
 
@@ -186,6 +280,24 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.RESET_PASSWORD_VISIBLE:
       return reset_password_visible(state, action);
+
+    case actionTypes.DELETE_ACCOUNT:
+      return delete_account(state, action);
+
+    case actionTypes.CHANGE_EMAIL_BUSY:
+      return change_email_busy(state, action);
+
+    case actionTypes.CHANGE_EMAIL:
+      return change_email(state, action);
+
+    case actionTypes.REGISTRATION_VALIDATION_CHANGE:
+      return registration_validation_change(state, action);
+
+    case actionTypes.DELETE_ACCOUNT_CONFIRM:
+      return delete_account_confirm(state, action);
+
+    case actionTypes.LOGIN_VALIDATION_CHANGE:
+      return login_validation_change(state, action);
 
     case actionTypes.MENU_VISIBLE:
       return menu_visible(state, action);

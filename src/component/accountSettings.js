@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import { Redirect } from "react-router-dom";
 import Modal from "../elements/Modal/Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
 import FormElement from "../elements/formElement/formElement";
 import ChangeEmail from "./changeEmail";
+import ClosePage from "../elements/closePage/closePage";
 
 class Login extends Component {
   state = {
@@ -125,18 +124,59 @@ class Login extends Component {
   render() {
     const { formEmail } = this.state;
     const changePage = this.props.signed ? <Redirect to="/" /> : null;
-    const errorMessage = this.props.errorLogin ? (
+    const modalChangeEmail = this.props.changeEmail ? (
       <Modal
-        name="Zły login lub hasło."
-        onClickButton={() => this.props.is_error_login(false)}
+        modalError={false}
+        name="Adres e-mail został zmieniony"
+        modalOn={true}
+        onClickButton={() => this.props.change_email_bool(false)}
       />
-    ) : null;
+    ) : (
+      <Modal
+        modalError={false}
+        name="Adres e-mail został zmieniony"
+        modalOn={false}
+        onClickButton={() => this.props.change_email_bool(false)}
+      />
+    );
+
+    const modalChangePassword = this.props.errorResetPassword ? (
+      <Modal
+        modalError={false}
+        name={`Wiadomość z linkiem do zmiany hasła został wysłany na adres ${this.props.userEmail}`}
+        modalOn={true}
+        onClickButton={() => this.props.error_reset_password(false)}
+      />
+    ) : (
+      <Modal
+        modalError={false}
+        name={`Wiadomość z linkiem do zmiany hasła został wysłany na adres ${this.props.userEmail}`}
+        modalOn={false}
+        onClickButton={() => this.props.error_reset_password(false)}
+      />
+    );
+
+    const modalChangeEmailBusy = this.props.changeEmailBusy ? (
+      <Modal
+        modalError={true}
+        name={`Podany adres e-mail jest juz zajęty`}
+        modalOn={true}
+        onClickButton={() => this.props.change_email_busy(false)}
+      />
+    ) : (
+      <Modal
+        modalError={true}
+        name={`Podany adres e-mail jest juz zajęty`}
+        modalOn={false}
+        onClickButton={() => this.props.change_email_busy(false)}
+      />
+    );
 
     const formChangeEmail = [
       {
         id: 1,
         formName: "Aktualny adres e-mail:",
-        itemFalseName: "Niepoprawny e-mail",
+        itemFalseName: "Niepoprawny adres e-mail",
         formValidation: this.state.validationEmail,
         itemValidation: formEmail.email.validated,
         itemOnChange: this.handleInputOnChangeEmail,
@@ -150,7 +190,7 @@ class Login extends Component {
       {
         id: 2,
         formName: "Nowy adres e-mail:",
-        itemFalseName: "Niepoprawny e-maila",
+        itemFalseName: "Niepoprawny adres e-maila",
         formValidation: this.state.validationEmail,
         itemValidation: formEmail.newEmail.validated,
         itemOnChange: this.handleInputOnChangeEmail,
@@ -189,14 +229,12 @@ class Login extends Component {
         }
       >
         {changePage}
-        {errorMessage}
-        <div
-          className="closePage"
-          onClick={this.props.settings_account_visible}
-        >
-          <FontAwesomeIcon icon={faTimes} size="2x" />
-        </div>
-        <div className="container text-center">
+        {modalChangeEmail}
+        {modalChangePassword}
+        {modalChangeEmailBusy}
+
+        <div className="container text-center positionRelative">
+          <ClosePage onClick={this.props.settings_account_visible} />
           <div
             className={
               this.props.changeEmailVisible === false
@@ -223,16 +261,40 @@ class Login extends Component {
                 }
               />
             </div>
-            <FormButton
-              buttonName="Usuń konto"
-              buttonColor="red"
-              buttonInline={true}
-              buttonOnClick={() =>
-                this.props.delete_account(this.props.userToken)
+            <div className="text-center">
+              <FormButton
+                buttonName="Usuń konto"
+                buttonColor="red"
+                buttonInline={true}
+                buttonOnClick={this.props.delete_account_confirm}
+              />
+            </div>
+            <div
+              className={
+                this.props.deleteAccountConfirm
+                  ? "loginAccount loginAccountDown mt-3"
+                  : "loginAccount mt-3"
               }
-            />
+            >
+              <h5>Jesteś tego pewien?</h5>
+              <div className="text-center">
+                <FormButton
+                  buttonName="Nie"
+                  buttonColor="green"
+                  buttonInline={true}
+                  buttonOnClick={this.props.delete_account_confirm}
+                />
+                <FormButton
+                  buttonName="Tak"
+                  buttonColor="red"
+                  buttonInline={true}
+                  buttonOnClick={() =>
+                    this.props.delete_account(this.props.userToken)
+                  }
+                />
+              </div>
+            </div>
           </div>
-
           <ChangeEmail
             inputs={formEmailsMap}
             handleOnClickSave={this.handleOnClickSave}
@@ -253,7 +315,11 @@ const mapStateToProps = state => {
     userEmail: state.userEmail,
     userToken: state.userToken,
     userId: state.userId,
-    changeEmailVisible: state.changeEmailVisible
+    changeEmailVisible: state.changeEmailVisible,
+    deleteAccountConfirm: state.deleteAccountConfirm,
+    changeEmail: state.changeEmail,
+    errorResetPassword: state.errorResetPassword,
+    changeEmailBusy: state.changeEmailBusy
   };
 };
 
@@ -270,7 +336,13 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionTypes.onAuth_Reset_Password(email)),
     change_email: (userId, newEmail, email) =>
       dispatch(actionTypes.change_email(userId, newEmail, email)),
-    change_email_visible: () => dispatch(actionTypes.change_email_visible())
+    change_email_visible: () => dispatch(actionTypes.change_email_visible()),
+    delete_account_confirm: () =>
+      dispatch(actionTypes.delete_account_confirm()),
+    change_email_bool: value => dispatch(actionTypes.change_email_bool(value)),
+    error_reset_password: value =>
+      dispatch(actionTypes.error_reset_password(value)),
+    change_email_busy: value => dispatch(actionTypes.change_email_busy(value))
   };
 };
 

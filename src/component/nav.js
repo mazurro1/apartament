@@ -11,41 +11,45 @@ import FormButton from "../elements/formButton/FormButton";
 class Nav extends Component {
   render() {
     const buttonsLogin = this.props.signed ? (
-      <div className="dropDownMenu text-right">
-        <div className="d-inline-block">{this.props.userName}</div>
-        <div className="d-inline-block">
-          <DropdownButton
-            variant=""
-            alignRight
-            id="dropdown-menu-align-right"
-            title={<FontAwesomeIcon icon={faCog} />}
-          >
-            <Dropdown.Item
-              onClick={this.props.order_visible}
-              className="text-center"
-            >
-              Zamówienia
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={this.props.settings_account_visible}
-              className="text-center"
-            >
-              Ustawienia konta
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item
-              onClick={this.props.logOut}
-              className="text-center pl-1 pr-1"
-            >
-              <FormButton
-                buttonName="Wyloguj"
-                buttonColor="red"
-                buttonInline={false}
-              />
-            </Dropdown.Item>
-          </DropdownButton>
+      <>
+        <div className="user">
+          <div className="ml-3">{this.props.userName}</div>
         </div>
-      </div>
+        <div className="dropDownMenu text-right">
+          <div className="d-inline-block">
+            <DropdownButton
+              variant=""
+              alignRight
+              id="dropdown-menu-align-right"
+              title={<FontAwesomeIcon icon={faCog} />}
+            >
+              <Dropdown.Item
+                onClick={this.props.order_visible}
+                className="text-center"
+              >
+                Zamówienia
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={this.props.settings_account_visible}
+                className="text-center"
+              >
+                Ustawienia konta
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                onClick={this.props.logOut}
+                className="text-center pl-1 pr-1"
+              >
+                <FormButton
+                  buttonName="Wyloguj"
+                  buttonColor="red"
+                  buttonInline={false}
+                />
+              </Dropdown.Item>
+            </DropdownButton>
+          </div>
+        </div>
+      </>
     ) : (
       <div className="text-right min-height">
         <NavLink to="/">

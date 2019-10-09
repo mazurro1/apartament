@@ -3,18 +3,14 @@ import Title from "../elements/Title/Title";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 // import { Redirect } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormButton from "../elements/formButton/FormButton";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import ClosePage from "../elements/closePage/closePage";
 
 class Login extends Component {
   state = {};
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.orderVisible !== this.props.orderVisible ||
-      nextState !== this.state
-    ) {
+    if (nextProps !== this.props || nextState !== this.state) {
       return true;
     } else {
       return false;
@@ -30,10 +26,8 @@ class Login extends Component {
             : "registration scrollbar scrollbar-primary"
         }
       >
-        <div className="closePage" onClick={this.props.order_visible}>
-          <FontAwesomeIcon icon={faTimes} size="2x" />
-        </div>
-        <div className="container">
+        <div className="container positionRelative">
+          <ClosePage onClick={this.props.order_visible} />
           <Title name="ZAMÓWIENIA" />
 
           <div className="text-center">
