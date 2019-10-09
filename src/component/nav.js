@@ -53,12 +53,6 @@ class Nav extends Component {
     ) : (
       <div className="text-right min-height">
         <NavLink to="/">
-          {/* <button
-            className="btn btn-primary "
-            onClick={this.props.registration_visible}
-          >
-            Rejestracja
-          </button> */}
           <FormButton
             buttonName="Rejestracja"
             buttonOnClick={this.props.registration_visible}
@@ -67,12 +61,6 @@ class Nav extends Component {
           />
         </NavLink>
         <NavLink to="/">
-          {/* <button
-            className="btn btn-primary ml-1"
-            onClick={this.props.login_visible}
-          >
-            Logowanie
-          </button> */}
           <FormButton
             buttonName="Logowanie"
             buttonOnClick={this.props.login_visible}
@@ -84,49 +72,6 @@ class Nav extends Component {
     );
     return (
       <nav>
-        {/* <NavLink to="/" className="mr-4">
-          Img
-        </NavLink>
-        <NavLink
-          className="mr-4"
-          to={{
-            hash: "#about_us"
-          }}
-        >
-          O nas
-        </NavLink>
-        <NavLink
-          className="mr-4"
-          to={{
-            hash: "#reserwation"
-          }}
-        >
-          Rezerwacja
-        </NavLink>
-        <NavLink
-          className="mr-4"
-          to={{
-            hash: "#callendary"
-          }}
-        >
-          Kalendarz
-        </NavLink>
-        <NavLink
-          className="mr-4"
-          to={{
-            hash: "#gallery"
-          }}
-        >
-          Galeria
-        </NavLink>
-        <NavLink
-          className="mr-4"
-          to={{
-            hash: "#contact"
-          }}
-        >
-          Kontakt
-        </NavLink> */}
         <div className="logo">
           <FontAwesomeIcon
             icon={faBars}

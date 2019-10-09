@@ -1,22 +1,52 @@
 import React, { Component } from "react";
 import "../scss/section.scss";
 import Title from "../elements/Title/Title";
+import "react-id-swiper/lib/styles/scss/swiper.scss";
+import Swiper from "react-id-swiper";
+import imagesGallery from "../img/gallery/imagesGallery";
 
 export default class Gallery extends Component {
   render() {
+    const params = {
+      effect: "coverflow",
+      grabCoursor: true,
+      centereSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modyfier: 1
+      },
+      pagination: {
+        el: ".swiper-pagination"
+      },
+
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      },
+      renderPrevButton: () => <button className="swiper-button-prev"></button>,
+      renderNextButton: () => <button className="swiper-button-next"></button>
+    };
+    console.log(imagesGallery[0].src);
+    const allImages = imagesGallery.map(item => (
+      <div key={item.id}>
+        <img
+          src={item.src}
+          // title={item.title}
+          alt={item.description}
+        />
+      </div>
+    ));
     return (
-      <>
+      <div className="container-fluid overflowHidden">
+        {/* <div className="container"> */}
         <Title name="GALERIA" />
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
-          reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae
-          temporibus ipsum aliquid possimus libero repudiandae unde enim,
-          quisquam nulla consequatur nostrum?Illum explicabo quisquam voluptatum
-          alias. Earum numquam accusantium minus. Eligendi fugit quod tempora
-          rem enim omnis, eos, odio tempore numquam, nobis nam dolore fugiat
-          sequi. Distinctio asperiores sint debitis ut!
-        </p>
-      </>
+
+        <Swiper {...params}>{allImages}</Swiper>
+      </div>
+      // </div>
     );
   }
 }
