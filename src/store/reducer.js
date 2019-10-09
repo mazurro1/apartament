@@ -18,7 +18,7 @@ const initialState = {
   errorNetwork: false,
   errorNetworkRegistration: false,
   resetPasswordVisible: false,
-  errorResetPassword: false,
+  errorResetPassword: null,
   changeEmailVisible: false,
   registrationValidation: false,
   loginValidation: false,
@@ -47,7 +47,7 @@ const log_out = (state, action) => {
     menuVisible: false,
     errorNetwork: false,
     resetPasswordVisible: false,
-    errorResetPassword: false,
+    errorResetPassword: null,
     changeEmailVisible: false,
     registrationValidation: false,
     loginValidation: false,
@@ -86,7 +86,7 @@ const delete_account_confirm = (state, action) => {
     ...state,
     deleteAccountConfirm: !state.deleteAccountConfirm,
     changeEmail: false,
-    errorResetPassword: false
+    errorResetPassword: null
   };
 };
 
@@ -108,7 +108,7 @@ const reset_password_visible = (state, action) => {
   return {
     ...state,
     resetPasswordVisible: !state.resetPasswordVisible,
-    errorResetPassword: false,
+    errorResetPassword: null,
     loginValidation: false,
     error_network: false
   };
@@ -167,7 +167,7 @@ const order_visible = (state, action) => {
     deleteAccountConfirm: false,
     changeEmailVisible: false,
     changeEmail: false,
-    errorResetPassword: false,
+    errorResetPassword: null,
     changeEmailBusy: false
   };
 };
@@ -180,7 +180,7 @@ const settings_account_visible = (state, action) => {
     changeEmailVisible: false,
     deleteAccountConfirm: false,
     changeEmail: false,
-    errorResetPassword: false,
+    errorResetPassword: null,
     changeEmailBusy: false
   };
 };
@@ -271,7 +271,7 @@ const change_email_visible = (state, action) => {
     ...state,
     changeEmailVisible: !state.changeEmailVisible,
     changeEmail: false,
-    errorResetPassword: false,
+    errorResetPassword: null,
     changeEmailBusy: false
   };
 };
