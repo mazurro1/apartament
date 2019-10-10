@@ -13,11 +13,11 @@ export default class Section extends Component {
         <div className="jumbotron-fluid sectionBg">
           <div className="container">
             <AboutUs />
+            <Callendary />
+            <Reservation />
           </div>
           <Gallery />
           <div className="container">
-            <Callendary />
-            <Reservation />
             <Contact />
           </div>
         </div>

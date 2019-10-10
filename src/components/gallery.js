@@ -26,10 +26,23 @@ export default class Gallery extends Component {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev"
       },
-      renderPrevButton: () => <button className="swiper-button-prev"></button>,
-      renderNextButton: () => <button className="swiper-button-next"></button>
+      renderPrevButton: () => (
+        <button className="swiper-button-prev">
+          <div className="arrowGalleryLeft">
+            <div className="arrowUp" />
+            <div className="arrowDown" />
+          </div>
+        </button>
+      ),
+      renderNextButton: () => (
+        <button className="swiper-button-next">
+          <div className="arrowGalleryRight">
+            <div className="arrowUp" />
+            <div className="arrowDown" />
+          </div>
+        </button>
+      )
     };
-    console.log(imagesGallery[0].src);
     const allImages = imagesGallery.map(item => (
       <div key={item.id}>
         <img
@@ -40,13 +53,13 @@ export default class Gallery extends Component {
       </div>
     ));
     return (
-      <div className="container-fluid overflowHidden">
-        {/* <div className="container"> */}
-        <Title name="GALERIA" />
-
-        <Swiper {...params}>{allImages}</Swiper>
+      <div className="margin-80">
+        <div className="containerFluid overflowHidden ">
+          {/* <div className="container"> */}
+          <Title name="GALERIA" />
+          <Swiper {...params}>{allImages}</Swiper>
+        </div>
       </div>
-      // </div>
     );
   }
 }

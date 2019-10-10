@@ -5,18 +5,14 @@ import Title from "../elements/Title/Title";
 export default class Contact extends Component {
   render() {
     return (
-      <>
+      <div className="">
         <Title name="KONTAKT" />
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
-          reiciendis placeat porro, error sed fugit laboriosam? Quasi molestiae
-          temporibus ipsum aliquid possimus libero repudiandae unde enim,
-          quisquam nulla consequatur nostrum?Illum explicabo quisquam voluptatum
-          alias. Earum numquam accusantium minus. Eligendi fugit quod tempora
-          rem enim omnis, eos, odio tempore numquam, nobis nam dolore fugiat
-          sequi. Distinctio asperiores sint debitis ut!
-        </p>
-      </>
+        <div className="text-center text-white">
+          <h5>PC-TECH RADOM</h5>
+          <h6>26-600 Radom</h6>
+          <h6>Ul. Struga 18</h6>
+        </div>
+      </div>
     );
   }
 }

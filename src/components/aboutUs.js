@@ -5,7 +5,7 @@ import Title from "../elements/Title/Title";
 export default class AboutUs extends Component {
   render() {
     return (
-      <div id="about_us">
+      <div id="about_us" className="margin-80">
         <Title name="O NAS" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim

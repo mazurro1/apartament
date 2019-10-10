@@ -5,7 +5,7 @@ import Title from "../elements/Title/Title";
 export default class Reservation extends Component {
   render() {
     return (
-      <>
+      <div className="margin-80">
         <Title name="REZERWACJA" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
@@ -16,7 +16,7 @@ export default class Reservation extends Component {
           rem enim omnis, eos, odio tempore numquam, nobis nam dolore fugiat
           sequi. Distinctio asperiores sint debitis ut!
         </p>
-      </>
+      </div>
     );
   }
 }
