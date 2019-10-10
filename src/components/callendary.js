@@ -150,13 +150,7 @@ export default class Callendary extends Component {
     const minDay = new Date();
     const noSelectDayClass =
       this.state.validation && !this.state.date ? "goDownText" : "";
-
-    const noSelectHourClass =
-      this.state.validation &&
-      this.state.date &&
-      !(this.state.timeNight || this.state.timeDay)
-        ? "goDownText"
-        : "";
+    let noSelectHourClass = "";
 
     let dayDayClass = "";
     let dayNightClass = "";
@@ -174,11 +168,23 @@ export default class Callendary extends Component {
           : this.state.timeNight
           ? "btn-warning"
           : "btn-success";
+      noSelectHourClass =
+        this.state.validation &&
+        this.state.date &&
+        !(this.state.timeNight && this.state.timeDay)
+          ? "goDownText"
+          : "";
     } else {
       dayDayClass =
         this.state.date && this.state.timeDay ? "btn-warning" : "btn-success";
       dayNightClass =
         this.state.date && this.state.timeNight ? "btn-warning" : "btn-success";
+      noSelectHourClass =
+        this.state.validation &&
+        this.state.date &&
+        !(this.state.timeNight || this.state.timeDay)
+          ? "goDownText"
+          : "";
     }
 
     return (
