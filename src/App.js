@@ -78,12 +78,33 @@ class App extends React.Component {
             {modalNetwork}
             {modalDeleteAccount}
             {modalNewAccount}
-            <Route path="/" component={Login} />
-            <Route path="/" component={Registration} />
-            <Route path="/" component={Orders} />
-            <Route path="/" component={AccountSettings} />
-            {/* <Route path="/" exact component={Header} /> */}
-            <Route path="/" exact component={Section} />
+            <Route
+              path="/"
+              component={Login}
+              basename={process.env.PUBLIC_URL}
+            />
+            <Route
+              path="/"
+              component={Registration}
+              basename={process.env.PUBLIC_URL}
+            />
+            <Route
+              path="/"
+              component={Orders}
+              basename={process.env.PUBLIC_URL}
+            />
+            <Route
+              path="/"
+              component={AccountSettings}
+              basename={process.env.PUBLIC_URL}
+            />
+            {/* <Route path="/" exact component={Header} basename={process.env.PUBLIC_URL}/> */}
+            <Route
+              path="/"
+              exact
+              component={Section}
+              basename={process.env.PUBLIC_URL}
+            />
           </div>
           <Footer />
           <Redirect to="/" />
