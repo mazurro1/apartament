@@ -1,4 +1,5 @@
-import axios from "axios";
+/////////////////////////////AUTH///////////////////////////////////
+import * as axios from "axios";
 export const IS_SIGNED = "IS_SIGNED";
 export const IS_SIGNED_TOKEN = "IS_SIGNED_TOKEN";
 export const AUTH_START = "AUTH_START";
@@ -24,7 +25,11 @@ export const DELETE_ACCOUNT_CONFIRM = "DELETE_ACCOUNT_CONFIRM";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const CHANGE_EMAIL = "CHANGE_EMAIL";
 export const CHANGE_EMAIL_BUSY = "CHANGE_EMAIL_BUSY";
+/////////////////////////////END AUTH///////////////////////////////////
 
+export const SAVE_ALL_DISPATCH_ARRAY = "SAVE_ALL_DISPATCH_ARRAY";
+
+/////////////////////////////AUTH///////////////////////////////////
 export const log_out = () => {
   localStorage.removeItem("token"); //usuwanie z przeglądarki tokena
   localStorage.removeItem("expirationDate"); //usuwanie z przeglądarki tokena
@@ -418,4 +423,112 @@ export const change_email = (userId, newEmail, email) => {
   };
 };
 
-///////////////////////////////////////////////////
+/////////////////////////////END AUTH///////////////////////////////////
+export const save_all_dispatch_array = response => {
+  return {
+    type: SAVE_ALL_DISPATCH_ARRAY,
+    response: response
+  };
+};
+
+export const get_disabled_date = () => {
+  return dispatch => {
+    dispatch(spinner(true));
+
+    let url = "https://apartment-3c7b9.firebaseio.com/disabledAllDate.json";
+
+    axios
+      .get(url)
+      .then(response => {
+        // console.log(response);
+        // dispatch(error_reset_password(true));
+        dispatch(spinner(false));
+        // console.log(response.data);
+        dispatch(save_all_dispatch_array(response.data));
+      })
+      .catch(error => {
+        // console.log(error);
+        // if (error.request.status === 0) {
+        dispatch(error_network(true));
+        // } else {
+        // dispatch(error_reset_password(false));
+        // }
+        dispatch(spinner(false));
+      });
+  };
+};
+
+export const add_new_disabled_data = (
+  date,
+  timeDay,
+  timeNight,
+  actualReservation,
+  actualObjectName
+) => {
+  return dispatch => {
+    dispatch(spinner(true));
+
+    const authData = {
+      date: date,
+      timeDay: timeDay,
+      timeNight: timeNight
+      // actualReservation: actualReservation
+    };
+    let url = actualObjectName
+      ? `https://apartment-3c7b9.firebaseio.com/disabledAllDate/${actualObjectName}.json`
+      : "https://apartment-3c7b9.firebaseio.com/disabledAllDate.json";
+    axios
+      .post(url, authData)
+      .then(response => {
+        // console.log(response);
+        // dispatch(error_reset_password(true));
+        dispatch(get_disabled_date());
+        dispatch(spinner(false));
+      })
+      .catch(error => {
+        // console.log(error);
+        if (error.request.status === 0) {
+          dispatch(error_network(true));
+        } else {
+          // dispatch(error_reset_password(false));
+        }
+        dispatch(spinner(false));
+      });
+  };
+};
+
+export const update_disabled_data = (
+  date,
+  timeDay,
+  timeNight,
+  actualReservation,
+  actualObjectName
+) => {
+  return dispatch => {
+    dispatch(spinner(true));
+
+    const authData = {
+      date: date,
+      timeDay: timeDay,
+      timeNight: timeNight
+      // actualReservation: actualReservation
+    };
+    let url = `https://apartment-3c7b9.firebaseio.com/disabledAllDate/${actualObjectName}.json`;
+    axios
+      .put(url, authData)
+      .then(response => {
+        dispatch(get_disabled_date());
+        dispatch(spinner(false));
+      })
+      .catch(error => {
+        // console.log(error);
+        if (error.request.status === 0) {
+          dispatch(error_network(true));
+        } else {
+          // dispatch(error_reset_password(false));
+        }
+
+        dispatch(spinner(false));
+      });
+  };
+};

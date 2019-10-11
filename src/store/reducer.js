@@ -1,6 +1,7 @@
 import * as actionTypes from "./actions";
 
 const initialState = {
+  //START AUTH//
   signed: null,
   newAccount: false,
   userToken: null,
@@ -25,9 +26,23 @@ const initialState = {
   deleteAccountConfirm: false,
   deleteAccount: false,
   changeEmail: false,
-  changeEmailBusy: false
+  changeEmailBusy: false,
+  //END AUTH//
+  disabledDate: null,
+  disabledDataValue: null
 };
 
+const save_all_dispatch_array = (state, action) => {
+  let allArray = Object.entries(action.response);
+  let allArrayValue = Object.values(action.response);
+  return {
+    ...state,
+    disabledDate: allArray,
+    disabledDataValue: allArrayValue
+  };
+};
+
+//START AUTH//
 const log_out = (state, action) => {
   return {
     ...state,
@@ -278,6 +293,7 @@ const change_email_visible = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    //START AUTH//
     case actionTypes.RESET_PASSWORD_VISIBLE:
       return reset_password_visible(state, action);
 
@@ -346,6 +362,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.CHANGE_EMAIL_VISIBLE:
       return change_email_visible(state, action);
+    //END AUTH//
+    case actionTypes.SAVE_ALL_DISPATCH_ARRAY:
+      return save_all_dispatch_array(state, action);
 
     default:
       return state;

@@ -3,131 +3,135 @@ import "../scss/section.scss";
 import Title from "../elements/Title/Title";
 import Calendar from "react-calendar";
 import FormButton from "../elements/formButton/FormButton";
+import * as actionTypes from "../store/actions";
+import { connect } from "react-redux";
 
-const disabledAllDate = [
-  {
-    id: 1,
-    disabledDate: "2019-10-12",
-    timeDay: true,
-    timeNight: true
-  },
-  {
-    id: 2,
-    disabledDate: "2019-10-14",
-    timeDay: true,
-    timeNight: true
-  },
-  {
-    id: 3,
-    disabledDate: "2019-10-16",
-    timeDay: true,
-    timeNight: true
-  },
-  {
-    id: 4,
-    disabledDate: "2019-10-18",
-    timeDay: true,
-    timeNight: false
-  },
-  {
-    id: 5,
-    disabledDate: "2019-10-19",
-    timeDay: false,
-    timeNight: true
-  },
-  {
-    id: 6,
-    disabledDate: "2019-10-20",
-    timeDay: true,
-    timeNight: false
-  }
-];
-
-export default class Callendary extends Component {
+class Callendary extends Component {
   state = {
     date: null,
     actualDate: new Date(),
     validation: false,
-    dataTime: "",
     timeDay: false,
     timeNight: false,
-    actualArray: null
+    actualArray: null,
+    actualObjectName: null
   };
+
+  componentDidMount() {
+    this.props.get_disabled_date();
+  }
 
   onChange = date => {
     let timeDayNewValue = false;
     let timeNightNewValue = false;
     let actualArray = null;
+    let actualObjectName = null;
 
     const getDate = `${date.getFullYear()}-${date.getMonth() +
       1}-${date.getDate()}`;
-
-    const allArray = [...disabledAllDate];
-    const filterArray = allArray.filter(item => item.disabledDate === getDate);
-    // console.log(filterArray);
-    if (filterArray.length > 0) {
-      timeDayNewValue = filterArray[0].timeDay;
-      timeNightNewValue = filterArray[0].timeNight;
-      actualArray = filterArray;
+    if (this.props.disabledDate) {
+      const allArray = [...this.props.disabledDate];
+      const filterArray = allArray.filter(item => item[1].date === getDate);
+      if (filterArray.length > 0) {
+        timeDayNewValue = filterArray[0][1].timeDay;
+        timeNightNewValue = filterArray[0][1].timeNight;
+        actualArray = filterArray[0][1];
+        actualObjectName = filterArray[0][0];
+      }
     }
-
     this.setState({
       date: date,
       timeDay: timeDayNewValue,
       timeNight: timeNightNewValue,
-      actualArray: actualArray
+      actualArray: actualArray,
+      actualObjectName: actualObjectName
     });
   };
 
   renderDisabled = (date, view) => {
-    const disabledDate = [...disabledAllDate];
-    const getDate = `${date.getFullYear()}-${date.getMonth() +
-      1}-${date.getDate()}`;
-    let dateBool = false;
+    if (this.props.disabledDataValue) {
+      const disabledDate = [...this.props.disabledDataValue];
+      const getDate = `${date.getFullYear()}-${date.getMonth() +
+        1}-${date.getDate()}`;
+      let dateBool = false;
 
-    disabledDate.map(item => {
-      if (
-        item.disabledDate === getDate &&
-        item.timeDay === true &&
-        item.timeNight === true
-      ) {
-        dateBool = true;
-      }
-    });
-    return dateBool;
+      disabledDate.map(item => {
+        if (
+          item.date === getDate &&
+          item.timeDay === true &&
+          item.timeNight === true
+        ) {
+          dateBool = true;
+        }
+      });
+      return dateBool;
+    }
   };
   handleOrder = () => {
-    this.setState({
-      validation: true
-    });
+    let actualArray = null;
+    let date = this.state.date;
+    let validation = true;
+
     if (this.state.actualArray) {
-      if (
-        this.state.validation &&
-        this.state.date &&
-        this.state.timeDay &&
-        this.state.timeNight
-      ) {
+      if (this.state.date && this.state.timeDay && this.state.timeNight) {
+        const actualDate = this.state.date;
+        const getDate = `${actualDate.getFullYear()}-${actualDate.getMonth() +
+          1}-${actualDate.getDate()}`;
         console.log("1 z tablicy");
+        this.props.update_disabled_data(
+          getDate,
+          this.state.timeDay,
+          this.state.timeNight,
+          "actualReservation",
+          this.state.actualObjectName
+        );
+        actualArray = { ...this.state.actualArray };
+        actualArray.timeDay = true;
+        actualArray.timeNight = true;
+        date = null;
+        validation = false;
       }
     } else {
-      if (
-        this.state.validation &&
-        this.state.date &&
-        (this.state.timeDay || this.state.timeNight)
-      ) {
+      if (this.state.date && (this.state.timeDay || this.state.timeNight)) {
+        const actualDate = this.state.date;
+        const getDate = `${actualDate.getFullYear()}-${actualDate.getMonth() +
+          1}-${actualDate.getDate()}`;
+
         if (this.state.timeDay && this.state.timeNight) {
           console.log("2 bez tablicy");
+          this.props.add_new_disabled_data(
+            getDate,
+            this.state.timeDay,
+            this.state.timeNight,
+            "actualReservation",
+            this.state.actualObjectName
+          );
         } else {
           console.log("1 bez tablicy");
+
+          this.props.add_new_disabled_data(
+            getDate,
+            this.state.timeDay,
+            this.state.timeNight,
+            "actualReservation",
+            this.state.actualObjectName
+          );
         }
+        date = null;
+        validation = false;
       }
     }
+    this.setState({
+      actualArray: actualArray,
+      date: date,
+      validation: validation
+    });
   };
 
   handleAddTime = (e, name) => {
     if (this.state.date) {
       if (this.state.actualArray) {
-        if (this.state.actualArray[0][name] === false) {
+        if (this.state.actualArray[name] === false) {
           this.setState(prevState => ({
             [name]: !prevState[name]
           }));
@@ -145,9 +149,15 @@ export default class Callendary extends Component {
   };
 
   render() {
-    console.log(this.state.timeDay);
-    console.log(this.state.timeNight);
     const minDay = new Date();
+    let maxYear = minDay.getFullYear();
+    let maxMonth = minDay.getMonth() + 4;
+    if (minDay.getMonth() + 4 > 12) {
+      maxMonth = maxMonth - 12;
+      maxYear = maxYear + 1;
+    }
+    const maxDay = new Date(`${maxYear}-${maxMonth}-${minDay.getDate()}`);
+
     const noSelectDayClass =
       this.state.validation && !this.state.date ? "goDownText" : "";
     let noSelectHourClass = "";
@@ -157,13 +167,13 @@ export default class Callendary extends Component {
 
     if (this.state.actualArray) {
       dayDayClass =
-        this.state.timeDay && this.state.actualArray[0].timeDay
+        this.state.timeDay && this.state.actualArray.timeDay
           ? "btn-danger"
           : this.state.timeDay
           ? "btn-warning"
           : "btn-success";
       dayNightClass =
-        this.state.timeNight && this.state.actualArray[0].timeNight
+        this.state.timeNight && this.state.actualArray.timeNight
           ? "btn-danger"
           : this.state.timeNight
           ? "btn-warning"
@@ -196,7 +206,7 @@ export default class Callendary extends Component {
             onChange={this.onChange}
             // value={this.state.date}
             minDate={minDay}
-            // maxDate={}
+            maxDate={maxDay}
             // maxDate={disabledDate} //przedział jaki okres ma być dostępny
             locale="pl-PL"
             tileDisabled={({ date, view }) => this.renderDisabled(date, view)}
@@ -208,7 +218,7 @@ export default class Callendary extends Component {
               className={`btn mr-1 ${dayDayClass}`}
               name="timeDay"
               onClick={e => this.handleAddTime(e, "timeDay")}
-              // disabled={this.state.timeDay}
+              disabled={this.state.date === null}
             >
               9-18
             </button>
@@ -216,7 +226,7 @@ export default class Callendary extends Component {
               className={`btn ml-1 ${dayNightClass}`}
               name="timeNight"
               onClick={e => this.handleAddTime(e, "timeNight")}
-              // disabled={this.state.timeNight}
+              disabled={this.state.date === null}
             >
               19-03
             </button>
@@ -241,3 +251,54 @@ export default class Callendary extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    disabledDate: state.disabledDate,
+    disabledDataValue: state.disabledDataValue
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    isSigned: value => dispatch(actionTypes.is_signed(value)),
+    add_new_disabled_data: (
+      date,
+      timeDay,
+      timeNight,
+      actualReservation,
+      actualObjectName
+    ) =>
+      dispatch(
+        actionTypes.add_new_disabled_data(
+          date,
+          timeDay,
+          timeNight,
+          actualReservation,
+          actualObjectName
+        )
+      ),
+    update_disabled_data: (
+      date,
+      timeDay,
+      timeNight,
+      actualReservation,
+      actualObjectName
+    ) =>
+      dispatch(
+        actionTypes.update_disabled_data(
+          date,
+          timeDay,
+          timeNight,
+          actualReservation,
+          actualObjectName
+        )
+      ),
+    get_disabled_date: () => dispatch(actionTypes.get_disabled_date())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Callendary);
