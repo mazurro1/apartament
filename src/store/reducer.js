@@ -29,7 +29,8 @@ const initialState = {
   changeEmailBusy: false,
   //END AUTH//
   disabledDate: null,
-  disabledDataValue: null
+  disabledDataValue: null,
+  orderAccept: false
 };
 
 const save_all_dispatch_array = (state, action) => {
@@ -39,6 +40,13 @@ const save_all_dispatch_array = (state, action) => {
     ...state,
     disabledDate: allArray,
     disabledDataValue: allArrayValue
+  };
+};
+
+const order_accept = (state, action) => {
+  return {
+    ...state,
+    orderAccept: action.value
   };
 };
 
@@ -365,6 +373,9 @@ const reducer = (state = initialState, action) => {
     //END AUTH//
     case actionTypes.SAVE_ALL_DISPATCH_ARRAY:
       return save_all_dispatch_array(state, action);
+
+    case actionTypes.ORDER_ACCEPT:
+      return order_accept(state, action);
 
     default:
       return state;

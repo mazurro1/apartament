@@ -28,6 +28,7 @@ export const CHANGE_EMAIL_BUSY = "CHANGE_EMAIL_BUSY";
 /////////////////////////////END AUTH///////////////////////////////////
 
 export const SAVE_ALL_DISPATCH_ARRAY = "SAVE_ALL_DISPATCH_ARRAY";
+export const ORDER_ACCEPT = "ORDER_ACCEPT";
 
 /////////////////////////////AUTH///////////////////////////////////
 export const log_out = () => {
@@ -424,6 +425,13 @@ export const change_email = (userId, newEmail, email) => {
 };
 
 /////////////////////////////END AUTH///////////////////////////////////
+export const order_accept = value => {
+  return {
+    type: ORDER_ACCEPT,
+    value: value
+  };
+};
+
 export const save_all_dispatch_array = response => {
   return {
     type: SAVE_ALL_DISPATCH_ARRAY,

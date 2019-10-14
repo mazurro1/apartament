@@ -14,6 +14,7 @@ import Spinner from "./elements/Spinner/Spinner";
 import Orders from "./component/orders";
 import AccountSettings from "./component/accountSettings";
 import Modal from "./elements/Modal/Modal";
+import Summary from "./component/summary";
 
 class App extends React.Component {
   state = {};
@@ -70,7 +71,7 @@ class App extends React.Component {
       />
     );
     return (
-      <div className="App">
+      <div className="App overflowHidden">
         {spinner}
         <BrowserRouter>
           <Nav />
@@ -105,6 +106,12 @@ class App extends React.Component {
               component={Section}
               basename={process.env.PUBLIC_URL}
             />
+            {/* <Route
+              path="/"
+              exact
+              component={Summary}
+              basename={process.env.PUBLIC_URL}
+            /> */}
           </div>
           <Footer />
           <Redirect to="/" />

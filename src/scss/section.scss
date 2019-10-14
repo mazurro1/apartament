@@ -19,7 +19,21 @@ html {
   background-image: url(../img/bgimage.jpg);
 }
 body {
+  @font-face {
+    font-family: "Nerwus";
+    src: url("../fonts/nerwus.eot");
+    src: url("../fonts/nerwus.eot?#iefix") format("embedded-opentype"),
+      url("../fonts/nerwus.otf") format("opentype"),
+      url("../fonts/nerwus.svg") format("svg"),
+      url("../fonts/nerwus.ttf") format("truetype"),
+      url("../fonts/nerwus.woff") format("woff"),
+      url("../fonts/nerwus.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    // max-width: 100vw;
+  }
   .App {
+    position: relative;
     // background-color: #000;
     // background-size: 100%;
     // background-attachment: scroll;
@@ -257,7 +271,8 @@ body {
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
-    overflow-y: auto;
+    // overflow-y: auto;
+    overflow: hidden;
     // @media all and (max-width: 767px) {
     //   & {
     //     padding: 40px 0;
@@ -267,6 +282,29 @@ body {
   .loginDown {
     transform: translate(0, 0px);
     height: 100%;
+    overflow: hidden;
+  }
+
+  .positionCallendary {
+    position: relative;
+    height: 900px;
+  }
+
+  .callendary {
+    position: absolute;
+    transform: translate(150%, 0);
+    width: 100%;
+    padding: 80px 0;
+    color: white;
+    transition-property: transform;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    overflow: hidden;
+  }
+  .callendaryDown {
+    transform: translate(0, 0px);
+    height: 100%;
+    overflow: hidden;
   }
 
   .loginAccount {
@@ -281,6 +319,7 @@ body {
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
+    overflow: hidden;
     // @media all and (max-width: 767px) {
     //   & {
     //     padding: 40px 0;
@@ -290,6 +329,7 @@ body {
   .loginAccountDown {
     transform: translate(0, 0px);
     height: 80%;
+    overflow: hidden;
   }
 
   .registration {
@@ -304,6 +344,7 @@ body {
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
+    overflow: hidden;
     // @media all and (max-width: 767px) {
     //   & {
     //     padding-top: 40px;
@@ -323,6 +364,7 @@ body {
   .registrationDown {
     transform: translate(0, 0px);
     height: 100%;
+    overflow: hidden;
   }
 
   .resetPassword {
@@ -337,6 +379,7 @@ body {
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
+    overflow: hidden;
     // @media all and (max-width: 767px) {
     //   & {
     //     padding-top: 40px;
@@ -346,6 +389,7 @@ body {
   .resetPasswordDown {
     transform: translate(0, 0px);
     height: 80%;
+    overflow: hidden;
   }
 
   .closePage {
@@ -1205,5 +1249,51 @@ body {
   .buttonIndex {
     position: relative;
     z-index: 10;
+  }
+  .summary {
+    position: sticky;
+    bottom: 0px;
+    z-index: 100;
+    width: 100%;
+    background-color: rgba(13, 13, 13, 0.99);
+    padding: 5px 0;
+    color: rgb(233, 233, 233);
+
+    .textCenterFormat {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .summaryText {
+      font-family: "Nerwus", "Arial";
+      font-size: 2rem;
+      @media all and (max-width: 991px) and (min-width: 576px) {
+        & {
+          font-size: 1.5rem;
+        }
+      }
+      @media all and (max-width: 575px) {
+        & {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .summaryElement {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .positionSummary {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      left: 0;
+    }
+    .positionOrderButton {
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      right: 0;
+    }
   }
 }

@@ -68,63 +68,78 @@ class Callendary extends Component {
     }
   };
   handleOrder = () => {
-    let actualArray = null;
+    let actualArray = this.state.actualArray;
     let date = this.state.date;
     let validation = true;
+    this.props.order_accept(false);
 
+    let filterArray = null;
     if (this.state.actualArray) {
-      if (this.state.date && this.state.timeDay && this.state.timeNight) {
-        const actualDate = this.state.date;
-        const getDate = `${actualDate.getFullYear()}-${actualDate.getMonth() +
-          1}-${actualDate.getDate()}`;
-        console.log("1 z tablicy");
-        this.props.update_disabled_data(
-          getDate,
-          this.state.timeDay,
-          this.state.timeNight,
-          "actualReservation",
-          this.state.actualObjectName
-        );
-        actualArray = { ...this.state.actualArray };
-        actualArray.timeDay = true;
-        actualArray.timeNight = true;
-        date = null;
-        validation = false;
-      }
-    } else {
-      if (this.state.date && (this.state.timeDay || this.state.timeNight)) {
-        const actualDate = this.state.date;
-        const getDate = `${actualDate.getFullYear()}-${actualDate.getMonth() +
-          1}-${actualDate.getDate()}`;
+      filterArray = this.props.disabledDate.filter(
+        item => item[1].date === this.state.actualArray.date
+      );
 
-        if (this.state.timeDay && this.state.timeNight) {
-          console.log("2 bez tablicy");
-          this.props.add_new_disabled_data(
+      console.log(filterArray[0][1]);
+    }
+    if (date) {
+      const getDate = `${date.getFullYear()}-${date.getMonth() +
+        1}-${date.getDate()}`;
+      if (this.state.actualArray) {
+        if (this.state.date && this.state.timeDay && this.state.timeNight) {
+          console.log("1 z tablicy");
+          this.props.update_disabled_data(
             getDate,
             this.state.timeDay,
             this.state.timeNight,
             "actualReservation",
             this.state.actualObjectName
           );
-        } else {
-          console.log("1 bez tablicy");
-
-          this.props.add_new_disabled_data(
-            getDate,
-            this.state.timeDay,
-            this.state.timeNight,
-            "actualReservation",
-            this.state.actualObjectName
-          );
+          this.props.order_accept(true);
+          actualArray = { ...this.state.actualArray };
+          actualArray.timeDay = true;
+          actualArray.timeNight = true;
+          date = null;
+          validation = false;
         }
-        date = null;
-        validation = false;
+      } else {
+        if (this.state.date) {
+          if (this.state.timeDay && this.state.timeNight) {
+            console.log("2 bez tablicy");
+            this.props.add_new_disabled_data(
+              getDate,
+              this.state.timeDay,
+              this.state.timeNight,
+              "actualReservation",
+              this.state.actualObjectName
+            );
+
+            this.props.order_accept(true);
+            validation = false;
+            date = null;
+            actualArray = null;
+          } else if (this.state.timeDay || this.state.timeNight) {
+            console.log("1 bez tablicy");
+
+            this.props.order_accept(true);
+            this.props.add_new_disabled_data(
+              getDate,
+              this.state.timeDay,
+              this.state.timeNight,
+              "actualReservation",
+              this.state.actualObjectName
+            );
+
+            validation = false;
+            date = null;
+            actualArray = null;
+          }
+        }
       }
     }
     this.setState({
-      actualArray: actualArray,
       date: date,
-      validation: validation
+      validation: validation,
+      actualArray: actualArray
     });
   };
 
@@ -149,6 +164,13 @@ class Callendary extends Component {
   };
 
   render() {
+    let filterArray = null;
+    if (this.state.actualArray) {
+      filterArray = this.props.disabledDate.filter(
+        item => item[1].date === this.state.actualArray.date
+      );
+    }
+
     const minDay = new Date();
     let maxYear = minDay.getFullYear();
     let maxMonth = minDay.getMonth() + 4;
@@ -162,52 +184,53 @@ class Callendary extends Component {
       this.state.validation && !this.state.date ? "goDownText" : "";
     let noSelectHourClass = "";
 
-    let dayDayClass = "";
-    let dayNightClass = "";
+    let dayDayClass = "bg-secondary";
+    let dayNightClass = "bg-secondary";
 
-    if (this.state.actualArray) {
-      dayDayClass =
-        this.state.timeDay && this.state.actualArray.timeDay
+    if (this.state.date) {
+      if (filterArray) {
+        dayDayClass = filterArray[0][1].timeDay
           ? "btn-danger"
           : this.state.timeDay
           ? "btn-warning"
           : "btn-success";
-      dayNightClass =
-        this.state.timeNight && this.state.actualArray.timeNight
+        dayNightClass = filterArray[0][1].timeNight
           ? "btn-danger"
           : this.state.timeNight
           ? "btn-warning"
           : "btn-success";
-      noSelectHourClass =
-        this.state.validation &&
-        this.state.date &&
-        !(this.state.timeNight && this.state.timeDay)
-          ? "goDownText"
-          : "";
-    } else {
-      dayDayClass =
-        this.state.date && this.state.timeDay ? "btn-warning" : "btn-success";
-      dayNightClass =
-        this.state.date && this.state.timeNight ? "btn-warning" : "btn-success";
-      noSelectHourClass =
-        this.state.validation &&
-        this.state.date &&
-        !(this.state.timeNight || this.state.timeDay)
-          ? "goDownText"
-          : "";
+        noSelectHourClass =
+          this.state.validation &&
+          this.state.date &&
+          !(this.state.timeNight && this.state.timeDay)
+            ? "goDownText"
+            : "";
+      } else {
+        dayDayClass =
+          this.state.date && this.state.timeDay ? "btn-warning" : "btn-success";
+        dayNightClass =
+          this.state.date && this.state.timeNight
+            ? "btn-warning"
+            : "btn-success";
+        noSelectHourClass =
+          this.state.validation &&
+          this.state.date &&
+          !(this.state.timeNight || this.state.timeDay)
+            ? "goDownText"
+            : "";
+      }
     }
 
     return (
       <div className="margin-80">
         <Title name="KALENDARZ" />
-
         <div className="mt-4 mb-4">
           <Calendar
             onChange={this.onChange}
-            // value={this.state.date}
             minDate={minDay}
             maxDate={maxDay}
-            // maxDate={disabledDate} //przedział jaki okres ma być dostępny
+            activeStartDate={this.state.date}
+            value={this.state.date}
             locale="pl-PL"
             tileDisabled={({ date, view }) => this.renderDisabled(date, view)}
           />
@@ -233,7 +256,7 @@ class Callendary extends Component {
           </div>
           <div className="buttonIndex">
             <FormButton
-              buttonName="Przejdź dalej"
+              buttonName="Potwierdź"
               buttonOnClick={this.handleOrder}
               buttonColor="red"
               buttonInline={true}
@@ -255,7 +278,8 @@ class Callendary extends Component {
 const mapStateToProps = state => {
   return {
     disabledDate: state.disabledDate,
-    disabledDataValue: state.disabledDataValue
+    disabledDataValue: state.disabledDataValue,
+    orderAccept: state.orderAccept
   };
 };
 
@@ -294,7 +318,8 @@ const mapDispatchToProps = dispatch => {
           actualObjectName
         )
       ),
-    get_disabled_date: () => dispatch(actionTypes.get_disabled_date())
+    get_disabled_date: () => dispatch(actionTypes.get_disabled_date()),
+    order_accept: value => dispatch(actionTypes.order_accept(value))
   };
 };
 

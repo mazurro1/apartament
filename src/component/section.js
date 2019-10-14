@@ -5,15 +5,19 @@ import Gallery from "../components/gallery";
 import Callendary from "../components/callendary";
 import Reservation from "../components/reservation";
 import Contact from "../components/contact";
+import { connect } from "react-redux";
+import * as actionTypes from "../store/actions";
 
-export default class Section extends Component {
+class Section extends Component {
   render() {
     return (
       <section>
         <div className="jumbotron-fluid sectionBg">
           <div className="container">
             <AboutUs />
+
             <Callendary />
+
             <Reservation />
           </div>
           <Gallery />
@@ -25,3 +29,20 @@ export default class Section extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    orderAccept: state.orderAccept
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    menu_visible: () => dispatch(actionTypes.menu_visible())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Section);
