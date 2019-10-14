@@ -71,11 +71,20 @@ class App extends React.Component {
       />
     );
     return (
-      <div className="App overflowHidden">
+      <div className="App ">
         {spinner}
         <BrowserRouter>
           <Nav />
-          <div className="positionRelative">
+          {/* JEZELI UZYTKOWNIK JEST ZALOGOWANY!! */}
+          <div className="overflowHidden">
+            <Route
+              path="/"
+              exact
+              component={Summary}
+              basename={process.env.PUBLIC_URL}
+            />
+          </div>
+          <div className="positionRelative ">
             {modalNetwork}
             {modalDeleteAccount}
             {modalNewAccount}
@@ -106,14 +115,10 @@ class App extends React.Component {
               component={Section}
               basename={process.env.PUBLIC_URL}
             />
-            {/* <Route
-              path="/"
-              exact
-              component={Summary}
-              basename={process.env.PUBLIC_URL}
-            /> */}
           </div>
+
           <Footer />
+
           <Redirect to="/" />
         </BrowserRouter>
       </div>

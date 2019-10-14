@@ -30,7 +30,14 @@ const initialState = {
   //END AUTH//
   disabledDate: null,
   disabledDataValue: null,
-  orderAccept: false
+  orderAccept: false,
+  orderValue: {
+    date: null,
+    timeDay: null,
+    timeNight: null,
+    filterArray: null,
+    objectName: null
+  }
 };
 
 const save_all_dispatch_array = (state, action) => {
@@ -47,6 +54,20 @@ const order_accept = (state, action) => {
   return {
     ...state,
     orderAccept: action.value
+  };
+};
+
+const order_value = (state, action) => {
+  return {
+    ...state,
+    orderValue: {
+      date: action.date,
+      timeDay: action.timeDay,
+      timeNight: action.timeNight,
+      filterArray: action.filterArray,
+      objectName: action.objectName,
+      orderAccept: true
+    }
   };
 };
 
@@ -376,6 +397,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ORDER_ACCEPT:
       return order_accept(state, action);
+
+    case actionTypes.ORDER_VALUE:
+      return order_value(state, action);
 
     default:
       return state;

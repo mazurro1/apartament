@@ -63,6 +63,7 @@ class Callendary extends Component {
         ) {
           dateBool = true;
         }
+        return null;
       });
       return dateBool;
     }
@@ -78,8 +79,6 @@ class Callendary extends Component {
       filterArray = this.props.disabledDate.filter(
         item => item[1].date === this.state.actualArray.date
       );
-
-      console.log(filterArray[0][1]);
     }
     if (date) {
       const getDate = `${date.getFullYear()}-${date.getMonth() +
@@ -87,11 +86,18 @@ class Callendary extends Component {
       if (this.state.actualArray) {
         if (this.state.date && this.state.timeDay && this.state.timeNight) {
           console.log("1 z tablicy");
-          this.props.update_disabled_data(
+          // this.props.update_disabled_data(
+          //   getDate,
+          //   this.state.timeDay,
+          //   this.state.timeNight,
+          //   "actualReservation",
+          //   this.state.actualObjectName
+          // );
+          this.props.order_value(
             getDate,
             this.state.timeDay,
             this.state.timeNight,
-            "actualReservation",
+            filterArray,
             this.state.actualObjectName
           );
           this.props.order_accept(true);
@@ -105,11 +111,18 @@ class Callendary extends Component {
         if (this.state.date) {
           if (this.state.timeDay && this.state.timeNight) {
             console.log("2 bez tablicy");
-            this.props.add_new_disabled_data(
+            // this.props.add_new_disabled_data(
+            //   getDate,
+            //   this.state.timeDay,
+            //   this.state.timeNight,
+            //   "actualReservation",
+            //   this.state.actualObjectName
+            // );
+            this.props.order_value(
               getDate,
               this.state.timeDay,
               this.state.timeNight,
-              "actualReservation",
+              filterArray,
               this.state.actualObjectName
             );
 
@@ -121,11 +134,19 @@ class Callendary extends Component {
             console.log("1 bez tablicy");
 
             this.props.order_accept(true);
-            this.props.add_new_disabled_data(
+            // this.props.add_new_disabled_data(
+            //   getDate,
+            //   this.state.timeDay,
+            //   this.state.timeNight,
+            //   "actualReservation",
+            //   this.state.actualObjectName
+            // );
+
+            this.props.order_value(
               getDate,
               this.state.timeDay,
               this.state.timeNight,
-              "actualReservation",
+              filterArray,
               this.state.actualObjectName
             );
 
@@ -220,7 +241,6 @@ class Callendary extends Component {
             : "";
       }
     }
-
     return (
       <div className="margin-80">
         <Title name="KALENDARZ" />
@@ -256,7 +276,7 @@ class Callendary extends Component {
           </div>
           <div className="buttonIndex">
             <FormButton
-              buttonName="Potwierdź"
+              buttonName="Przejdź dalej"
               buttonOnClick={this.handleOrder}
               buttonColor="red"
               buttonInline={true}
@@ -279,7 +299,8 @@ const mapStateToProps = state => {
   return {
     disabledDate: state.disabledDate,
     disabledDataValue: state.disabledDataValue,
-    orderAccept: state.orderAccept
+    orderAccept: state.orderAccept,
+    orderValue: state.orderValue
   };
 };
 
@@ -302,24 +323,34 @@ const mapDispatchToProps = dispatch => {
           actualObjectName
         )
       ),
-    update_disabled_data: (
-      date,
-      timeDay,
-      timeNight,
-      actualReservation,
-      actualObjectName
-    ) =>
+    // update_disabled_data: (
+    //   date,
+    //   timeDay,
+    //   timeNight,
+    //   actualReservation,
+    //   actualObjectName
+    // ) =>
+    //   dispatch(
+    //     actionTypes.update_disabled_data(
+    //       date,
+    //       timeDay,
+    //       timeNight,
+    //       actualReservation,
+    //       actualObjectName
+    //     )
+    //   ),
+    get_disabled_date: () => dispatch(actionTypes.get_disabled_date()),
+    order_accept: value => dispatch(actionTypes.order_accept(value)),
+    order_value: (date, timeDay, timeNight, filterArray, objectName) =>
       dispatch(
-        actionTypes.update_disabled_data(
+        actionTypes.order_value(
           date,
           timeDay,
           timeNight,
-          actualReservation,
-          actualObjectName
+          filterArray,
+          objectName
         )
-      ),
-    get_disabled_date: () => dispatch(actionTypes.get_disabled_date()),
-    order_accept: value => dispatch(actionTypes.order_accept(value))
+      )
   };
 };
 
