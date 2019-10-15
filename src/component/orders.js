@@ -19,7 +19,8 @@ class Login extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.userId && prevProps.orderVisible === false) {
+    if (prevProps.userId && this.props.orderVisible === true) {
+      // setTimeout(() => {
       let url =
         "https://apartment-3c7b9.firebaseio.com/orders.json?auth=" +
         prevProps.userToken +
@@ -29,7 +30,7 @@ class Login extends Component {
       axios
         .get(url)
         .then(response => {
-          // console.log(response);
+          console.log(response);
           const values = Object.values(response.data);
           values.sort((a, b) => {
             const x = a.date;
@@ -50,19 +51,20 @@ class Login extends Component {
           // }
           // dispatch(spinner(false));
         });
+      // }, 1000);
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      nextProps.orderVisible !== this.props.orderVisible ||
-      nextState !== this.state
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (
+  //     nextProps.orderVisible !== this.props.orderVisible ||
+  //     nextState !== this.state
+  //   ) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   render() {
     let mapOrders = null;
@@ -80,7 +82,7 @@ class Login extends Component {
           </td>
           <td>
             {item.timeDay && item.timeNight
-              ? "17:00"
+              ? "03:00"
               : item.timeDay
               ? "17:00"
               : "03:00"}

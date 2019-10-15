@@ -108,7 +108,12 @@ class App extends React.Component {
               component={AccountSettings}
               basename={process.env.PUBLIC_URL}
             />
-            {/* <Route path="/" exact component={Header} basename={process.env.PUBLIC_URL}/> */}
+            <Route
+              path="/"
+              exact
+              component={Header}
+              basename={process.env.PUBLIC_URL}
+            />
             <Route
               path="/"
               exact

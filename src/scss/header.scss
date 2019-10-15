@@ -1,0 +1,20 @@
+header {
+  width: 100%;
+  overflow: hidden;
+  max-height: 55vh;
+  background-color: rgb(8, 8, 8);
+  .firstVideo {
+    transform: rotate(-30deg) translate(-10%, -50%);
+    video {
+      width: 85%;
+      opacity: 0.5;
+    }
+  }
+  .secondVideo {
+    transform: rotate(-30deg) translate(1%, -22%);
+    video {
+      width: 100%;
+      opacity: 0.5;
+    }
+  }
+}
