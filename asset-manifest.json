@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/apartament/static/css/main.d29923dc.chunk.css",
-    "main.js": "/apartament/static/js/main.baf5faf8.chunk.js",
-    "main.js.map": "/apartament/static/js/main.baf5faf8.chunk.js.map",
+    "main.css": "/apartament/static/css/main.1626ef00.chunk.css",
+    "main.js": "/apartament/static/js/main.4ac2fbd7.chunk.js",
+    "main.js.map": "/apartament/static/js/main.4ac2fbd7.chunk.js.map",
     "runtime~main.js": "/apartament/static/js/runtime~main.91a8968e.js",
     "runtime~main.js.map": "/apartament/static/js/runtime~main.91a8968e.js.map",
     "static/css/2.a48e46d7.chunk.css": "/apartament/static/css/2.a48e46d7.chunk.css",
-    "static/js/2.b8ea7063.chunk.js": "/apartament/static/js/2.b8ea7063.chunk.js",
-    "static/js/2.b8ea7063.chunk.js.map": "/apartament/static/js/2.b8ea7063.chunk.js.map",
+    "static/js/2.2bb36b6e.chunk.js": "/apartament/static/js/2.2bb36b6e.chunk.js",
+    "static/js/2.2bb36b6e.chunk.js.map": "/apartament/static/js/2.2bb36b6e.chunk.js.map",
     "index.html": "/apartament/index.html",
-    "precache-manifest.fec0fcbe40920fc3a22e269312d48978.js": "/apartament/precache-manifest.fec0fcbe40920fc3a22e269312d48978.js",
+    "precache-manifest.6fc52ad635189291463b73e7ebbea6de.js": "/apartament/precache-manifest.6fc52ad635189291463b73e7ebbea6de.js",
     "service-worker.js": "/apartament/service-worker.js",
     "static/css/2.a48e46d7.chunk.css.map": "/apartament/static/css/2.a48e46d7.chunk.css.map",
-    "static/css/main.d29923dc.chunk.css.map": "/apartament/static/css/main.d29923dc.chunk.css.map",
+    "static/css/main.1626ef00.chunk.css.map": "/apartament/static/css/main.1626ef00.chunk.css.map",
     "static/media/1.jpg": "/apartament/static/media/1.73c55abc.jpg",
     "static/media/10.JPG": "/apartament/static/media/10.8580c889.JPG",
     "static/media/11.JPG": "/apartament/static/media/11.76f28d89.JPG",
@@ -24,6 +24,7 @@
     "static/media/7.JPG": "/apartament/static/media/7.697bf786.JPG",
     "static/media/8.JPG": "/apartament/static/media/8.5d3182a5.JPG",
     "static/media/9.JPG": "/apartament/static/media/9.7d9d78b1.JPG",
-    "static/media/app.scss": "/apartament/static/media/nerwus.ad9626a4.woff2"
+    "static/media/app.scss": "/apartament/static/media/nerwus.ad9626a4.woff2",
+    "static/media/video1.mp4": "/apartament/static/media/video1.e201c4ca.mp4"
   }
 }
