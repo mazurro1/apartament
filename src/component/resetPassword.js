@@ -33,7 +33,7 @@ const resetPassword = ({
           itemPlaceholder=""
         />
 
-        <div className="text-center margin-top-80">
+        <div className="text-center margin-top-40">
           <FormButton
             buttonName="Powrót"
             buttonColor="red"

@@ -53,7 +53,8 @@ const save_all_dispatch_array = (state, action) => {
 const order_accept = (state, action) => {
   return {
     ...state,
-    orderAccept: action.value
+    orderAccept: action.value,
+    orderVisible: action.orderVisible
   };
 };
 

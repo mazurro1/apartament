@@ -223,9 +223,7 @@ class Login extends Component {
     return (
       <div
         className={
-          this.props.settingsAccountVisible
-            ? "login loginDown scrollbar scrollbar-primary"
-            : "login scrollbar scrollbar-primary"
+          this.props.settingsAccountVisible ? "login loginDown " : "login "
         }
       >
         {changePage}
@@ -233,7 +231,7 @@ class Login extends Component {
         {modalChangePassword}
         {modalChangeEmailBusy}
 
-        <div className="container text-center positionRelative">
+        <div className="container positionRelative">
           <ClosePage onClick={this.props.settings_account_visible} />
           <div
             className={
@@ -276,7 +274,7 @@ class Login extends Component {
                   : "loginAccount mt-3"
               }
             >
-              <h5>Jesteś tego pewien?</h5>
+              <h5 className="text-center">Jesteś tego pewien?</h5>
               <div className="text-center">
                 <FormButton
                   buttonName="Nie"

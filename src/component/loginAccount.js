@@ -20,9 +20,9 @@ const loginAccount = ({
         <Title name="LOGOWANIE" />
         {inputs}
 
-        <div className="row margin-top-80 margin-120">
+        <div className="row margin-top-40">
           <div className="col-12">
-            <div className="text-center">
+            <div className="text-center ">
               <FormButton
                 buttonName="Odzyskaj hasło"
                 buttonOnClick={handleResetPassword}

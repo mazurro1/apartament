@@ -105,9 +105,6 @@ class Login extends Component {
 
   handleOnClickSave = e => {
     e.preventDefault();
-    // this.setState({
-    //   validation: true
-    // });
     this.props.login_validation_change(true);
 
     if (this.state.form.email.validated && this.state.form.password.validated) {
@@ -244,18 +241,12 @@ class Login extends Component {
     ));
 
     return (
-      <div
-        className={
-          this.props.loginVisible
-            ? "login loginDown scrollbar scrollbar-primary"
-            : "login scrollbar scrollbar-primary"
-        }
-      >
+      <div className={this.props.loginVisible ? "login loginDown" : "login"}>
         {modalErrorEmail()}
         {changePage}
         {errorMessage}
 
-        <div className="container positionRelative">
+        <div className="container positionRelative ">
           <ClosePage onClick={this.props.login_visible} />
           <LoginAccount
             inputs={formInputsMap}

@@ -103,7 +103,7 @@ body {
     position: absolute;
     right: 10px;
     top: 50%;
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: #dc3545;
     color: white;
     transform: translate(0, -50%);
@@ -152,11 +152,11 @@ body {
 
   .modalError {
     position: absolute;
-    z-index: 200;
+    z-index: 500;
     top: 0;
     width: 100%;
     // padding: 1px 0;
-    background-color: rgba(#c82333, 0.9);
+    background-color: rgba(#c82333, 0.99);
     color: white;
     text-align: center;
     font-weight: 700;
@@ -170,11 +170,11 @@ body {
 
   .modalSuccess {
     position: absolute;
-    z-index: 200;
+    z-index: 500;
     top: 0;
     width: 100%;
     // padding: 5px 0;
-    background-color: rgba(#218838, 0.9);
+    background-color: rgba(#218838, 0.99);
     color: white;
     text-align: center;
     font-weight: 700;
@@ -188,6 +188,8 @@ body {
 
   .modalOff {
     transform: translate(0, -100%);
+
+    z-index: 0;
     opacity: 0;
     transition-property: transform, opacity;
     transition-duration: 0.2s;
@@ -211,7 +213,7 @@ body {
     position: fixed;
     height: 100%;
     width: 100%;
-    z-index: 250;
+    z-index: 550;
     background-color: rgba(0, 0, 0, 0.9);
     .loader,
     .loader:after {
@@ -264,19 +266,14 @@ body {
     transform: translate(150%, 0);
     width: 100%;
     background-color: rgba(#0d0d0d, 0.95);
-    padding: 80px 0;
+    padding: 40px 0;
+    padding-bottom: 0;
     height: 100%;
     color: white;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
-    // overflow-y: auto;
     overflow: hidden;
-    // @media all and (max-width: 767px) {
-    //   & {
-    //     padding: 40px 0;
-    //   }
-    // }
   }
   .loginDown {
     transform: translate(0, 0px);
@@ -289,21 +286,16 @@ body {
     top: 0;
     z-index: 350;
     transform: translate(150%, 0);
+    padding-top: 40px;
     width: 100%;
     background-color: rgba(#0d0d0d, 0.99);
-    padding: 80px 0;
+    // padding-top: 20px;
     height: 100vh;
     color: white;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
-    // overflow-y: auto;
     overflow: hidden;
-    // @media all and (max-width: 767px) {
-    //   & {
-    //     padding: 40px 0;
-    //   }
-    // }
   }
   .summaryDown {
     transform: translate(0, 0px);
@@ -321,6 +313,7 @@ body {
     transform: translate(150%, 0);
     width: 100%;
     padding: 80px 0;
+    padding-bottom: 0;
     color: white;
     transition-property: transform;
     transition-duration: 1s;
@@ -340,21 +333,16 @@ body {
     transform: translate(150%, 0);
     width: 100%;
     background: transparent;
-    height: 80%;
+    height: 100%;
     color: white;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
     overflow: hidden;
-    // @media all and (max-width: 767px) {
-    //   & {
-    //     padding: 40px 0;
-    //   }
-    // }
   }
   .loginAccountDown {
     transform: translate(0, 0px);
-    height: 80%;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -366,26 +354,11 @@ body {
     height: 100%;
     background-color: rgba(#0d0d0d, 0.95);
     color: white;
-    padding-top: 80px;
+    padding-top: 40px;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
     overflow: hidden;
-    // @media all and (max-width: 767px) {
-    //   & {
-    //     padding-top: 40px;
-    //   }
-    // }
-    &::-webkit-scrollbar {
-      width: 1em;
-    }
-    &::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: darkgrey;
-      outline: 1px solid slategrey;
-    }
   }
   .registrationDown {
     transform: translate(0, 0px);
@@ -399,22 +372,17 @@ body {
     z-index: 150;
     transform: translate(-150%, 0);
     width: 100%;
-    height: 80%;
+    height: 100%;
     background: transparent;
     color: white;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
     overflow: hidden;
-    // @media all and (max-width: 767px) {
-    //   & {
-    //     padding-top: 40px;
-    //   }
-    // }
   }
   .resetPasswordDown {
     transform: translate(0, 0px);
-    height: 80%;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -422,7 +390,7 @@ body {
     position: absolute;
     z-index: 200;
     right: 0;
-    top: -60px;
+    top: -50px;
     padding: 25px 35px;
     padding-left: 45px;
     cursor: pointer;
@@ -531,8 +499,8 @@ body {
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     background: rgba(255, 255, 255, 0.9);
-    -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5) inset;
-    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5) inset;
+    // -webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5) inset;
+    // box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5) inset;
     -webkit-transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -moz-transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
     -o-transition: all 502ms cubic-bezier(0.68, -0.75, 0.265, 1.75);
@@ -613,44 +581,49 @@ body {
     margin-bottom: 120px;
   }
 
+  .margin-90 {
+    margin-bottom: 90px;
+  }
+
   .margin-top-80 {
     margin-top: 80px;
   }
 
+  .margin-top-40 {
+    margin-top: 40px;
+  }
+
   .scrollbar {
     overflow-y: auto;
+    background-color: black;
   }
 
   .scrollbar-primary::-webkit-scrollbar {
-    width: 12px;
-    background-color: #f5f5f5;
+    width: 8px;
+    background-color: black;
   }
 
   .scrollbar-primary::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-    background-color: #4285f4;
+    background-color: #c82333;
   }
 
   .scrollbar-danger::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
   }
 
   .scrollbar-danger::-webkit-scrollbar {
     width: 12px;
-    background-color: #f5f5f5;
+    background-color: black;
   }
 
   .scrollbar-danger::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #ff3547;
   }
 
   .scrollbar-warning::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
   }
@@ -662,12 +635,10 @@ body {
 
   .scrollbar-warning::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #ff8800;
   }
 
   .scrollbar-success::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
   }
@@ -679,12 +650,10 @@ body {
 
   .scrollbar-success::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #00c851;
   }
 
   .scrollbar-info::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
   }
@@ -696,12 +665,10 @@ body {
 
   .scrollbar-info::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #33b5e5;
   }
 
   .scrollbar-default::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
   }
@@ -713,12 +680,10 @@ body {
 
   .scrollbar-default::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #525252;
   }
 
   .scrollbar-secondary::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #f5f5f5;
     border-radius: 10px;
   }
@@ -742,7 +707,7 @@ body {
       .o1 {
         stroke: rgba(#dc3545, 1);
         fill: #dc3545;
-        transition: all 1s ease-in-out;
+        transition: all 0.5s ease;
       }
     }
     &:hover {
@@ -756,7 +721,7 @@ body {
       .o1 {
         stroke: rgba(#007bff, 1);
         fill: #007bff;
-        transition: all 1s ease-in-out;
+        transition: all 0.5s ease;
       }
     }
     &:hover {
@@ -771,7 +736,7 @@ body {
       .o1 {
         stroke: rgba(#6c757d, 1);
         fill: #6c757d;
-        transition: all 1s ease-in-out;
+        transition: all 0.5s ease;
       }
     }
     &:hover {
@@ -786,12 +751,27 @@ body {
       .o1 {
         stroke: rgba(#28a745, 1);
         fill: #28a745;
-        transition: all 1s ease-in-out;
+        transition: all 0.5s ease;
       }
     }
     &:hover {
       .o1 {
         fill: rgba(#218838, 1);
+      }
+    }
+  }
+
+  .bg-normalYellow {
+    svg {
+      .o1 {
+        stroke: rgba(#ffc107, 1);
+        fill: #ffc107;
+        transition: all 0.5s ease;
+      }
+    }
+    &:hover {
+      .o1 {
+        fill: rgba(#e0a800, 1);
       }
     }
   }
@@ -809,14 +789,14 @@ body {
 
     svg {
       height: 40px;
-      width: 180px;
+      // width: 160px;
       fill: none;
       stroke-width: 2;
 
       .o2 {
         stroke: white;
         stroke-dasharray: 30 450;
-        stroke-dashoffset: 30;
+        stroke-dashoffset: 80;
         transition: all 1s ease-in-out;
       }
     }
@@ -830,7 +810,7 @@ body {
 
     &:hover {
       .o2 {
-        stroke-dashoffset: -440;
+        stroke-dashoffset: -400;
       }
     }
 
@@ -1278,16 +1258,60 @@ body {
   }
 
   .summaryTable {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.99);
-    background-color: rgba(255, 255, 255, 0.082);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    // border-bottom: 2px solid rgba(0, 0, 0, 0.99);
+    margin-bottom: 2px;
+    background-color: rgba(255, 255, 255, 0.1);
   }
   .summaryTableFirst {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.99);
-    background-color: rgba(255, 255, 255, 0.082);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    // border-bottom: 2px solid rgba(0, 0, 0, 0.99);
+    margin-bottom: 2px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .buttonPositionSm {
+    @media all and (max-width: 575px) {
+      & {
+        position: absolute;
+        bottom: 5px;
+        // left: 50%;
+        // transform: translate(-50%, 0);
+      }
+    }
+  }
+  .buttonPositionSmCenter {
+    @media all and (max-width: 575px) {
+      & {
+        position: absolute;
+        bottom: 5px;
+        // width: 100%;
+      }
+    }
+  }
+
+  .table-dark {
+    background-color: rgba(255, 255, 255, 0.103);
+    border-color: black;
+    thead {
+      border-color: black;
+      tr {
+        border-color: black;
+      }
+      th {
+        border-color: black;
+      }
+    }
+    th {
+      background-color: rgba(#6c757d, 0.5);
+      border-color: black;
+    }
+    td {
+      // border: 1px solid black;
+      border-color: black;
+    }
   }
   // .summary {
   //   position: sticky;

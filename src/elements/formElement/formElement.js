@@ -16,28 +16,30 @@ const formElement = ({
   disabled = false
 }) => {
   return (
-    <div className="row mt-2">
-      <div className="col-lg-2 offset-md-3 col-md-3 col-12">
-        <div className="positionTop animation">
-          {formName}
-          {formValidation && !itemValidation ? (
-            <div className="font-12 text-danger font-weight-bold mb-1 mb-md-0">
-              {itemFalseName}
-            </div>
-          ) : null}
+    <div className="container">
+      <div className="row mt-2">
+        <div className="col-lg-2 offset-md-3 col-md-3 col-12">
+          <div className="positionTop animation">
+            {formName}
+            {formValidation && !itemValidation ? (
+              <div className="font-12 text-danger font-weight-bold mb-1 mb-md-0">
+                {itemFalseName}
+              </div>
+            ) : null}
+          </div>
         </div>
-      </div>
-      <div className="col-lg-4 col-md-5 col-12">
-        <Input
-          className={formValidation && !itemValidation ? "formInvalid" : null}
-          value={itemValue === null ? "" : itemValue}
-          onChange={itemOnChange}
-          name={itemName}
-          type={itemType}
-          placeholder={itemPlaceholder}
-          checked={itemChecked}
-          disabled={disabled}
-        />
+        <div className="col-lg-4 col-md-5 col-12">
+          <Input
+            className={formValidation && !itemValidation ? "formInvalid" : null}
+            value={itemValue === null ? "" : itemValue}
+            onChange={itemOnChange}
+            name={itemName}
+            type={itemType}
+            placeholder={itemPlaceholder}
+            checked={itemChecked}
+            disabled={disabled}
+          />
+        </div>
       </div>
     </div>
   );

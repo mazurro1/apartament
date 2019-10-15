@@ -6,7 +6,8 @@ const formButton = ({
   buttonOnClick,
   buttonDisabled = false,
   buttonColor = "gray",
-  buttonInline = false
+  buttonInline = false,
+  width = "150"
 }) => {
   const buttonColorClass =
     buttonColor === "gray"
@@ -17,6 +18,8 @@ const formButton = ({
       ? "bg-normalRed"
       : buttonColor === "green"
       ? "bg-normalGreen"
+      : buttonColor === "yellow"
+      ? "bg-normalYellow"
       : "bg-normalGray";
   const buttonInlineClass = buttonInline ? "d-inline-flex" : "";
   return (
@@ -26,14 +29,14 @@ const formButton = ({
       onClick={buttonOnClick}
     >
       <span>{buttonName}</span>
-      <svg>
+      <svg style={{ width: `${width}` }}>
         <polyline
           className="o1"
-          points="0 0, 180 0, 180 40, 0 40, 0 0"
+          points={`0 0, ${width} 0, ${width} 40, 0 40, 0 0`}
         ></polyline>
         <polyline
           className="o2"
-          points="0 0, 180 0, 180 40, 0 40, 0 0"
+          points={`0 0, ${width} 0, ${width} 40, 0 40, 0 0`}
         ></polyline>
       </svg>
     </button>

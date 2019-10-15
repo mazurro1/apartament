@@ -214,8 +214,8 @@ class Login extends Component {
       <div
         className={
           this.props.registrationVisible
-            ? "login registrationDown scrollbar scrollbar-primary"
-            : "registration scrollbar scrollbar-primary"
+            ? "registration registrationDown"
+            : "registration"
         }
       >
         {changePage}
@@ -225,14 +225,14 @@ class Login extends Component {
           <ClosePage onClick={this.props.registration_visible} />
           <Title name="ZAŁÓŻ KONTO" />
           {formInputsMap}
-          <div className="text-center margin-top-80 margin-80">
-            <FormButton
-              buttonName="Utwórz konto"
-              buttonOnClick={this.handleOnClickSave}
-              buttonColor="gray"
-              buttonInline={true}
-            />
-          </div>
+        </div>
+        <div className="text-center ">
+          <FormButton
+            buttonName="Utwórz konto"
+            buttonOnClick={this.handleOnClickSave}
+            buttonColor="gray"
+            buttonInline={true}
+          />
         </div>
       </div>
     );

@@ -3,17 +3,21 @@ import FormButton from "../elements/formButton/FormButton";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import Title from "../elements/Title/Title";
+import ClosePage from "../elements/closePage/closePage";
 
 class Summary extends Component {
-  handleOrder = () => {
+  handleOrder = price => {
     this.props.add_new_disabled_data(
       this.props.orderValue.date,
       this.props.orderValue.timeDay,
       this.props.orderValue.timeNight,
       "actualReservation",
-      this.props.orderValue.objectName
+      this.props.orderValue.objectName,
+      this.props.userId,
+      this.props.disabledDataValue,
+      price
     );
-    this.props.order_accept(false);
+    // this.props.order_accept(false, true);
   };
 
   render() {
@@ -75,10 +79,10 @@ class Summary extends Component {
             : weekBazePrice + rentCost;
       }
     }
-
     return (
       <div className={classSummary}>
-        <div className="container">
+        <div className="container positionRelative mt-4">
+          <ClosePage onClick={() => this.props.order_accept(false)} />
           <Title name="PODSUMOWANIE" />
         </div>
         <div className="container-fluid">
@@ -150,7 +154,7 @@ class Summary extends Component {
               </div>
             </div>
           </div>
-          <div className="text-center mt-4">
+          <div className="text-center margin-top-40">
             <FormButton
               buttonName="Cofnij"
               buttonOnClick={() => this.props.order_accept(false)}
@@ -159,7 +163,7 @@ class Summary extends Component {
             />
             <FormButton
               buttonName="Zapłać"
-              buttonOnClick={this.handleOrder}
+              buttonOnClick={() => this.handleOrder(price)}
               buttonColor="green"
               buttonInline={true}
             />
@@ -173,20 +177,26 @@ class Summary extends Component {
 const mapStateToProps = state => {
   return {
     orderAccept: state.orderAccept,
-    orderValue: state.orderValue
+    orderValue: state.orderValue,
+    userId: state.userId,
+    disabledDataValue: state.disabledDataValue
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     get_disabled_date: () => dispatch(actionTypes.get_disabled_date()),
-    order_accept: value => dispatch(actionTypes.order_accept(value)),
+    order_accept: (value, orderVisible) =>
+      dispatch(actionTypes.order_accept(value)),
     add_new_disabled_data: (
       date,
       timeDay,
       timeNight,
       actualReservation,
-      actualObjectName
+      actualObjectName,
+      userId,
+      disabledDataValue,
+      price
     ) =>
       dispatch(
         actionTypes.add_new_disabled_data(
@@ -194,7 +204,10 @@ const mapDispatchToProps = dispatch => {
           timeDay,
           timeNight,
           actualReservation,
-          actualObjectName
+          actualObjectName,
+          userId,
+          disabledDataValue,
+          price
         )
       )
   };

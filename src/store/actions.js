@@ -475,7 +475,38 @@ export const get_disabled_date = () => {
       .catch(error => {
         // console.log(error);
         // if (error.request.status === 0) {
-        dispatch(error_network(true));
+        //   dispatch(error_network(true));
+        // } else {
+        // dispatch(error_reset_password(false));
+        // }
+        dispatch(spinner(false));
+      });
+  };
+};
+
+export const get_order = (userId, userToken) => {
+  return dispatch => {
+    dispatch(spinner(true));
+
+    let url =
+      "https://apartment-3c7b9.firebaseio.com/orders.json?auth=" +
+      userToken +
+      '&orderBy="userId"&equalTo="' +
+      userId +
+      '"';
+    axios
+      .get(url)
+      .then(response => {
+        console.log(response);
+        // dispatch(error_reset_password(true));
+        dispatch(spinner(false));
+        // console.log(response.data);
+        dispatch(save_all_dispatch_array(response.data));
+      })
+      .catch(error => {
+        console.log(error);
+        // if (error.request.status === 0) {
+        //   dispatch(error_network(true));
         // } else {
         // dispatch(error_reset_password(false));
         // }
@@ -489,11 +520,13 @@ export const add_new_disabled_data = (
   timeDay,
   timeNight,
   actualReservation,
-  actualObjectName
+  actualObjectName,
+  userId,
+  disabledDataValue,
+  price
 ) => {
   return dispatch => {
     dispatch(spinner(true));
-
     const authData = {
       date: date,
       timeDay: timeDay,
@@ -506,15 +539,27 @@ export const add_new_disabled_data = (
         .put(url, authData)
         .then(response => {
           dispatch(get_disabled_date());
-          dispatch(spinner(false));
+          dispatch(
+            add_new_order(
+              price,
+              date,
+              timeDay,
+              timeNight,
+              actualReservation,
+              actualObjectName,
+              userId,
+              disabledDataValue
+            )
+          );
+          // dispatch(spinner(false));
         })
         .catch(error => {
-          // console.log(error);
-          if (error.request.status === 0) {
-            dispatch(error_network(true));
-          } else {
-            // dispatch(error_reset_password(false));
-          }
+          console.log(error);
+          // if (error.request.status === 0) {
+          // dispatch(error_network(true));
+          // } else {
+          // dispatch(error_reset_password(false));
+          // }
 
           dispatch(spinner(false));
         });
@@ -526,18 +571,113 @@ export const add_new_disabled_data = (
           // console.log(response);
           // dispatch(error_reset_password(true));
           dispatch(get_disabled_date());
-          dispatch(spinner(false));
+          dispatch(
+            add_new_order(
+              price,
+              date,
+              timeDay,
+              timeNight,
+              actualReservation,
+              actualObjectName,
+              userId
+            )
+          );
         })
         .catch(error => {
-          // console.log(error);
-          if (error.request.status === 0) {
-            dispatch(error_network(true));
-          } else {
-            // dispatch(error_reset_password(false));
-          }
+          console.log(error);
+          // if (error.request.status === 0) {
+          // dispatch(error_network(true));
+          // } else {
+          // dispatch(error_reset_password(false));
+          // }
           dispatch(spinner(false));
         });
     }
+  };
+};
+
+export const add_new_order = (
+  price,
+  date,
+  timeDay,
+  timeNight,
+  actualReservation,
+  actualObjectName,
+  userId,
+  disabledDataValue
+) => {
+  return dispatch => {
+    dispatch(spinner(true));
+    let authData = {
+      date: date,
+      userId: userId,
+      price: price
+    };
+    if (timeDay && timeNight) {
+      authData = {
+        date: date,
+        timeDay: timeDay,
+        timeNight: timeNight,
+        userId: userId,
+        price: price
+      };
+    } else if (timeDay && !timeNight) {
+      authData = {
+        date: date,
+        timeDay: timeDay,
+        userId: userId,
+        price: price
+      };
+    } else if (!timeDay && timeNight) {
+      authData = {
+        date: date,
+        timeNight: timeNight,
+        userId: userId,
+        price: price
+      };
+    }
+
+    let filterArray = null;
+    if (disabledDataValue) {
+      filterArray = disabledDataValue.filter(item => item.date === date);
+    }
+
+    if (filterArray) {
+      if (filterArray[0].timeDay) {
+        authData = {
+          date: date,
+          timeNight: timeNight,
+          userId: userId,
+          price: price
+        };
+      } else if (filterArray[0].timeNight) {
+        authData = {
+          date: date,
+          timeDay: timeDay,
+          userId: userId,
+          price: price
+        };
+      }
+    }
+
+    let url = "https://apartment-3c7b9.firebaseio.com/orders.json";
+    axios
+      .post(url, authData)
+      .then(response => {
+        // console.log(response);
+
+        dispatch(spinner(false));
+        dispatch(order_accept(false));
+      })
+      .catch(error => {
+        // console.log(error);
+        // if (error.request.status === 0) {
+        //   dispatch(error_network(true));
+        // } else {
+        //   // dispatch(error_reset_password(false));
+        // }
+        dispatch(spinner(false));
+      });
   };
 };
 

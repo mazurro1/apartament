@@ -58,6 +58,7 @@ class Nav extends Component {
             buttonOnClick={this.props.registration_visible}
             buttonColor="gray"
             buttonInline={true}
+            width="120"
           />
         </NavLink>
         <NavLink to="/">
@@ -66,6 +67,7 @@ class Nav extends Component {
             buttonOnClick={this.props.login_visible}
             buttonColor="blue"
             buttonInline={true}
+            width="120"
           />
         </NavLink>
       </div>

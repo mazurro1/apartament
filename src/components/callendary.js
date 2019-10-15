@@ -85,7 +85,7 @@ class Callendary extends Component {
         1}-${date.getDate()}`;
       if (this.state.actualArray) {
         if (this.state.date && this.state.timeDay && this.state.timeNight) {
-          console.log("1 z tablicy");
+          // console.log("1 z tablicy");
           // this.props.update_disabled_data(
           //   getDate,
           //   this.state.timeDay,
@@ -110,7 +110,7 @@ class Callendary extends Component {
       } else {
         if (this.state.date) {
           if (this.state.timeDay && this.state.timeNight) {
-            console.log("2 bez tablicy");
+            // console.log("2 bez tablicy");
             // this.props.add_new_disabled_data(
             //   getDate,
             //   this.state.timeDay,
@@ -131,7 +131,7 @@ class Callendary extends Component {
             date = null;
             actualArray = null;
           } else if (this.state.timeDay || this.state.timeNight) {
-            console.log("1 bez tablicy");
+            // console.log("1 bez tablicy");
 
             this.props.order_accept(true);
             // this.props.add_new_disabled_data(
@@ -205,21 +205,21 @@ class Callendary extends Component {
       this.state.validation && !this.state.date ? "goDownText" : "";
     let noSelectHourClass = "";
 
-    let dayDayClass = "bg-secondary";
-    let dayNightClass = "bg-secondary";
+    let dayDayClass = "gray";
+    let dayNightClass = "gray";
 
     if (this.state.date) {
       if (filterArray) {
         dayDayClass = filterArray[0][1].timeDay
-          ? "btn-danger"
+          ? "red"
           : this.state.timeDay
-          ? "btn-warning"
-          : "btn-success";
+          ? "yellow"
+          : "green";
         dayNightClass = filterArray[0][1].timeNight
-          ? "btn-danger"
+          ? "red"
           : this.state.timeNight
-          ? "btn-warning"
-          : "btn-success";
+          ? "yellow"
+          : "green";
         noSelectHourClass =
           this.state.validation &&
           this.state.date &&
@@ -228,11 +228,9 @@ class Callendary extends Component {
             : "";
       } else {
         dayDayClass =
-          this.state.date && this.state.timeDay ? "btn-warning" : "btn-success";
+          this.state.date && this.state.timeDay ? "yellow" : "green";
         dayNightClass =
-          this.state.date && this.state.timeNight
-            ? "btn-warning"
-            : "btn-success";
+          this.state.date && this.state.timeNight ? "yellow" : "green";
         noSelectHourClass =
           this.state.validation &&
           this.state.date &&
@@ -241,39 +239,13 @@ class Callendary extends Component {
             : "";
       }
     }
-    return (
-      <div className="margin-80">
-        <Title name="KALENDARZ" />
-        <div className="mt-4 mb-4">
-          <Calendar
-            onChange={this.onChange}
-            minDate={minDay}
-            maxDate={maxDay}
-            activeStartDate={this.state.date}
-            value={this.state.date}
-            locale="pl-PL"
-            tileDisabled={({ date, view }) => this.renderDisabled(date, view)}
-          />
-        </div>
+
+    const toOrder =
+      this.props.userEmail &&
+      this.props.userName &&
+      this.props.userId &&
+      this.props.userToken ? (
         <div className="text-center positionRelative">
-          <div className="selectTime mb-4">
-            <button
-              className={`btn mr-1 ${dayDayClass}`}
-              name="timeDay"
-              onClick={e => this.handleAddTime(e, "timeDay")}
-              disabled={this.state.date === null}
-            >
-              9-18
-            </button>
-            <button
-              className={`btn ml-1 ${dayNightClass}`}
-              name="timeNight"
-              onClick={e => this.handleAddTime(e, "timeNight")}
-              disabled={this.state.date === null}
-            >
-              19-03
-            </button>
-          </div>
           <div className="buttonIndex">
             <FormButton
               buttonName="Przejdź dalej"
@@ -290,6 +262,68 @@ class Callendary extends Component {
             Wybierz godzinę
           </div>
         </div>
+      ) : (
+        <div className="text-center text-danger">
+          <h5>Zaloguj się, aby dokonać rezerwacji</h5>
+        </div>
+      );
+    const selectTime =
+      this.props.userEmail &&
+      this.props.userName &&
+      this.props.userId &&
+      this.props.userToken ? (
+        <h5 className="text-white">Godziny do wyboru</h5>
+      ) : null;
+    return (
+      <div className="margin-80">
+        <Title name="KALENDARZ" />
+        <div className="mt-4 mb-4">
+          <Calendar
+            onChange={this.onChange}
+            minDate={minDay}
+            maxDate={maxDay}
+            activeStartDate={this.state.date}
+            value={this.state.date}
+            locale="pl-PL"
+            tileDisabled={({ date, view }) => this.renderDisabled(date, view)}
+          />
+        </div>
+        <div className="text-center positionRelative">
+          {selectTime}
+          <div className="selectTime mb-4">
+            {/* <button
+              className={`btn mr-1 ${dayDayClass}`}
+              name="timeDay"
+              onClick={e => this.handleAddTime(e, "timeDay")}
+              disabled={this.state.date === null}
+            >
+              9-18
+            </button> */}
+            <FormButton
+              buttonName="9-18"
+              buttonOnClick={e => this.handleAddTime(e, "timeDay")}
+              buttonColor={dayDayClass}
+              buttonInline={true}
+              width="60"
+            />
+            {/* <button
+              className={`btn ml-1 ${dayNightClass}`}
+              name="timeNight"
+              onClick={e => this.handleAddTime(e, "timeNight")}
+              disabled={this.state.date === null}
+            >
+              19-03
+            </button> */}
+            <FormButton
+              buttonName="19-03"
+              buttonOnClick={e => this.handleAddTime(e, "timeNight")}
+              buttonColor={dayNightClass}
+              buttonInline={true}
+              width="60"
+            />
+          </div>
+        </div>
+        {toOrder}
       </div>
     );
   }
@@ -300,7 +334,11 @@ const mapStateToProps = state => {
     disabledDate: state.disabledDate,
     disabledDataValue: state.disabledDataValue,
     orderAccept: state.orderAccept,
-    orderValue: state.orderValue
+    orderValue: state.orderValue,
+    userEmail: state.userEmail,
+    userName: state.userName,
+    userId: state.userId,
+    userToken: state.userToken
   };
 };
 
