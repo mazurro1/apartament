@@ -333,8 +333,8 @@ export const authCheckPassword = (
     dispatch(spinner(true));
     const authData = {
       email: email,
-      password: password
-      // returnSecureToken: false
+      password: password,
+      returnSecureToken: true
     };
 
     const url =
@@ -343,15 +343,29 @@ export const authCheckPassword = (
     axios
       .post(url, authData)
       .then(response => {
-        console.log(response);
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("userId", response.data.localId);
+        dispatch(checkAuthTimeout(response.data.expiresIn));
+
+        dispatch(
+          create_user(
+            response.data.idToken,
+            response.data.localId,
+            response.data.email
+          )
+        );
         if (newPassword || newEmail) {
           if (newPassword) {
-            dispatch(change_password(userToken, newPassword));
+            dispatch(change_password(response.data.idToken, newPassword));
           } else {
-            dispatch(change_email(userToken, newEmail));
+            dispatch(change_email(response.data.idToken, newEmail));
           }
         } else {
-          dispatch(delete_account(userToken));
+          dispatch(delete_account(response.data.idToken));
         }
       })
       .catch(error => {

@@ -9,7 +9,7 @@ import FormElement from "../elements/formElement/formElement";
 import ChangeEmail from "./changeEmail";
 import ClosePage from "../elements/closePage/closePage";
 import ChangePassword from "./changePassword";
-import Input from "../elements/Input/Input";
+import DeleteAccount from "./deleteAccount";
 
 class Login extends Component {
   state = {
@@ -322,6 +322,16 @@ class Login extends Component {
     });
   };
 
+  handleDeleteAccountVisible = () => {
+    this.props.delete_account_confirm();
+    let newForm = { ...this.state.formDeleteAccount };
+    newForm.password.value = "";
+    newForm.password.validated = false;
+    this.setState({
+      validationDeleteAccount: false
+    });
+  };
+
   render() {
     const { formEmail, formPassword } = this.state;
     const changePage = this.props.signed ? <Redirect to="/" /> : null;
@@ -513,7 +523,8 @@ class Login extends Component {
           <div
             className={
               this.props.changeEmailVisible === false &&
-              this.props.changePasswordVisible === false
+              this.props.changePasswordVisible === false &&
+              this.props.deleteAccountConfirm === false
                 ? "loginAccount loginAccountDown "
                 : "loginAccount"
             }
@@ -546,74 +557,29 @@ class Login extends Component {
                 buttonOnClick={this.props.delete_account_confirm}
               />
             </div>
-
-            <div
-              className={
-                this.props.deleteAccountConfirm
-                  ? "loginAccount loginAccountDown mt-3"
-                  : "loginAccount mt-3"
-              }
-            >
-              <h5 className="text-center">Podaj hasło:</h5>
-              <div className="container">
-                <div className="row">
-                  <div className="offset-md-3 col-md-6 col-12 positionRelative">
-                    <Input
-                      // formName="Podaj hasło"
-                      // itemFalseName="Błędne hasło"
-                      // formValidation={this.state.validationDeleteAccount}
-                      // itemValidation={this.state.formDeleteAccount.password.validated}
-                      // itemOnChange={this.handleInputOnChange}
-                      // itemValue={this.state.formDeleteAccount.password.value}
-                      // itemName="password"
-                      // itemType="password"
-                      // itemPlaceholder=""
-                      // itemChecked={null}
-                      // disabled={false}
-
-                      type="password"
-                      checked={null}
-                      onChange={this.handleInputOnChange}
-                      name="password"
-                      value={this.state.formDeleteAccount.password.value}
-                      placeholder=""
-                      disabled={false}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="text-center mt-2">
-                <FormButton
-                  buttonName="Wróć"
-                  buttonColor="green"
-                  buttonInline={true}
-                  buttonOnClick={this.props.delete_account_confirm}
-                />
-                <FormButton
-                  buttonName="Usuń"
-                  buttonColor="red"
-                  buttonInline={true}
-                  buttonOnClick={
-                    // this.props.delete_account(this.props.userToken)
-                    this.handleOnClickSaveDeleteAccount
-                  }
-                />
-              </div>
-            </div>
           </div>
-          <ChangeEmail
-            inputs={formEmailsMap}
-            handleOnClickSave={this.handleOnClickSave}
-            changeEmailVisible={this.props.changeEmailVisible}
-            change_email_visible={this.handleEmailVisible}
-          />
-          <ChangePassword
-            inputs={formPasswordsMap}
-            handleOnClickSavePassword={this.handleOnClickSavePassword}
-            changePasswordVisible={this.props.changePasswordVisible}
-            change_password_visible={this.handlePasswordVisible}
-          />
         </div>
+        <ChangeEmail
+          inputs={formEmailsMap}
+          handleOnClickSave={this.handleOnClickSave}
+          changeEmailVisible={this.props.changeEmailVisible}
+          change_email_visible={this.handleEmailVisible}
+        />
+        <ChangePassword
+          inputs={formPasswordsMap}
+          handleOnClickSavePassword={this.handleOnClickSavePassword}
+          changePasswordVisible={this.props.changePasswordVisible}
+          change_password_visible={this.handlePasswordVisible}
+        />
+        <DeleteAccount
+          deleteAccountConfirm={this.props.deleteAccountConfirm}
+          validationDeleteAccount={this.state.validationDeleteAccount}
+          validated={this.state.formDeleteAccount.password.validated}
+          handleInputOnChange={this.handleInputOnChange}
+          value={this.state.formDeleteAccount.password.value}
+          delete_account_confirm={this.handleDeleteAccountVisible}
+          handleOnClickSaveDeleteAccount={this.handleOnClickSaveDeleteAccount}
+        />
       </div>
     );
   }

@@ -17,20 +17,19 @@ html {
   min-height: 100%;
   background-image: url(../img/bgimage.jpg);
 }
+@font-face {
+  font-family: "Nerwus";
+  src: url("../fonts/nerwus.eot");
+  src: url("../fonts/nerwus.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/nerwus.otf") format("opentype"),
+    url("../fonts/nerwus.svg") format("svg"),
+    url("../fonts/nerwus.ttf") format("truetype"),
+    url("../fonts/nerwus.woff") format("woff"),
+    url("../fonts/nerwus.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
-  @font-face {
-    font-family: "Nerwus";
-    src: url("../fonts/nerwus.eot");
-    src: url("../fonts/nerwus.eot?#iefix") format("embedded-opentype"),
-      url("../fonts/nerwus.otf") format("opentype"),
-      url("../fonts/nerwus.svg") format("svg"),
-      url("../fonts/nerwus.ttf") format("truetype"),
-      url("../fonts/nerwus.woff") format("woff"),
-      url("../fonts/nerwus.woff2") format("woff2");
-    font-weight: normal;
-    font-style: normal;
-    // max-width: 100vw;
-  }
   .App {
     position: relative;
     // background-color: #000;
