@@ -14,7 +14,7 @@ export default class Header extends Component {
               </h1>
             </div>
             <video
-              poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg"
+              // poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg"
               id="bgvid"
               playsInline
               autoPlay
