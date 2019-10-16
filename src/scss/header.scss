@@ -1,20 +1,18 @@
 header {
   width: 100%;
   overflow: hidden;
-  max-height: 55vh;
-  background-color: rgb(8, 8, 8);
+  max-height: 100vh;
+  background-color: rgb(253, 253, 253);
   .firstVideo {
-    transform: rotate(-30deg) translate(-10%, -50%);
+    position: relative;
+    height: 100vh;
+    background-color: black;
     video {
-      width: 85%;
+      position: absolute;
+      height: 100%;
       opacity: 0.5;
-    }
-  }
-  .secondVideo {
-    transform: rotate(-30deg) translate(1%, -22%);
-    video {
-      width: 100%;
-      opacity: 0.5;
+      left: 50%;
+      transform: translate(-50%, 0);
     }
   }
 }

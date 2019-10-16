@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../scss/header.scss";
-import img from "../../src/img/video1.mp4";
+import img from "../../src/img/video.mp4";
 
 export default class Header extends Component {
   render() {
@@ -8,18 +8,11 @@ export default class Header extends Component {
       <>
         <header>
           <div className="firstVideo">
-            <video
-              poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg"
-              id="bgvid"
-              playsInline
-              autoPlay
-              muted
-              loop
-            >
-              <source src={img} type="video/mp4" />
-            </video>
-          </div>
-          <div className="secondVideo">
+            <div className="positionSpinner">
+              <h1 className="text-danger font-weight-bold">
+                Gotowy na niezapomniane chwile?
+              </h1>
+            </div>
             <video
               poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg"
               id="bgvid"

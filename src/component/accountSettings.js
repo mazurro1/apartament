@@ -8,6 +8,7 @@ import FormButton from "../elements/formButton/FormButton";
 import FormElement from "../elements/formElement/formElement";
 import ChangeEmail from "./changeEmail";
 import ClosePage from "../elements/closePage/closePage";
+import ChangePassword from "./changePassword";
 
 class Login extends Component {
   state = {
@@ -19,10 +20,30 @@ class Login extends Component {
       newEmail: {
         value: "",
         validated: null
+      },
+      password: {
+        value: "",
+        validated: null
+      }
+    },
+    formPassword: {
+      password: {
+        value: "",
+        validated: true
+      },
+      newPassword: {
+        value: "",
+        validated: null
+      },
+      newPasswordAgain: {
+        value: "",
+        validated: null
       }
     },
 
-    validationEmail: false
+    validationEmail: false,
+
+    validationPassword: false
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -105,8 +126,19 @@ class Login extends Component {
       validationEmail: validation
     });
 
-    if (this.state.formEmail.newEmail.validated && validation) {
-      this.props.change_email(
+    if (
+      this.state.formEmail.newEmail.validated &&
+      validation &&
+      this.state.formEmail.password.validated
+    ) {
+      // this.props.change_email(
+      //   this.props.userToken,
+      //   this.state.formEmail.newEmail.value,
+      //   this.props.userEmail
+      // );
+      this.props.authCheckPassword(
+        this.props.userEmail,
+        this.state.formEmail.password.value,
         this.props.userToken,
         this.state.formEmail.newEmail.value,
         this.props.userEmail
@@ -115,10 +147,61 @@ class Login extends Component {
       let newForm = { ...this.state.formEmail };
       newForm.newEmail.value = "";
       newForm.newEmail.validated = false;
+      newForm.password.value = "";
+      newForm.password.validated = false;
       this.setState({
         validationEmail: false
       });
     }
+  };
+
+  handleOnClickSavePassword = e => {
+    e.preventDefault();
+    const validation = this.state.validationPassword ? true : true;
+    this.setState({
+      validationPassword: validation
+    });
+
+    if (
+      this.state.formPassword.password.validated &&
+      validation &&
+      this.state.formPassword.newPassword.validated &&
+      this.state.formPassword.password.validated
+    ) {
+      // this.props.change_email(
+      //   this.props.userToken,
+      //   this.state.formEmail.newEmail.value,
+      //   this.props.userEmail
+      // );
+      this.props.authCheckPassword(
+        this.props.userEmail,
+        this.state.formEmail.password.value,
+        this.props.userToken,
+        this.state.formEmail.newEmail.value,
+        this.props.userEmail
+      );
+      //?????????????????????????????????????????
+      let newForm = { ...this.state.formEmail };
+      newForm.newEmail.value = "";
+      newForm.newEmail.validated = false;
+      newForm.password.value = "";
+      newForm.password.validated = false;
+      this.setState({
+        validationPassword: false
+      });
+    }
+  };
+
+  handleEmailVisible = () => {
+    this.props.change_email_visible();
+    let newForm = { ...this.state.formEmail };
+    newForm.newEmail.value = "";
+    newForm.newEmail.validated = false;
+    newForm.password.value = "";
+    newForm.password.validated = false;
+    this.setState({
+      validationEmail: false
+    });
   };
 
   render() {
@@ -200,10 +283,86 @@ class Login extends Component {
         itemPlaceholder: "",
         itemChecked: false,
         disabled: false
+      },
+      {
+        id: 3,
+        formName: "Hasło:",
+        itemFalseName: "Niepoprawne hasło",
+        formValidation: this.state.validationEmail,
+        itemValidation: formEmail.password.validated,
+        itemOnChange: this.handleInputOnChangeEmail,
+        itemValue: formEmail.password.value,
+        itemName: "password",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false,
+        disabled: false
+      }
+    ];
+
+    const formChangePassword = [
+      {
+        id: 1,
+        formName: "Nowe hasło:",
+        itemFalseName: "Niepoprawne hasło",
+        formValidation: this.state.validationEmail,
+        itemValidation: formEmail.password.validated,
+        itemOnChange: this.handleInputOnChangeEmail,
+        itemValue: formEmail.password.value,
+        itemName: "password",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false,
+        disabled: false
+      },
+      {
+        id: 2,
+        formName: "Powtórz nowe hasło:",
+        itemFalseName: "Niepoprawne hasło",
+        formValidation: this.state.validationEmail,
+        itemValidation: formEmail.password.validated,
+        itemOnChange: this.handleInputOnChangeEmail,
+        itemValue: formEmail.password.value,
+        itemName: "password",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false,
+        disabled: false
+      },
+      {
+        id: 3,
+        formName: "Aktualne hasło:",
+        itemFalseName: "Niepoprawne hasło",
+        formValidation: this.state.validationEmail,
+        itemValidation: formEmail.password.validated,
+        itemOnChange: this.handleInputOnChangeEmail,
+        itemValue: formEmail.password.value,
+        itemName: "password",
+        itemType: "password",
+        itemPlaceholder: "",
+        itemChecked: false,
+        disabled: false
       }
     ];
 
     const formEmailsMap = formChangeEmail.map(item => (
+      <FormElement
+        key={item.id}
+        formName={item.formName}
+        itemFalseName={item.itemFalseName}
+        formValidation={item.formValidation}
+        itemValidation={item.itemValidation}
+        itemOnChange={item.itemOnChange}
+        itemValue={item.itemValue}
+        itemName={item.itemName}
+        itemType={item.itemType}
+        itemPlaceholder={item.itemPlaceholder}
+        itemChecked={item.itemChecked}
+        disabled={item.disabled}
+      />
+    ));
+
+    const formPasswordsMap = formChangePassword.map(item => (
       <FormElement
         key={item.id}
         formName={item.formName}
@@ -267,6 +426,13 @@ class Login extends Component {
                 buttonOnClick={this.props.delete_account_confirm}
               />
             </div>
+
+            <ChangePassword
+              inputs={formPasswordsMap}
+              handleOnClickSave={this.handleOnClickSavePassword}
+              // changeEmailVisible={this.props.changeEmailVisible}
+              // change_email_visible={this.handleEmailVisible}
+            />
             <div
               className={
                 this.props.deleteAccountConfirm
@@ -297,7 +463,7 @@ class Login extends Component {
             inputs={formEmailsMap}
             handleOnClickSave={this.handleOnClickSave}
             changeEmailVisible={this.props.changeEmailVisible}
-            change_email_visible={this.props.change_email_visible}
+            change_email_visible={this.handleEmailVisible}
           />
         </div>
       </div>
@@ -340,7 +506,11 @@ const mapDispatchToProps = dispatch => {
     change_email_bool: value => dispatch(actionTypes.change_email_bool(value)),
     error_reset_password: value =>
       dispatch(actionTypes.error_reset_password(value)),
-    change_email_busy: value => dispatch(actionTypes.change_email_busy(value))
+    change_email_busy: value => dispatch(actionTypes.change_email_busy(value)),
+    authCheckPassword: (email, password, userToken, newEmail) =>
+      dispatch(
+        actionTypes.authCheckPassword(email, password, userToken, newEmail)
+      )
   };
 };
 

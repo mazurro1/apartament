@@ -315,6 +315,31 @@ export const authChechState = () => {
   };
 };
 
+export const authCheckPassword = (email, password, userToken, newEmail) => {
+  return dispatch => {
+    dispatch(spinner(true));
+    const authData = {
+      email: email,
+      password: password
+      // returnSecureToken: false
+    };
+
+    const url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
+
+    axios
+      .post(url, authData)
+      .then(response => {
+        console.log(response);
+        dispatch(change_email(userToken, newEmail, email));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(spinner(false));
+      });
+  };
+};
+
 export const onAuth_Reset_Password = email => {
   return dispatch => {
     dispatch(spinner(true));

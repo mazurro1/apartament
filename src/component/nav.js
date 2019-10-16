@@ -65,7 +65,7 @@ class Nav extends Component {
           <FormButton
             buttonName="Logowanie"
             buttonOnClick={this.props.login_visible}
-            buttonColor="blue"
+            buttonColor="red"
             buttonInline={true}
             width="120"
           />
