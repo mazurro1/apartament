@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/apartament/static/css/main.1626ef00.chunk.css",
-    "main.js": "/apartament/static/js/main.4ac2fbd7.chunk.js",
-    "main.js.map": "/apartament/static/js/main.4ac2fbd7.chunk.js.map",
+    "main.css": "/apartament/static/css/main.8648fc87.chunk.css",
+    "main.js": "/apartament/static/js/main.c31ecd05.chunk.js",
+    "main.js.map": "/apartament/static/js/main.c31ecd05.chunk.js.map",
     "runtime~main.js": "/apartament/static/js/runtime~main.91a8968e.js",
     "runtime~main.js.map": "/apartament/static/js/runtime~main.91a8968e.js.map",
     "static/css/2.a48e46d7.chunk.css": "/apartament/static/css/2.a48e46d7.chunk.css",
-    "static/js/2.2bb36b6e.chunk.js": "/apartament/static/js/2.2bb36b6e.chunk.js",
-    "static/js/2.2bb36b6e.chunk.js.map": "/apartament/static/js/2.2bb36b6e.chunk.js.map",
+    "static/js/2.3e79b416.chunk.js": "/apartament/static/js/2.3e79b416.chunk.js",
+    "static/js/2.3e79b416.chunk.js.map": "/apartament/static/js/2.3e79b416.chunk.js.map",
     "index.html": "/apartament/index.html",
-    "precache-manifest.6fc52ad635189291463b73e7ebbea6de.js": "/apartament/precache-manifest.6fc52ad635189291463b73e7ebbea6de.js",
+    "precache-manifest.a81706dc5f1f1542904e30ff56d179bf.js": "/apartament/precache-manifest.a81706dc5f1f1542904e30ff56d179bf.js",
     "service-worker.js": "/apartament/service-worker.js",
     "static/css/2.a48e46d7.chunk.css.map": "/apartament/static/css/2.a48e46d7.chunk.css.map",
-    "static/css/main.1626ef00.chunk.css.map": "/apartament/static/css/main.1626ef00.chunk.css.map",
-    "static/media/1.jpg": "/apartament/static/media/1.73c55abc.jpg",
+    "static/css/main.8648fc87.chunk.css.map": "/apartament/static/css/main.8648fc87.chunk.css.map",
+    "static/media/1.JPG": "/apartament/static/media/1.73c55abc.JPG",
     "static/media/10.JPG": "/apartament/static/media/10.8580c889.JPG",
     "static/media/11.JPG": "/apartament/static/media/11.76f28d89.JPG",
     "static/media/2.JPG": "/apartament/static/media/2.aaca8e48.JPG",
@@ -25,6 +25,6 @@
     "static/media/8.JPG": "/apartament/static/media/8.5d3182a5.JPG",
     "static/media/9.JPG": "/apartament/static/media/9.7d9d78b1.JPG",
     "static/media/app.scss": "/apartament/static/media/nerwus.ad9626a4.woff2",
-    "static/media/video1.mp4": "/apartament/static/media/video1.e201c4ca.mp4"
+    "static/media/video.mp4": "/apartament/static/media/video.fbaab6bb.mp4"
   }
 }
