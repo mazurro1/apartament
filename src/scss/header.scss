@@ -3,6 +3,11 @@ header {
   overflow: hidden;
   max-height: 100vh;
   background-color: rgb(253, 253, 253);
+  transform: translate(0, -76px);
+  .uperThanVideo {
+    position: relative;
+    z-index: 20;
+  }
   .firstVideo {
     position: relative;
     height: 100vh;
