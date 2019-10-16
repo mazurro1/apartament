@@ -25,6 +25,7 @@ export const DELETE_ACCOUNT_CONFIRM = "DELETE_ACCOUNT_CONFIRM";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const CHANGE_EMAIL = "CHANGE_EMAIL";
 export const CHANGE_EMAIL_BUSY = "CHANGE_EMAIL_BUSY";
+export const CHANGE_PASSWORD_VISIBLE = "CHANGE_PASSWORD_VISIBLE";
 /////////////////////////////END AUTH///////////////////////////////////
 
 export const SAVE_ALL_DISPATCH_ARRAY = "SAVE_ALL_DISPATCH_ARRAY";
@@ -44,6 +45,12 @@ export const log_out = () => {
 export const delete_account_confirm = () => {
   return {
     type: DELETE_ACCOUNT_CONFIRM
+  };
+};
+
+export const change_password_visible = () => {
+  return {
+    type: CHANGE_PASSWORD_VISIBLE
   };
 };
 
@@ -315,7 +322,13 @@ export const authChechState = () => {
   };
 };
 
-export const authCheckPassword = (email, password, userToken, newEmail) => {
+export const authCheckPassword = (
+  email,
+  password,
+  userToken,
+  newEmail,
+  newPassword
+) => {
   return dispatch => {
     dispatch(spinner(true));
     const authData = {
@@ -331,7 +344,15 @@ export const authCheckPassword = (email, password, userToken, newEmail) => {
       .post(url, authData)
       .then(response => {
         console.log(response);
-        dispatch(change_email(userToken, newEmail, email));
+        if (newPassword || newEmail) {
+          if (newPassword) {
+            dispatch(change_password(userToken, newPassword));
+          } else {
+            dispatch(change_email(userToken, newEmail));
+          }
+        } else {
+          dispatch(delete_account(userToken));
+        }
       })
       .catch(error => {
         console.log(error);
@@ -400,7 +421,7 @@ export const delete_account = userToken => {
   };
 };
 
-export const change_email = (userId, newEmail, email) => {
+export const change_email = (userId, newEmail) => {
   return dispatch => {
     dispatch(spinner(true));
     // console.log(userId);
@@ -417,7 +438,6 @@ export const change_email = (userId, newEmail, email) => {
       .post(url, authData)
       .then(response => {
         // console.log(response);
-        dispatch(spinner(false));
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
           // new Date().getTime() + 300 * 1000
@@ -437,6 +457,7 @@ export const change_email = (userId, newEmail, email) => {
         dispatch(change_email_visible());
         dispatch(change_email_bool(true));
         dispatch(change_email_busy(false));
+        dispatch(spinner(false));
       })
       .catch(error => {
         console.log(error.message);
@@ -444,6 +465,56 @@ export const change_email = (userId, newEmail, email) => {
           dispatch(error_network(true));
         } else {
           dispatch(change_email_busy(true));
+        }
+        dispatch(spinner(false));
+      });
+  };
+};
+
+export const change_password = (userId, newPassword) => {
+  return dispatch => {
+    dispatch(spinner(true));
+    // console.log(userId);
+    // console.log(newEmail);
+    const authData = {
+      idToken: userId,
+      password: newPassword,
+      returnSecureToken: true
+    };
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDcjwHqCvXKM7R0UJN_GjfxrL6NNSjPjGc";
+
+    axios
+      .post(url, authData)
+      .then(response => {
+        // console.log(response);
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+          // new Date().getTime() + 300 * 1000
+        );
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("userId", response.data.localId);
+        dispatch(checkAuthTimeout(response.data.expiresIn));
+        // dispatch(checkAuthTimeout(300));
+        // dispatch(
+        //   create_user(
+        //     response.data.idToken,
+        //     response.data.localId,
+        //     response.data.email
+        //   )
+        // );
+        // dispatch(change_email_visible());
+        // dispatch(change_email_bool(true));
+        // dispatch(change_email_busy(false));
+        dispatch(spinner(false));
+      })
+      .catch(error => {
+        console.log(error.message);
+        if (error.request.status === 0) {
+          dispatch(error_network(true));
+        } else {
+          // dispatch(change_email_busy(true));
         }
         dispatch(spinner(false));
       });

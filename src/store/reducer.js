@@ -21,6 +21,7 @@ const initialState = {
   resetPasswordVisible: false,
   errorResetPassword: null,
   changeEmailVisible: false,
+  changePasswordVisible: false,
   registrationValidation: false,
   loginValidation: false,
   deleteAccountConfirm: false,
@@ -99,7 +100,8 @@ const log_out = (state, action) => {
     deleteAccountConfirm: false,
     deleteAccount: false,
     changeEmail: false,
-    changeEmailBusy: false
+    changeEmailBusy: false,
+    changePasswordVisible: false
   };
 };
 
@@ -108,6 +110,13 @@ const change_email = (state, action) => {
     ...state,
     changeEmail: action.value,
     errorNetwork: false
+  };
+};
+
+const change_password_visible = (state, action) => {
+  return {
+    ...state,
+    changePasswordVisible: !state.changePasswordVisible
   };
 };
 
@@ -326,6 +335,9 @@ const reducer = (state = initialState, action) => {
     //START AUTH//
     case actionTypes.RESET_PASSWORD_VISIBLE:
       return reset_password_visible(state, action);
+
+    case actionTypes.CHANGE_PASSWORD_VISIBLE:
+      return change_password_visible(state, action);
 
     case actionTypes.DELETE_ACCOUNT:
       return delete_account(state, action);

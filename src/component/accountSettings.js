@@ -9,6 +9,7 @@ import FormElement from "../elements/formElement/formElement";
 import ChangeEmail from "./changeEmail";
 import ClosePage from "../elements/closePage/closePage";
 import ChangePassword from "./changePassword";
+import Input from "../elements/Input/Input";
 
 class Login extends Component {
   state = {
@@ -29,7 +30,7 @@ class Login extends Component {
     formPassword: {
       password: {
         value: "",
-        validated: true
+        validated: null
       },
       newPassword: {
         value: "",
@@ -40,10 +41,15 @@ class Login extends Component {
         validated: null
       }
     },
-
+    formDeleteAccount: {
+      password: {
+        value: "",
+        validated: null
+      }
+    },
     validationEmail: false,
-
-    validationPassword: false
+    validationPassword: false,
+    validationDeleteAccount: false
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -54,11 +60,55 @@ class Login extends Component {
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let newState = {
+      ...prevState
+    };
+    if (
+      newState.formPassword.newPassword.value.length >= 6 &&
+      nextProps.changePasswordVisible
+    ) {
+      if (
+        newState.formPassword.newPassword.value !==
+        newState.formPassword.newPasswordAgain.value
+      ) {
+        newState.formPassword.newPasswordAgain.validated = false;
+      } else {
+        newState.formPassword.newPasswordAgain.validated = true;
+      }
+    }
+    if (
+      newState.formPassword.newPassword.value.length >= 6 &&
+      newState.formPassword.password.value.length >= 6 &&
+      nextProps.changePasswordVisible
+    ) {
+      if (
+        newState.formPassword.password.value ===
+        newState.formPassword.newPassword.value
+      ) {
+        newState.formPassword.newPassword.validated = false;
+        newState.formPassword.newPasswordAgain.validated = false;
+        newState.formPassword.password.validated = false;
+      } else {
+        newState.formPassword.newPassword.validated = true;
+        newState.formPassword.password.validated = true;
+      }
+    }
+    return newState;
+  }
+
   checkValidity(value, validated, name) {
     let isValid = false;
 
-    if (name === "password") {
+    if (name === "password" || name === "newPassword") {
       isValid = value.length >= 6 ? true : false;
+    }
+
+    if (name === "newPasswordAgain") {
+      isValid =
+        this.state.formPassword.newPassword.value === value && value.length >= 6
+          ? true
+          : false;
     }
 
     if (name === "newEmail") {
@@ -70,8 +120,9 @@ class Login extends Component {
   }
 
   handleInputOnChange = e => {
+    console.log(this.state.validationDeleteAccount);
     const newForm = {
-      ...this.state.form
+      ...this.state.formDeleteAccount
     };
     const updateFormElement = {
       ...newForm[e.target.name]
@@ -90,7 +141,8 @@ class Login extends Component {
     newForm[e.target.name] = updateFormElement;
 
     this.setState({
-      form: newForm
+      formDeleteAccount: newForm,
+      validationDeleteAccount: true
     });
   };
 
@@ -119,6 +171,56 @@ class Login extends Component {
     });
   };
 
+  handleInputOnChangePassword = e => {
+    const newForm = {
+      ...this.state.formPassword
+    };
+    const updateFormElement = {
+      ...newForm[e.target.name]
+    };
+    if (e.target.type === "checkbox") {
+      updateFormElement.value = e.target.checked;
+      updateFormElement.validated = e.target.checked;
+    } else {
+      updateFormElement.value = e.target.value;
+      updateFormElement.validated = this.checkValidity(
+        updateFormElement.value,
+        updateFormElement.validated,
+        e.target.name
+      );
+    }
+    newForm[e.target.name] = updateFormElement;
+
+    this.setState({
+      formPassword: newForm
+    });
+  };
+
+  handleOnClickSaveDeleteAccount = e => {
+    e.preventDefault();
+    const validation = this.state.validationDeleteAccount ? true : true;
+    this.setState({
+      validationDeleteAccount: validation
+    });
+
+    if (this.state.formDeleteAccount.password.validated && validation) {
+      this.props.authCheckPassword(
+        this.props.userEmail,
+        this.state.formDeleteAccount.password.value,
+        this.props.userToken,
+        null,
+        null
+      );
+      //?????????????????????????????????????????
+      let newForm = { ...this.state.formEmail };
+      newForm.password.value = "";
+      newForm.password.validated = false;
+      this.setState({
+        validationDeleteAccount: false
+      });
+    }
+  };
+
   handleOnClickSave = e => {
     e.preventDefault();
     const validation = this.state.validationEmail ? true : true;
@@ -141,7 +243,7 @@ class Login extends Component {
         this.state.formEmail.password.value,
         this.props.userToken,
         this.state.formEmail.newEmail.value,
-        this.props.userEmail
+        null
       );
       //?????????????????????????????????????????
       let newForm = { ...this.state.formEmail };
@@ -166,7 +268,7 @@ class Login extends Component {
       this.state.formPassword.password.validated &&
       validation &&
       this.state.formPassword.newPassword.validated &&
-      this.state.formPassword.password.validated
+      this.state.formPassword.newPasswordAgain.validated
     ) {
       // this.props.change_email(
       //   this.props.userToken,
@@ -175,17 +277,19 @@ class Login extends Component {
       // );
       this.props.authCheckPassword(
         this.props.userEmail,
-        this.state.formEmail.password.value,
+        this.state.formPassword.password.value,
         this.props.userToken,
-        this.state.formEmail.newEmail.value,
-        this.props.userEmail
+        null,
+        this.state.formPassword.newPassword.value
       );
       //?????????????????????????????????????????
-      let newForm = { ...this.state.formEmail };
-      newForm.newEmail.value = "";
-      newForm.newEmail.validated = false;
+      let newForm = { ...this.state.formPassword };
       newForm.password.value = "";
       newForm.password.validated = false;
+      newForm.newPassword.value = "";
+      newForm.newPassword.validated = false;
+      newForm.newPasswordAgain.value = "";
+      newForm.newPasswordAgain.validated = false;
       this.setState({
         validationPassword: false
       });
@@ -204,8 +308,22 @@ class Login extends Component {
     });
   };
 
+  handlePasswordVisible = () => {
+    this.props.change_password_visible();
+    let newForm = { ...this.state.formPassword };
+    newForm.password.value = "";
+    newForm.password.validated = false;
+    newForm.newPassword.value = "";
+    newForm.newPassword.validated = false;
+    newForm.newPasswordAgain.value = "";
+    newForm.newPasswordAgain.validated = false;
+    this.setState({
+      validationPassword: false
+    });
+  };
+
   render() {
-    const { formEmail } = this.state;
+    const { formEmail, formPassword } = this.state;
     const changePage = this.props.signed ? <Redirect to="/" /> : null;
     const modalChangeEmail = this.props.changeEmail ? (
       <Modal
@@ -303,12 +421,12 @@ class Login extends Component {
     const formChangePassword = [
       {
         id: 1,
-        formName: "Nowe hasło:",
+        formName: "Aktualne hasło:",
         itemFalseName: "Niepoprawne hasło",
-        formValidation: this.state.validationEmail,
-        itemValidation: formEmail.password.validated,
-        itemOnChange: this.handleInputOnChangeEmail,
-        itemValue: formEmail.password.value,
+        formValidation: this.state.validationPassword,
+        itemValidation: formPassword.password.validated,
+        itemOnChange: this.handleInputOnChangePassword,
+        itemValue: formPassword.password.value,
         itemName: "password",
         itemType: "password",
         itemPlaceholder: "",
@@ -317,13 +435,13 @@ class Login extends Component {
       },
       {
         id: 2,
-        formName: "Powtórz nowe hasło:",
+        formName: "Nowe hasło:",
         itemFalseName: "Niepoprawne hasło",
-        formValidation: this.state.validationEmail,
-        itemValidation: formEmail.password.validated,
-        itemOnChange: this.handleInputOnChangeEmail,
-        itemValue: formEmail.password.value,
-        itemName: "password",
+        formValidation: this.state.validationPassword,
+        itemValidation: formPassword.newPassword.validated,
+        itemOnChange: this.handleInputOnChangePassword,
+        itemValue: formPassword.newPassword.value,
+        itemName: "newPassword",
         itemType: "password",
         itemPlaceholder: "",
         itemChecked: false,
@@ -331,13 +449,13 @@ class Login extends Component {
       },
       {
         id: 3,
-        formName: "Aktualne hasło:",
+        formName: "Powtórz nowe hasło:",
         itemFalseName: "Niepoprawne hasło",
-        formValidation: this.state.validationEmail,
-        itemValidation: formEmail.password.validated,
-        itemOnChange: this.handleInputOnChangeEmail,
-        itemValue: formEmail.password.value,
-        itemName: "password",
+        formValidation: this.state.validationPassword,
+        itemValidation: formPassword.newPasswordAgain.validated,
+        itemOnChange: this.handleInputOnChangePassword,
+        itemValue: formPassword.newPasswordAgain.value,
+        itemName: "newPasswordAgain",
         itemType: "password",
         itemPlaceholder: "",
         itemChecked: false,
@@ -394,7 +512,8 @@ class Login extends Component {
           <ClosePage onClick={this.props.settings_account_visible} />
           <div
             className={
-              this.props.changeEmailVisible === false
+              this.props.changeEmailVisible === false &&
+              this.props.changePasswordVisible === false
                 ? "loginAccount loginAccountDown "
                 : "loginAccount"
             }
@@ -413,9 +532,10 @@ class Login extends Component {
                 buttonName="Zmień hasło"
                 buttonColor="gray"
                 buttonInline={true}
-                buttonOnClick={() =>
-                  this.props.onAuth_Reset_Password(this.props.userEmail)
-                }
+                // buttonOnClick={() =>
+                //   this.props.onAuth_Reset_Password(this.props.userEmail)
+                // }
+                buttonOnClick={() => this.props.change_password_visible(true)}
               />
             </div>
             <div className="text-center">
@@ -427,12 +547,6 @@ class Login extends Component {
               />
             </div>
 
-            <ChangePassword
-              inputs={formPasswordsMap}
-              handleOnClickSave={this.handleOnClickSavePassword}
-              // changeEmailVisible={this.props.changeEmailVisible}
-              // change_email_visible={this.handleEmailVisible}
-            />
             <div
               className={
                 this.props.deleteAccountConfirm
@@ -440,20 +554,48 @@ class Login extends Component {
                   : "loginAccount mt-3"
               }
             >
-              <h5 className="text-center">Jesteś tego pewien?</h5>
-              <div className="text-center">
+              <h5 className="text-center">Podaj hasło:</h5>
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-3 col-md-6 col-12 positionRelative">
+                    <Input
+                      // formName="Podaj hasło"
+                      // itemFalseName="Błędne hasło"
+                      // formValidation={this.state.validationDeleteAccount}
+                      // itemValidation={this.state.formDeleteAccount.password.validated}
+                      // itemOnChange={this.handleInputOnChange}
+                      // itemValue={this.state.formDeleteAccount.password.value}
+                      // itemName="password"
+                      // itemType="password"
+                      // itemPlaceholder=""
+                      // itemChecked={null}
+                      // disabled={false}
+
+                      type="password"
+                      checked={null}
+                      onChange={this.handleInputOnChange}
+                      name="password"
+                      value={this.state.formDeleteAccount.password.value}
+                      placeholder=""
+                      disabled={false}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="text-center mt-2">
                 <FormButton
-                  buttonName="Nie"
+                  buttonName="Wróć"
                   buttonColor="green"
                   buttonInline={true}
                   buttonOnClick={this.props.delete_account_confirm}
                 />
                 <FormButton
-                  buttonName="Tak"
+                  buttonName="Usuń"
                   buttonColor="red"
                   buttonInline={true}
-                  buttonOnClick={() =>
-                    this.props.delete_account(this.props.userToken)
+                  buttonOnClick={
+                    // this.props.delete_account(this.props.userToken)
+                    this.handleOnClickSaveDeleteAccount
                   }
                 />
               </div>
@@ -464,6 +606,12 @@ class Login extends Component {
             handleOnClickSave={this.handleOnClickSave}
             changeEmailVisible={this.props.changeEmailVisible}
             change_email_visible={this.handleEmailVisible}
+          />
+          <ChangePassword
+            inputs={formPasswordsMap}
+            handleOnClickSavePassword={this.handleOnClickSavePassword}
+            changePasswordVisible={this.props.changePasswordVisible}
+            change_password_visible={this.handlePasswordVisible}
           />
         </div>
       </div>
@@ -483,7 +631,8 @@ const mapStateToProps = state => {
     deleteAccountConfirm: state.deleteAccountConfirm,
     changeEmail: state.changeEmail,
     errorResetPassword: state.errorResetPassword,
-    changeEmailBusy: state.changeEmailBusy
+    changeEmailBusy: state.changeEmailBusy,
+    changePasswordVisible: state.changePasswordVisible
   };
 };
 
@@ -507,10 +656,18 @@ const mapDispatchToProps = dispatch => {
     error_reset_password: value =>
       dispatch(actionTypes.error_reset_password(value)),
     change_email_busy: value => dispatch(actionTypes.change_email_busy(value)),
-    authCheckPassword: (email, password, userToken, newEmail) =>
+    authCheckPassword: (email, password, userToken, newEmail, newPassword) =>
       dispatch(
-        actionTypes.authCheckPassword(email, password, userToken, newEmail)
-      )
+        actionTypes.authCheckPassword(
+          email,
+          password,
+          userToken,
+          newEmail,
+          newPassword
+        )
+      ),
+    change_password_visible: () =>
+      dispatch(actionTypes.change_password_visible())
   };
 };
 

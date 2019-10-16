@@ -71,6 +71,12 @@ body {
     transform: translate(0, -50%);
   }
 
+  .positionLinear {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -0);
+  }
+
   .positionRelative {
     position: relative;
   }

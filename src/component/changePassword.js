@@ -4,17 +4,17 @@ import Title from "../elements/Title/Title";
 
 const changePassword = ({
   inputs,
-  handleOnClickSave,
-  changeEmailVisible,
-  change_email_visible
+  handleOnClickSavePassword,
+  changePasswordVisible,
+  change_password_visible
 }) => {
   return (
     <div
-    // className={
-    //   changeEmailVisible === true
-    //     ? "loginAccount loginAccountDown "
-    //     : "loginAccount"
-    // }
+      className={
+        changePasswordVisible === true
+          ? "loginAccount loginAccountDown "
+          : "loginAccount"
+      }
     >
       <Title name="ZMIEŃ HASŁO" />
       {inputs}
@@ -23,13 +23,13 @@ const changePassword = ({
           buttonName="Powrót"
           buttonColor="red"
           buttonInline={true}
-          buttonOnClick={change_email_visible}
+          buttonOnClick={change_password_visible}
         />
         <FormButton
           buttonName="Zatwierdź"
           buttonColor="gray"
           buttonInline={true}
-          buttonOnClick={handleOnClickSave}
+          buttonOnClick={handleOnClickSavePassword}
         />
       </div>
     </div>
