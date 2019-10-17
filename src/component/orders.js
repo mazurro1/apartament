@@ -101,29 +101,31 @@ class Login extends Component {
       >
         <div className="container positionRelative">
           <ClosePage onClick={this.props.order_visible} />
-          <Title name="ZAMÓWIENIA" />
+          <div className="pt-1">
+            <Title name="ZAMÓWIENIA" />
 
-          <div className="table-responsive">
-            <table className="table table-hover table-dark">
-              <thead>
-                <tr className="text-center">
-                  <th scope="col">#</th>
-                  <th scope="col">Data</th>
-                  <th scope="col">Godzina rozpoczęcia</th>
-                  <th scope="col">Godzina zakończenia</th>
-                  <th scope="col">Cena (bez kaucji)</th>
-                </tr>
-              </thead>
-              <tbody>{mapOrders}</tbody>
-            </table>
-          </div>
-          <div className="text-center margin-90">
-            <FormButton
-              buttonName="Zamknij"
-              buttonOnClick={this.props.order_visible}
-              buttonColor="red"
-              buttonInline={true}
-            />
+            <div className="table-responsive">
+              <table className="table table-hover table-dark table-width">
+                <thead>
+                  <tr className="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Godzina rozpoczęcia</th>
+                    <th scope="col">Godzina zakończenia</th>
+                    <th scope="col">Cena (bez kaucji)</th>
+                  </tr>
+                </thead>
+                <tbody>{mapOrders}</tbody>
+              </table>
+            </div>
+            <div className="text-center margin-90">
+              <FormButton
+                buttonName="Zamknij"
+                buttonOnClick={this.props.order_visible}
+                buttonColor="red"
+                buttonInline={true}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -52,13 +52,13 @@ class Login extends Component {
     validationDeleteAccount: false
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps !== this.props || nextState !== this.state) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps !== this.props || nextState !== this.state) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     let newState = {
@@ -120,7 +120,6 @@ class Login extends Component {
   }
 
   handleInputOnChange = e => {
-    console.log(this.state.validationDeleteAccount);
     const newForm = {
       ...this.state.formDeleteAccount
     };
@@ -351,19 +350,19 @@ class Login extends Component {
       />
     );
 
-    const modalChangePassword = this.props.errorResetPassword ? (
+    const modalChangePassword = this.props.changePassword ? (
       <Modal
         modalError={false}
-        name={`Wiadomość z linkiem do zmiany hasła został wysłany na adres ${this.props.userEmail}`}
+        name="Haslo zostało zmienione"
         modalOn={true}
-        onClickButton={() => this.props.error_reset_password(false)}
+        onClickButton={() => this.props.change_password_bool(false)}
       />
     ) : (
       <Modal
         modalError={false}
-        name={`Wiadomość z linkiem do zmiany hasła został wysłany na adres ${this.props.userEmail}`}
+        name="Haslo zostało zmienione"
         modalOn={false}
-        onClickButton={() => this.props.error_reset_password(false)}
+        onClickButton={() => this.props.change_password_bool(false)}
       />
     );
 
@@ -380,6 +379,22 @@ class Login extends Component {
         name={`Podany adres e-mail jest juz zajęty`}
         modalOn={false}
         onClickButton={() => this.props.change_email_busy(false)}
+      />
+    );
+
+    const modalBadPassword = this.props.badPassword ? (
+      <Modal
+        modalError={true}
+        name={`Błędne hasło`}
+        modalOn={true}
+        onClickButton={() => this.props.bad_password(false)}
+      />
+    ) : (
+      <Modal
+        modalError={true}
+        name={`Błędne hasło`}
+        modalOn={false}
+        onClickButton={() => this.props.bad_password(false)}
       />
     );
 
@@ -517,6 +532,7 @@ class Login extends Component {
         {modalChangeEmail}
         {modalChangePassword}
         {modalChangeEmailBusy}
+        {modalBadPassword}
 
         <div className="container positionRelative">
           <ClosePage onClick={this.props.settings_account_visible} />
@@ -596,9 +612,11 @@ const mapStateToProps = state => {
     changeEmailVisible: state.changeEmailVisible,
     deleteAccountConfirm: state.deleteAccountConfirm,
     changeEmail: state.changeEmail,
-    errorResetPassword: state.errorResetPassword,
+    // errorResetPassword: state.errorResetPassword,
     changeEmailBusy: state.changeEmailBusy,
-    changePasswordVisible: state.changePasswordVisible
+    changePasswordVisible: state.changePasswordVisible,
+    changePassword: state.changePassword,
+    badPassword: state.badPassword
   };
 };
 
@@ -633,7 +651,10 @@ const mapDispatchToProps = dispatch => {
         )
       ),
     change_password_visible: () =>
-      dispatch(actionTypes.change_password_visible())
+      dispatch(actionTypes.change_password_visible()),
+    change_password_bool: value =>
+      dispatch(actionTypes.change_password_bool(value)),
+    bad_password: value => dispatch(actionTypes.bad_password(value))
   };
 };
 

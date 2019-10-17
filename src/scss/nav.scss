@@ -2,17 +2,110 @@ nav {
   position: sticky;
   top: 0px;
   left: 0px;
-  background-color: rgba(#0d0d0d, 0.95);
   // color: white;
-  padding: 10px 10px;
+  // padding: 10px 10px;
   z-index: 300;
   height: 76px;
   width: 100%;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 
   .logo {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
     color: white;
+  }
+}
+
+.paddingNav {
+  position: relative;
+  z-index: 10;
+  padding: 10px 10px;
+  width: 100%;
+}
+
+.buttonLoginClass {
+  position: relative;
+  transform: translate(0, -48px);
+}
+
+.navBacgdround {
+  position: absolute;
+  // background-color: red;
+  background-color: rgba(#0d0d0d, 0.95);
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  width: 100%;
+  height: 76px;
+}
+
+.navBacgdroundDown {
+  transform: translate(0, 0);
+}
+
+.navBacgdroundUp {
+  transform: translate(0, -76px);
+}
+
+.navDown {
+  transform: translate(0, 0);
+}
+
+.navdUp {
+  transform: translate(0, -55px);
+}
+
+.menuNav {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 0;
+  background-color: rgba(#0d0d0d, 0.95);
+  // background-color: rgba(#979797, 0.95);
+  padding: 10px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  width: 70%;
+  height: 115px;
+  padding-top: 80px;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  ul {
+    // list-style: none;
+    text-align: center;
+    li {
+      display: inline;
+      // padding: 20px;
+    }
+  }
+  @media all and (max-width: 991px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+.menuNavDown {
+  transform: translate(-50%, -12px);
+}
+.menuNavUp {
+  transform: translate(-50%, -52px);
+}
+
+.elementNav {
+  // padding: 28px;
+  padding: 12px;
+  // padding-right: 20px;
+  // padding-left: 10px;
+  // margin: 0 auto;
+  color: white;
+  font-weight: 700;
+  &:hover {
+    text-decoration: none;
+    color: #c82333;
   }
 }

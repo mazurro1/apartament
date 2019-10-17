@@ -12,7 +12,7 @@ class Section extends Component {
   render() {
     return (
       <section>
-        <div className="jumbotron-fluid sectionBg">
+        <div className="jumbotron-fluid">
           <div className="container">
             <AboutUs />
 

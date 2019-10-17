@@ -21,7 +21,7 @@ const formButton = ({
       : buttonColor === "yellow"
       ? "bg-normalYellow"
       : "bg-normalGray";
-  const buttonInlineClass = buttonInline ? "d-inline-flex" : "";
+  const buttonInlineClass = buttonInline ? "d-inline-flex" : "d-flex";
   return (
     <button
       className={`btn buttonEffect p-1 ${buttonColorClass} ${buttonInlineClass}`}

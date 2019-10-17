@@ -31,8 +31,8 @@ class Summary extends Component {
     const weekBazePrice = 1000;
     const rentCost = 1000;
     const classSummary = !this.props.orderAccept
-      ? "summary"
-      : "summary summaryDown";
+      ? "summary scrollbar scrollbar-primary"
+      : "summary summaryDown scrollbar scrollbar-primary";
     if (this.props.orderValue.filterArray) {
       if (!this.props.orderValue.filterArray[0][1].timeDay) {
         timeStartReservation = "10:00";
@@ -81,94 +81,96 @@ class Summary extends Component {
     }
     return (
       <div className={classSummary}>
-        <div className="container positionRelative mt-4">
+        <div className="container positionRelative margin-20 p-0">
           <ClosePage onClick={() => this.props.order_accept(false)} />
-          <Title name="PODSUMOWANIE" />
+          <div className="pt-1">
+            <Title name="PODSUMOWANIE" />
+          </div>
+          <div className="container-fluid">
+            <div className="row summaryTableFirst">
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-2 col-md-5 col-8">
+                    Dzień rezerwacji:
+                  </div>
+                  <div className="col-md-5 col-4 text-center font-weight-bold text-success">
+                    {this.props.orderValue.date}
+                  </div>
+                </div>{" "}
+              </div>
+            </div>
+            <div className="row summaryTable">
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-2 col-md-5 col-8">
+                    Czas rozpoczęcia rezerwacji:
+                  </div>
+                  <div className="col-md-5 col-4 text-center font-weight-bold text-success">
+                    {timeStartReservation}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row summaryTable">
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-2 col-md-5 col-8">
+                    Czas zakończenia rezerwacji:
+                  </div>
+                  <div className="col-md-5 col-4 text-center font-weight-bold text-success">
+                    {timeEndReservation}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row summaryTable">
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-2 col-md-5 col-8">Cena:</div>
+                  <div className="col-md-5 col-4 text-center font-weight-bold text-success">
+                    {price} zł
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row summaryTable">
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-2 col-md-5 col-8 ">
+                    Kaucja(zwrotna przy oddaniu lokalu):
+                  </div>
+                  <div className="col-md-5 col-4 text-center font-weight-bold text-success">
+                    1000 zł
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row summaryTable">
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-2 col-md-5 col-8 ">Suma:</div>
+                  <div className="col-md-5 col-4 text-center font-weight-bold text-success">
+                    {summary} zł
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-center margin-top-40">
+              <FormButton
+                buttonName="Cofnij"
+                buttonOnClick={() => this.props.order_accept(false)}
+                buttonColor="red"
+                buttonInline={true}
+              />
+              <FormButton
+                buttonName="Zapłać"
+                buttonOnClick={() => this.handleOrder(price)}
+                buttonColor="green"
+                buttonInline={true}
+              />
+            </div>
+          </div>
         </div>
-        <div className="container-fluid">
-          <div className="row summaryTableFirst">
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-2 col-md-5 col-8">
-                  Dzień rezerwacji:
-                </div>
-                <div className="col-md-5 col-4 text-center font-weight-bold text-success">
-                  {this.props.orderValue.date}
-                </div>
-              </div>{" "}
-            </div>
-          </div>
-          <div className="row summaryTable">
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-2 col-md-5 col-8">
-                  Czas rozpoczęcia rezerwacji:
-                </div>
-                <div className="col-md-5 col-4 text-center font-weight-bold text-success">
-                  {timeStartReservation}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row summaryTable">
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-2 col-md-5 col-8">
-                  Czas zakończenia rezerwacji:
-                </div>
-                <div className="col-md-5 col-4 text-center font-weight-bold text-success">
-                  {timeEndReservation}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row summaryTable">
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-2 col-md-5 col-8">Cena:</div>
-                <div className="col-md-5 col-4 text-center font-weight-bold text-success">
-                  {price} zł
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row summaryTable">
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-2 col-md-5 col-8 ">
-                  Kaucja(zwrotna przy oddaniu lokalu):
-                </div>
-                <div className="col-md-5 col-4 text-center font-weight-bold text-success">
-                  1000 zł
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row summaryTable">
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-2 col-md-5 col-8 ">Suma:</div>
-                <div className="col-md-5 col-4 text-center font-weight-bold text-success">
-                  {summary} zł
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="text-center margin-top-40">
-            <FormButton
-              buttonName="Cofnij"
-              buttonOnClick={() => this.props.order_accept(false)}
-              buttonColor="red"
-              buttonInline={true}
-            />
-            <FormButton
-              buttonName="Zapłać"
-              buttonOnClick={() => this.handleOrder(price)}
-              buttonColor="green"
-              buttonInline={true}
-            />
-          </div>
-        </div>{" "}
       </div>
     );
   }

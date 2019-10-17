@@ -10,6 +10,7 @@
     "adjust-sourcemap-loader": "^1.2.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "bounding-client-rect": "^1.0.5",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "^2.0.0",

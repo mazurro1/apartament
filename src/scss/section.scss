@@ -12,11 +12,11 @@ body::-webkit-scrollbar-thumb {
   // outline: 1px solid black;
   border-radius: 5px;
 }
-html {
-  position: relative;
-  min-height: 100%;
-  background-image: url(../img/bgimage.jpg);
-}
+// html {
+//   position: relative;
+//   min-height: 100%;
+//   background-image: url(../img/bgimage.jpg);
+// }
 @font-face {
   font-family: "Nerwus";
   src: url("../fonts/nerwus.eot");
@@ -31,10 +31,15 @@ html {
 }
 body {
   .App {
-    position: relative;
+    // position: relative;
     // background-color: #000;
     // background-size: 100%;
     // background-attachment: scroll;
+    margin-bottom: 50px;
+  }
+
+  .marginAuto {
+    margin: 0 auto;
   }
 
   h1 {
@@ -97,16 +102,22 @@ body {
 
   .user {
     position: absolute;
+    z-index: 600;
     top: 50%;
-    right: 60px;
-    transform: translate(0, -50%);
+    right: 0;
+    transform: translate(-60px, -50%);
     color: white;
     font-weight: 500;
   }
 
   .dropDownMenu {
-    position: absolute;
+    // position: absolute;
+    position: relative;
+    width: 35px;
+    margin-left: auto;
+    z-index: 600;
     right: 10px;
+    // transform: translate(1000px, 0);
     top: 50%;
     border-radius: 2px;
     background-color: #dc3545;
@@ -157,7 +168,7 @@ body {
 
   .modalError {
     position: absolute;
-    z-index: 500;
+    z-index: 900;
     top: 0;
     width: 100%;
     // padding: 1px 0;
@@ -173,9 +184,18 @@ body {
     }
   }
 
+  .modalMenu {
+    position: fixed;
+    top: 76px;
+    width: 100%;
+    z-index: 100;
+    height: 10px;
+    // transform: translate(0, 76px);
+  }
+
   .modalSuccess {
     position: absolute;
-    z-index: 500;
+    z-index: 900;
     top: 0;
     width: 100%;
     // padding: 5px 0;
@@ -395,14 +415,15 @@ body {
     position: absolute;
     z-index: 200;
     right: 0;
-    top: -50px;
+    transform: translate(0, -20px);
     padding: 25px 35px;
     padding-left: 45px;
     cursor: pointer;
     .positionArrow {
       position: relative;
-      top: -19px;
-      left: -6px;
+      transform: translate(-6px, -19px);
+      // top: -19px;
+      // left: -6px;
     }
     .allLines {
       position: absolute;
@@ -564,6 +585,10 @@ body {
     }
   }
 
+  .table-width {
+    min-width: 450px;
+  }
+
   .font-20 {
     font-size: 1.25rem;
   }
@@ -572,6 +597,10 @@ body {
   }
   .font-10 {
     font-size: 0.625rem;
+  }
+
+  .margin-20 {
+    margin-bottom: 20px;
   }
 
   .margin-60 {
@@ -784,7 +813,7 @@ body {
   //   opacity: 0.1;
   // }
   .buttonEffect {
-    display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     max-width: 100%;
@@ -835,7 +864,7 @@ body {
   }
 
   .buttonEffectNav {
-    display: flex;
+    // display: flex;
     align-items: center;
     justify-content: center;
     width: 175px;
@@ -947,13 +976,9 @@ body {
   }
   .swiper-slide-shadow-right {
     display: none;
-    left: 27.8% !important;
-    width: 50% !important;
   }
   .swiper-slide-shadow-left {
     display: none;
-    left: 22.2% !important;
-    width: 50% !important;
   }
   .overflowHidden {
     overflow: hidden;
@@ -1114,7 +1139,8 @@ body {
   }
   .googleMaps {
     position: relative;
-    bottom: 25px;
+    // bottom: 25px;
+    transform: translate(25px, 0);
     height: 505px;
     overflow: hidden;
     iframe {
@@ -1281,7 +1307,8 @@ body {
     @media all and (max-width: 575px) {
       & {
         position: absolute;
-        bottom: 5px;
+        bottom: 0;
+        transform: translate(5px, 0);
         // left: 50%;
         // transform: translate(-50%, 0);
       }
@@ -1291,7 +1318,8 @@ body {
     @media all and (max-width: 575px) {
       & {
         position: absolute;
-        bottom: 5px;
+        bottom: 0;
+        transform: translate(5px, 0);
         // width: 100%;
       }
     }

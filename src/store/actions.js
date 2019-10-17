@@ -26,11 +26,14 @@ export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const CHANGE_EMAIL = "CHANGE_EMAIL";
 export const CHANGE_EMAIL_BUSY = "CHANGE_EMAIL_BUSY";
 export const CHANGE_PASSWORD_VISIBLE = "CHANGE_PASSWORD_VISIBLE";
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const BAD_PASSWORD = "BAD_PASSWORD";
 /////////////////////////////END AUTH///////////////////////////////////
 
 export const SAVE_ALL_DISPATCH_ARRAY = "SAVE_ALL_DISPATCH_ARRAY";
 export const ORDER_ACCEPT = "ORDER_ACCEPT";
 export const ORDER_VALUE = "ORDER_VALUE";
+export const BUY_BOOL = "BUY_BOOL";
 
 /////////////////////////////AUTH///////////////////////////////////
 export const log_out = () => {
@@ -45,6 +48,20 @@ export const log_out = () => {
 export const delete_account_confirm = () => {
   return {
     type: DELETE_ACCOUNT_CONFIRM
+  };
+};
+
+export const bad_password = value => {
+  return {
+    type: BAD_PASSWORD,
+    value: value
+  };
+};
+
+export const change_password_bool = value => {
+  return {
+    type: CHANGE_PASSWORD,
+    value: value
   };
 };
 
@@ -369,7 +386,7 @@ export const authCheckPassword = (
         }
       })
       .catch(error => {
-        console.log(error);
+        dispatch(bad_password(true));
         dispatch(spinner(false));
       });
   };
@@ -510,6 +527,8 @@ export const change_password = (userId, newPassword) => {
         localStorage.setItem("expirationDate", expirationDate);
         localStorage.setItem("userId", response.data.localId);
         dispatch(checkAuthTimeout(response.data.expiresIn));
+        dispatch(change_password_bool(true));
+        dispatch(change_password_visible());
         // dispatch(checkAuthTimeout(300));
         // dispatch(
         //   create_user(
@@ -525,6 +544,7 @@ export const change_password = (userId, newPassword) => {
       })
       .catch(error => {
         console.log(error.message);
+        dispatch(change_password_bool(false));
         if (error.request.status === 0) {
           dispatch(error_network(true));
         } else {
@@ -560,6 +580,12 @@ export const order_accept = value => {
   };
 };
 
+export const buy_bool = () => {
+  return {
+    type: BUY_BOOL
+  };
+};
+
 export const save_all_dispatch_array = response => {
   return {
     type: SAVE_ALL_DISPATCH_ARRAY,
@@ -578,9 +604,9 @@ export const get_disabled_date = () => {
       .then(response => {
         // console.log(response);
         // dispatch(error_reset_password(true));
-        dispatch(spinner(false));
         // console.log(response.data);
         dispatch(save_all_dispatch_array(response.data));
+        dispatch(spinner(false));
       })
       .catch(error => {
         // console.log(error);
@@ -609,9 +635,9 @@ export const get_order = (userId, userToken) => {
       .then(response => {
         console.log(response);
         // dispatch(error_reset_password(true));
-        dispatch(spinner(false));
         // console.log(response.data);
         dispatch(save_all_dispatch_array(response.data));
+        dispatch(spinner(false));
       })
       .catch(error => {
         console.log(error);
@@ -670,7 +696,6 @@ export const add_new_disabled_data = (
           // } else {
           // dispatch(error_reset_password(false));
           // }
-
           dispatch(spinner(false));
         });
     } else {
@@ -774,10 +799,11 @@ export const add_new_order = (
     axios
       .post(url, authData)
       .then(response => {
+        dispatch(order_accept(false));
         // console.log(response);
 
+        dispatch(buy_bool());
         dispatch(spinner(false));
-        dispatch(order_accept(false));
       })
       .catch(error => {
         // console.log(error);

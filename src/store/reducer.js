@@ -28,6 +28,9 @@ const initialState = {
   deleteAccount: false,
   changeEmail: false,
   changeEmailBusy: false,
+  changePassword: null,
+  badPassword: null,
+  buy: false,
   //END AUTH//
   disabledDate: null,
   disabledDataValue: null,
@@ -55,7 +58,8 @@ const order_accept = (state, action) => {
   return {
     ...state,
     orderAccept: action.value,
-    orderVisible: action.orderVisible
+    orderVisible: action.orderVisible,
+    buy: false
   };
 };
 
@@ -70,6 +74,13 @@ const order_value = (state, action) => {
       objectName: action.objectName,
       orderAccept: true
     }
+  };
+};
+
+const buy_bool = (state, action) => {
+  return {
+    ...state,
+    buy: !state.buy
   };
 };
 
@@ -101,7 +112,10 @@ const log_out = (state, action) => {
     deleteAccount: false,
     changeEmail: false,
     changeEmailBusy: false,
-    changePasswordVisible: false
+    changePasswordVisible: false,
+    changePassword: null,
+    badPassword: null,
+    buy: false
   };
 };
 
@@ -113,10 +127,27 @@ const change_email = (state, action) => {
   };
 };
 
+const bad_password = (state, action) => {
+  return {
+    ...state,
+    badPassword: action.value,
+    changePassword: null
+  };
+};
+
+const change_password = (state, action) => {
+  return {
+    ...state,
+    changePassword: action.value,
+    badPassword: null
+  };
+};
+
 const change_password_visible = (state, action) => {
   return {
     ...state,
-    changePasswordVisible: !state.changePasswordVisible
+    changePasswordVisible: !state.changePasswordVisible,
+    changeEmailVisible: false
   };
 };
 
@@ -222,7 +253,9 @@ const order_visible = (state, action) => {
     changeEmailVisible: false,
     changeEmail: false,
     errorResetPassword: null,
-    changeEmailBusy: false
+    changeEmailBusy: false,
+    changePassword: null,
+    buy: false
   };
 };
 
@@ -235,7 +268,9 @@ const settings_account_visible = (state, action) => {
     deleteAccountConfirm: false,
     changeEmail: false,
     errorResetPassword: null,
-    changeEmailBusy: false
+    changeEmailBusy: false,
+    changePassword: null,
+    buy: false
   };
 };
 
@@ -305,9 +340,11 @@ const error_network = (state, action) => {
     errorAccount: false,
     errorLogin: false,
     errorResetPassword: null,
-    changeEmail: false,
+    changeEmail: null,
     changeEmailBusy: false,
-    newAccount: false
+    newAccount: false,
+    changePassword: null,
+    buy: false
   };
 };
 
@@ -335,6 +372,9 @@ const reducer = (state = initialState, action) => {
     //START AUTH//
     case actionTypes.RESET_PASSWORD_VISIBLE:
       return reset_password_visible(state, action);
+
+    case actionTypes.BAD_PASSWORD:
+      return bad_password(state, action);
 
     case actionTypes.CHANGE_PASSWORD_VISIBLE:
       return change_password_visible(state, action);
@@ -404,6 +444,10 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.CHANGE_EMAIL_VISIBLE:
       return change_email_visible(state, action);
+
+    case actionTypes.CHANGE_PASSWORD:
+      return change_password(state, action);
+
     //END AUTH//
     case actionTypes.SAVE_ALL_DISPATCH_ARRAY:
       return save_all_dispatch_array(state, action);
@@ -413,6 +457,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ORDER_VALUE:
       return order_value(state, action);
+
+    case actionTypes.BUY_BOOL:
+      return buy_bool(state, action);
 
     default:
       return state;

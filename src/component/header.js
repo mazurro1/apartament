@@ -9,7 +9,7 @@ export default class Header extends Component {
         <header>
           <div className="firstVideo">
             <div className="positionSpinner uperThanVideo">
-              <h1 className="text-danger">Gotowy na niezapomniane chwile?</h1>
+              <h1 className="">Gotowy na niezapomniane chwile?</h1>
             </div>
             <video
               // poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg"

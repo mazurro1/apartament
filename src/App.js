@@ -55,28 +55,29 @@ class App extends React.Component {
       />
     );
 
-    const modalNewAccount = this.props.newAccount ? (
+    const modalBuy = this.props.buy ? (
       <Modal
-        name="Nowe konto zostało utworzone"
-        modalError={false}
+        name="Rezerwacja wykonana pomyślnie! Sprawdź szczegóły w zamówieniach."
         modalOn={true}
-        onClickButton={() => this.props.is_newAccount(false)}
+        onClickButton={() => this.props.buy_bool()}
+        modalError={false}
       />
     ) : (
       <Modal
-        name="Nowe konto zostało utworzone"
-        modalError={false}
+        name="Rezerwacja wykonana pomyślnie! Sprawdź szczegóły w zamówieniach."
         modalOn={false}
-        onClickButton={() => this.props.is_newAccount(false)}
+        onClickButton={() => this.props.buy_bool()}
+        modalError={false}
       />
     );
+
     return (
       <div className="App ">
         {spinner}
         <BrowserRouter>
           <Nav />
           {/* JEZELI UZYTKOWNIK JEST ZALOGOWANY!! */}
-          <div className="overflowHidden">
+          <div className="">
             <Route
               path="/"
               exact
@@ -85,9 +86,13 @@ class App extends React.Component {
             />
           </div>
           <div className="positionRelative ">
-            {modalNetwork}
-            {modalDeleteAccount}
-            {modalNewAccount}
+            <div className="modalMenu">
+              <div className="positionRelative">
+                {modalNetwork}
+                {modalDeleteAccount}
+                {modalBuy}
+              </div>
+            </div>
             <Route
               path="/"
               component={Login}
@@ -136,7 +141,8 @@ const mapStateToProps = state => {
     spinner: state.spinner,
     errorNetwork: state.errorNetwork,
     deleteAccount: state.deleteAccount,
-    newAccount: state.newAccount
+    buy: state.buy
+    // newAccount: state.newAccount
   };
 };
 
@@ -146,7 +152,8 @@ const mapDispatchToProps = dispatch => {
     error_network: value => dispatch(actionTypes.error_network(value)),
     delete_account_bool: value =>
       dispatch(actionTypes.delete_account_bool(value)),
-    is_newAccount: value => dispatch(actionTypes.is_newAccount(value))
+    is_newAccount: value => dispatch(actionTypes.is_newAccount(value)),
+    buy_bool: () => dispatch(actionTypes.buy_bool())
   };
 };
 

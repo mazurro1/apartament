@@ -30,13 +30,13 @@ class Login extends Component {
     // validation: false
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps !== this.props || nextState !== this.state) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps !== this.props || nextState !== this.state) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   checkValidity(value, validated, name) {
     let isValid = false;
@@ -143,6 +143,22 @@ class Login extends Component {
       />
     );
 
+    const modalNewAccount = this.props.newAccount ? (
+      <Modal
+        name="Nowe konto zostało utworzone"
+        modalError={false}
+        modalOn={true}
+        onClickButton={() => this.props.is_newAccount(false)}
+      />
+    ) : (
+      <Modal
+        name="Nowe konto zostało utworzone"
+        modalError={false}
+        modalOn={false}
+        onClickButton={() => this.props.is_newAccount(false)}
+      />
+    );
+
     const modalErrorEmail = () => {
       if (this.props.errorResetPassword === true) {
         return (
@@ -245,6 +261,7 @@ class Login extends Component {
         {modalErrorEmail()}
         {changePage}
         {errorMessage}
+        {modalNewAccount}
 
         <div className="container positionRelative ">
           <ClosePage onClick={this.props.login_visible} />
@@ -278,7 +295,8 @@ const mapStateToProps = state => {
     errorNetwork: state.errorNetwork,
     resetPasswordVisible: state.resetPasswordVisible,
     errorResetPassword: state.errorResetPassword,
-    loginValidation: state.loginValidation
+    loginValidation: state.loginValidation,
+    newAccount: state.newAccount
   };
 };
 

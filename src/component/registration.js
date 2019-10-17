@@ -32,13 +32,13 @@ class Login extends Component {
     message: ""
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps !== this.props || nextState !== this.state) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps !== this.props || nextState !== this.state) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
   static getDerivedStateFromProps(nextProps, prevState) {
     let newState = {
       ...prevState
@@ -223,16 +223,18 @@ class Login extends Component {
 
         <div className="container positionRelative">
           <ClosePage onClick={this.props.registration_visible} />
-          <Title name="ZAŁÓŻ KONTO" />
-          {formInputsMap}
-        </div>
-        <div className="text-center ">
-          <FormButton
-            buttonName="Utwórz konto"
-            buttonOnClick={this.handleOnClickSave}
-            buttonColor="gray"
-            buttonInline={true}
-          />
+          <div className="pt-1">
+            <Title name="ZAŁÓŻ KONTO" />
+            {formInputsMap}
+          </div>
+          <div className="text-center ">
+            <FormButton
+              buttonName="Utwórz konto"
+              buttonOnClick={this.handleOnClickSave}
+              buttonColor="gray"
+              buttonInline={true}
+            />
+          </div>
         </div>
       </div>
     );

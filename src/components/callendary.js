@@ -72,7 +72,7 @@ class Callendary extends Component {
     let actualArray = this.state.actualArray;
     let date = this.state.date;
     let validation = true;
-    this.props.order_accept(false);
+    // this.props.order_accept(false);
 
     let filterArray = null;
     if (this.state.actualArray) {
@@ -132,7 +132,13 @@ class Callendary extends Component {
             actualArray = null;
           } else if (this.state.timeDay || this.state.timeNight) {
             // console.log("1 bez tablicy");
-
+            this.props.order_value(
+              getDate,
+              this.state.timeDay,
+              this.state.timeNight,
+              filterArray,
+              this.state.actualObjectName
+            );
             this.props.order_accept(true);
             // this.props.add_new_disabled_data(
             //   getDate,
@@ -141,14 +147,6 @@ class Callendary extends Component {
             //   "actualReservation",
             //   this.state.actualObjectName
             // );
-
-            this.props.order_value(
-              getDate,
-              this.state.timeDay,
-              this.state.timeNight,
-              filterArray,
-              this.state.actualObjectName
-            );
 
             validation = false;
             date = null;
