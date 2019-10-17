@@ -71,8 +71,10 @@ class Nav extends Component {
           menuNav.classList.add("menuNavUp");
         }
       } else {
-        menuNav.classList.remove("menuNavUp");
-        menuNav.classList.add("menuNavDown");
+        if (this.props.registrationVisible || this.props.loginVisible) {
+          menuNav.classList.add("menuNavUp");
+          menuNav.classList.remove("menuNavDown");
+        }
       }
 
       // navElement.classList.add("navBacgdroundDown");  1
