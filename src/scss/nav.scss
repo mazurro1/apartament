@@ -21,20 +21,15 @@ nav {
 
 .paddingNav {
   position: relative;
-  z-index: 10;
+  // z-index: 10;
   padding: 10px 10px;
   width: 100%;
-}
-
-.buttonLoginClass {
-  position: relative;
-  transform: translate(0, -48px);
 }
 
 .navBacgdround {
   position: absolute;
   // background-color: red;
-  background-color: rgba(#0d0d0d, 0.95);
+  background-color: rgba(#000, 0.95);
   transition-property: transform;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -63,7 +58,7 @@ nav {
   left: 50%;
   top: 0;
   z-index: 0;
-  background-color: rgba(#0d0d0d, 0.95);
+  background-color: rgba(#000, 0.95);
   // background-color: rgba(#979797, 0.95);
   padding: 10px;
   border-bottom-left-radius: 30px;

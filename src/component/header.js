@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../scss/header.scss";
-import img from "../../src/img/video.mp4";
+import video from "../../src/img/video.mp4";
+import poster from "../../src/img/poster.jpg";
 
 export default class Header extends Component {
   render() {
@@ -11,15 +12,8 @@ export default class Header extends Component {
             <div className="positionSpinner uperThanVideo">
               <h1 className="">Gotowy na niezapomniane chwile?</h1>
             </div>
-            <video
-              // poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg"
-              id="bgvid"
-              playsInline
-              autoPlay
-              muted
-              loop
-            >
-              <source src={img} type="video/mp4" />
+            <video poster={poster} id="bgvid" playsInline autoPlay muted loop>
+              <source src={video} type="video/mp4" />
             </video>
           </div>
         </header>

@@ -26,17 +26,18 @@ class Nav extends Component {
 
   handleScroll = e => {
     const newValue = window.pageYOffset;
-    const navElement = document.querySelector(".navBacgdround");
+    // const navElement = document.querySelector(".navBacgdround"); 1
     const nav = document.querySelector("nav");
     const menuNav = document.querySelector(".menuNav");
     // console.log(window.innerHeight);
 
-    navElement.classList.remove("navBacgdroundDown");
-    navElement.classList.add("navBacgdroundUp");
+    // navElement.classList.remove("navBacgdroundDown"); 1
+    // navElement.classList.add("navBacgdroundUp"); 1
     if (this.props.signed) {
       menuNav.classList.add("menuNavUp");
       menuNav.classList.remove("menuNavDown");
     }
+
     if (window.pageYOffset - window.innerHeight + 76 > 0) {
       if (
         !this.props.signed &&
@@ -60,6 +61,7 @@ class Nav extends Component {
           // firstElement.classList.remove("classNavDown");
         }
       }
+
       if (this.props.signed) {
         if (this.state.oldValue - newValue < 0) {
           menuNav.classList.remove("menuNavDown");
@@ -73,8 +75,8 @@ class Nav extends Component {
         menuNav.classList.add("menuNavDown");
       }
 
-      navElement.classList.add("navBacgdroundDown");
-      navElement.classList.remove("navBacgdroundUp");
+      // navElement.classList.add("navBacgdroundDown");  1
+      // navElement.classList.remove("navBacgdroundUp"); 1
     }
     this.setState({
       oldValue: newValue
@@ -132,45 +134,25 @@ class Nav extends Component {
       </>
     ) : (
       <div className="paddingNav">
-        {/* <div className=" text-left"> */}
-        {/* <NavLink to="/"> */}
-        <FormButton
-          buttonName="Rejestracja"
-          buttonOnClick={this.props.registration_visible}
-          buttonColor="gray"
-          buttonInline={true}
-          width="120"
-        />
-        {/* </NavLink> */}
-        {/* <NavLink to="/"> */}
-        {/* <FormButton
-          buttonName="Logowanie"
-          buttonOnClick={this.props.login_visible}
-          buttonColor="red"
-          buttonInline={true}
-          width="120"
-        /> */}
-        {/* </NavLink> */}
-        {/* </div> */}
-        <div className="buttonLoginClass text-right">
-          {/* <NavLink to="/"> */}
-          {/* <FormButton
-        buttonName="Rejestracja"
-        buttonOnClick={this.props.registration_visible}
-        buttonColor="gray"
-        buttonInline={true}
-        width="120"
-      /> */}
-          {/* </NavLink> */}
-          {/* <NavLink to="/"> */}
-          <FormButton
-            buttonName="Logowanie"
-            buttonOnClick={this.props.login_visible}
-            buttonColor="red"
-            buttonInline={true}
-            width="120"
-          />
-          {/* </NavLink> */}
+        <div className="row">
+          <div className="col-6">
+            <FormButton
+              buttonName="Rejestracja"
+              buttonOnClick={this.props.registration_visible}
+              buttonColor="gray"
+              buttonInline={true}
+              width="120"
+            />
+          </div>
+          <div className="col-6 text-right">
+            <FormButton
+              buttonName="Logowanie"
+              buttonOnClick={this.props.login_visible}
+              buttonColor="red"
+              buttonInline={true}
+              width="120"
+            />
+          </div>
         </div>
       </div>
     );
@@ -179,6 +161,8 @@ class Nav extends Component {
       : "navBacgdround navBacgdroundDown";
 
     const menuNavClass = this.props.signed
+      ? "menuNav menuNavUp"
+      : this.props.registrationVisible || this.props.loginVisible
       ? "menuNav menuNavUp"
       : "menuNav menuNavDown";
     return (
