@@ -7,7 +7,8 @@ const formButton = ({
   buttonDisabled = false,
   buttonColor = "gray",
   buttonInline = false,
-  width = "150"
+  width = "150",
+  className = ""
 }) => {
   const buttonColorClass =
     buttonColor === "gray"
@@ -24,7 +25,7 @@ const formButton = ({
   const buttonInlineClass = buttonInline ? "d-inline-flex" : "d-flex";
   return (
     <button
-      className={`btn buttonEffect p-1 ${buttonColorClass} ${buttonInlineClass}`}
+      className={`btn buttonEffect p-1 ${buttonColorClass} ${buttonInlineClass} ${className}`}
       disabled={buttonDisabled}
       onClick={buttonOnClick}
     >

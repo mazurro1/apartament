@@ -4,8 +4,14 @@ import Title from "../elements/Title/Title";
 import "react-id-swiper/lib/styles/scss/swiper.scss";
 import Swiper from "react-id-swiper";
 import imagesGallery from "../img/gallery/imagesGallery";
+import * as actionTypes from "../store/actions";
+import { connect } from "react-redux";
 
-export default class Gallery extends Component {
+class Gallery extends Component {
+  componentDidMount() {
+    const value = this.refs.gallery.offsetTop;
+    this.props.refs_add("refGallery", value);
+  }
   render() {
     const params = {
       effect: "coverflow",
@@ -53,7 +59,7 @@ export default class Gallery extends Component {
       </div>
     ));
     return (
-      <div className="margin-80">
+      <div className="margin-80" id="gallery" ref="gallery">
         <div className="containerFluid overflowHidden ">
           {/* <div className="container"> */}
           <Title name="GALERIA" />
@@ -63,3 +69,17 @@ export default class Gallery extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {};
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    refs_add: (name, refs) => dispatch(actionTypes.refs_add(name, refs))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Gallery);

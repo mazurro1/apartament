@@ -19,6 +19,8 @@ class Callendary extends Component {
 
   componentDidMount() {
     this.props.get_disabled_date();
+    const value = this.refs.callendary.offsetTop;
+    this.props.refs_add("refCallendary", value);
   }
 
   onChange = date => {
@@ -273,7 +275,7 @@ class Callendary extends Component {
         <h5 className="text-white">Godziny do wyboru</h5>
       ) : null;
     return (
-      <div className="margin-80">
+      <div className="margin-80" id="callendary" ref="callendary">
         <Title name="KALENDARZ" />
         <div className="mt-4 mb-4">
           <Calendar
@@ -376,6 +378,7 @@ const mapDispatchToProps = dispatch => {
     //     )
     //   ),
     get_disabled_date: () => dispatch(actionTypes.get_disabled_date()),
+    refs_add: (name, refs) => dispatch(actionTypes.refs_add(name, refs)),
     order_accept: value => dispatch(actionTypes.order_accept(value)),
     order_value: (date, timeDay, timeNight, filterArray, objectName) =>
       dispatch(

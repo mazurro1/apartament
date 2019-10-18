@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import "../scss/section.scss";
+import * as actionTypes from "../store/actions";
+import { connect } from "react-redux";
 import Title from "../elements/Title/Title";
 
-export default class Reservation extends Component {
+class Reservation extends Component {
+  componentDidMount() {
+    const value = this.refs.rezervation.offsetTop;
+    this.props.refs_add("refRezervation", value);
+  }
+
   render() {
     return (
-      <div className="margin-80">
+      <div className="margin-80" id="rezervation" ref="rezervation">
         <Title name="REZERWACJA" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
@@ -20,3 +27,17 @@ export default class Reservation extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {};
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    refs_add: (name, refs) => dispatch(actionTypes.refs_add(name, refs))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Reservation);

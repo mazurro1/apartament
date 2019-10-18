@@ -41,7 +41,13 @@ const initialState = {
     timeNight: null,
     filterArray: null,
     objectName: null
-  }
+  },
+  refAbout: null,
+  refCallendary: null,
+  refRezervation: null,
+  refPrice: null,
+  refGallery: null,
+  refContact: null
 };
 
 const save_all_dispatch_array = (state, action) => {
@@ -51,6 +57,13 @@ const save_all_dispatch_array = (state, action) => {
     ...state,
     disabledDate: allArray,
     disabledDataValue: allArrayValue
+  };
+};
+
+const refs_add = (state, action) => {
+  return {
+    ...state,
+    [action.name]: action.refs
   };
 };
 
@@ -202,7 +215,9 @@ const reset_password_visible = (state, action) => {
 const menu_visible = (state, action) => {
   return {
     ...state,
-    menuVisible: !state.menuVisible
+    menuVisible: !state.menuVisible,
+    registrationVisible: false,
+    loginVisible: false
   };
 };
 
@@ -218,7 +233,8 @@ const login_visible = (state, action) => {
     errorLogin: false,
     errorAccount: false,
     deleteAccount: false,
-    newAccount: false
+    newAccount: false,
+    menuVisible: false
   };
 };
 
@@ -233,7 +249,8 @@ const registration_visible = (state, action) => {
     errorLogin: false,
     errorAccount: false,
     deleteAccount: false,
-    newAccount: false
+    newAccount: false,
+    menuVisible: false
   };
 };
 
@@ -460,6 +477,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.BUY_BOOL:
       return buy_bool(state, action);
+
+    case actionTypes.REFS_ADD:
+      return refs_add(state, action);
 
     default:
       return state;

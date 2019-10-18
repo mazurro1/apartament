@@ -5,7 +5,7 @@ import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
 
 class Nav extends Component {
@@ -26,11 +26,11 @@ class Nav extends Component {
 
   handleScroll = e => {
     const newValue = window.pageYOffset;
+    const nav = this.refs.nav;
+    const menuNav = this.refs.menuNav;
+    const navClass = nav.classList.contains("navdUp");
+    const menuClass = menuNav.classList.contains("menuNavUp");
     // const navElement = document.querySelector(".navBacgdround"); 1
-    const nav = document.querySelector("nav");
-    const menuNav = document.querySelector(".menuNav");
-    // console.log(window.innerHeight);
-
     // navElement.classList.remove("navBacgdroundDown"); 1
     // navElement.classList.add("navBacgdroundUp"); 1
     if (this.props.signed) {
@@ -43,40 +43,37 @@ class Nav extends Component {
         !this.props.signed &&
         !this.props.registrationVisible &&
         !this.props.loginVisible
-        // !this.props.settingsAccountVisible
       ) {
-        // console.log(navElement);
-
-        if (this.state.oldValue - newValue < 0) {
+        if (
+          this.state.oldValue - newValue < 0 &&
+          !navClass &&
+          !this.props.menuVisible
+        ) {
           nav.classList.add("navdUp");
           nav.classList.remove("navDown");
-          // console.log("down");
-          // firstElement.classList.add("classNavDown");
-          // firstElement.classList.remove("classNavUp");
-        } else if (this.state.oldValue - newValue > 0) {
+        } else if (this.state.oldValue - newValue > 0 && navClass) {
           nav.classList.remove("navdUp");
           nav.classList.add("navDown");
-          // console.log("up");
-          // firstElement.classList.add("classNavUp");
-          // firstElement.classList.remove("classNavDown");
         }
       }
 
       if (this.props.signed) {
-        if (this.state.oldValue - newValue < 0) {
+        if (this.state.oldValue - newValue < 0 && !menuClass) {
           menuNav.classList.remove("menuNavDown");
           menuNav.classList.add("menuNavUp");
-        } else if (this.state.oldValue - newValue > 0) {
+        } else if (this.state.oldValue - newValue > 0 && menuClass) {
           menuNav.classList.remove("menuNavDown");
           menuNav.classList.add("menuNavUp");
         }
       } else {
-        if (this.props.registrationVisible || this.props.loginVisible) {
+        if (
+          (this.props.registrationVisible || this.props.loginVisible) &&
+          !menuClass
+        ) {
           menuNav.classList.add("menuNavUp");
           menuNav.classList.remove("menuNavDown");
         }
       }
-
       // navElement.classList.add("navBacgdroundDown");  1
       // navElement.classList.remove("navBacgdroundUp"); 1
     }
@@ -92,6 +89,12 @@ class Nav extends Component {
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
+
+  scrollTo = name => {
+    window.scrollTo({
+      top: this.props[name] - 50
+    });
+  };
 
   render() {
     const buttonsLogin = this.props.signed ? (
@@ -144,6 +147,7 @@ class Nav extends Component {
               buttonColor="gray"
               buttonInline={true}
               width="120"
+              className="buttonEffectIndex"
             />
           </div>
           <div className="col-6 text-right">
@@ -153,6 +157,7 @@ class Nav extends Component {
               buttonColor="red"
               buttonInline={true}
               width="120"
+              className="buttonEffectIndex"
             />
           </div>
         </div>
@@ -163,50 +168,91 @@ class Nav extends Component {
       : "navBacgdround navBacgdroundDown";
 
     const menuNavClass = this.props.signed
-      ? "menuNav menuNavUp"
-      : this.props.registrationVisible || this.props.loginVisible
+      ? "menuNav menuNavUp menuNavUpMobile"
+      : this.props.registrationVisible ||
+        this.props.loginVisible ||
+        this.props.menuVisible
       ? "menuNav menuNavUp"
       : "menuNav menuNavDown";
+
+    const menuMobileClass = !this.props.menuVisible
+      ? "menuMobile"
+      : "menuMobile menuMobileActive";
+
+    const navClass =
+      this.props.menuVisible ||
+      this.props.registrationVisible ||
+      this.props.loginVisible ||
+      this.props.signed
+        ? "navDown"
+        : "navUp";
     return (
-      <nav className="">
-        {/* <div className="logo">
-          <FontAwesomeIcon
-            icon={faBars}
-            size="2x"
-            onClick={this.props.menu_visible}
-          />
-        </div> */}
+      <nav className={navClass} ref="nav">
         <div className={navBgClass}></div>
         {buttonsLogin}
-        <div className={menuNavClass}>
-          <ul className="m-0 p-0">
+        <div className={menuNavClass} ref="menuNav">
+          <div
+            className="d-lg-none menuMobilePosition"
+            onClick={this.props.menu_visible}
+          >
+            <div className={menuMobileClass}>
+              <div className="line1" />
+              <div className="line2" />
+              <div className="line3" />
+            </div>
+          </div>
+          <ul className="m-0 p-0 d-none d-lg-block">
             <li>
-              <NavLink to="/" className="elementNav">
+              <NavLink
+                to="/"
+                className="elementNav"
+                onClick={() => this.scrollTo("refAbout")}
+              >
                 O NAS
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className="elementNav">
+              <NavLink
+                to="/"
+                className="elementNav"
+                onClick={() => this.scrollTo("refCallendary")}
+              >
                 KALENDARZ
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className="elementNav">
+              <NavLink
+                to="/"
+                className="elementNav"
+                onClick={() => this.scrollTo("refRezervation")}
+              >
                 REZERWACJA
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className="elementNav">
+              <NavLink
+                to="/"
+                className="elementNav"
+                // onClick={() => this.scrollTo("refPrice")}
+              >
                 CENNIK
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className="elementNav">
+              <NavLink
+                to="/"
+                className="elementNav"
+                onClick={() => this.scrollTo("refGallery")}
+              >
                 GALERIA
               </NavLink>
             </li>
             <li>
-              <NavLink to="/" className="elementNav">
+              <NavLink
+                to="/"
+                className="elementNav"
+                onClick={() => this.scrollTo("refContact")}
+              >
                 KONTAKT
               </NavLink>
             </li>
@@ -223,7 +269,14 @@ const mapStateToProps = state => {
     userName: state.userName,
     registrationVisible: state.registrationVisible,
     loginVisible: state.loginVisible,
-    settingsAccountVisible: state.settingsAccountVisible
+    settingsAccountVisible: state.settingsAccountVisible,
+    menuVisible: state.menuVisible,
+    refContact: state.refContact,
+    refGallery: state.refGallery,
+    refPrice: state.refPrice,
+    refRezervation: state.refRezervation,
+    refCallendary: state.refCallendary,
+    refAbout: state.refAbout
   };
 };
 

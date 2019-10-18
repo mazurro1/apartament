@@ -69,6 +69,7 @@ nav {
   transition-property: transform;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+  overflow: hidden;
   ul {
     // list-style: none;
     text-align: center;
@@ -77,11 +78,15 @@ nav {
       // padding: 20px;
     }
   }
-  @media all and (max-width: 991px) {
-    & {
-      display: none;
-    }
-  }
+  // @media all and (max-width: 991px) {
+  //   & {
+  //     display: none;
+  //   }
+  // }
+}
+
+.buttonEffectIndex {
+  z-index: 100;
 }
 
 .menuNavDown {
@@ -89,6 +94,14 @@ nav {
 }
 .menuNavUp {
   transform: translate(-50%, -52px);
+}
+
+.menuNavUpMobile {
+  @media all and (max-width: 991px) {
+    & {
+      transform: translate(-100%, -52px);
+    }
+  }
 }
 
 .elementNav {
@@ -102,5 +115,94 @@ nav {
   &:hover {
     text-decoration: none;
     color: #c82333;
+  }
+}
+.menuMobilePosition {
+  position: relative;
+  width: 100%;
+}
+.menuMobile {
+  position: absolute;
+  left: 50%;
+  height: 46px;
+  width: 46px;
+  transform: rotate(90deg) translate(0, 50%);
+  transition-property: background-color, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  .line1 {
+    display: inline-block;
+    height: 40px;
+    width: 3px;
+    background-color: white;
+    margin: 3px;
+    border-radius: 10px;
+    transition-property: background-color, transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+  .line2 {
+    display: inline-block;
+    height: 40px;
+    width: 3px;
+    background-color: white;
+    margin: 3px;
+    border-radius: 10px;
+    transition-property: background-color, transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+  .line3 {
+    display: inline-block;
+    height: 40px;
+    width: 3px;
+    background-color: white;
+    margin: 3px;
+    border-radius: 10px;
+    transition-property: background-color, transform, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+  &:hover {
+    .line1 {
+      background-color: #c82333;
+    }
+    .line2 {
+      background-color: #c82333;
+    }
+    .line3 {
+      background-color: #c82333;
+    }
+  }
+}
+.menuMobileActive {
+  transform: rotate(180deg) translate(34px, 10px);
+  .line1 {
+    transform: rotate(45deg) translate(7px, -6px);
+  }
+  .line2 {
+    transform: rotate(-45deg);
+  }
+  .line3 {
+    opacity: 0;
+  }
+}
+
+.menuMobileClass {
+  div {
+    font-size: 1.4rem;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-radius: 5px;
+    transition-property: background-color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
+    &:hover {
+      background-color: rgba(#c82333, 0.6);
+    }
+    &:active {
+      background-color: rgba(#c82333, 0.8);
+    }
   }
 }

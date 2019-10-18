@@ -34,6 +34,7 @@ export const SAVE_ALL_DISPATCH_ARRAY = "SAVE_ALL_DISPATCH_ARRAY";
 export const ORDER_ACCEPT = "ORDER_ACCEPT";
 export const ORDER_VALUE = "ORDER_VALUE";
 export const BUY_BOOL = "BUY_BOOL";
+export const REFS_ADD = "REFS_ADD";
 
 /////////////////////////////AUTH///////////////////////////////////
 export const log_out = () => {
@@ -577,6 +578,14 @@ export const order_accept = value => {
   return {
     type: ORDER_ACCEPT,
     value: value
+  };
+};
+
+export const refs_add = (name, refs) => {
+  return {
+    type: REFS_ADD,
+    name: name,
+    refs: refs
   };
 };
 

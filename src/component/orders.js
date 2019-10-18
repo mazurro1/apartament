@@ -12,15 +12,14 @@ class Login extends Component {
     userOrders: null
   };
 
-  // componentDidMount() {
-  //   if (this.props.userId) {
-  //     this.props.get_order(this.props.userId, this.props.userToken);
-  //   }
-  // }
+  componentDidMount() {
+    if (this.props.userId) {
+      this.props.get_order(this.props.userId, this.props.userToken);
+    }
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.userId && this.props.orderVisible === true) {
-      // setTimeout(() => {
       let url =
         "https://apartment-3c7b9.firebaseio.com/orders.json?auth=" +
         prevProps.userToken +
@@ -30,41 +29,20 @@ class Login extends Component {
       axios
         .get(url)
         .then(response => {
-          console.log(response);
           const values = Object.values(response.data);
           values.sort((a, b) => {
             const x = a.date;
             const y = b.date;
-            return x < y ? -1 : x > y ? 1 : 0;
+            return x > y ? -1 : x < y ? 1 : 0;
           });
 
           this.setState({
             userOrders: values
           });
         })
-        .catch(error => {
-          console.log(error);
-          // if (error.request.status === 0) {
-          //   dispatch(error_network(true));
-          // } else {
-          // dispatch(error_reset_password(false));
-          // }
-          // dispatch(spinner(false));
-        });
-      // }, 1000);
+        .catch(error => {});
     }
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (
-  //     nextProps.orderVisible !== this.props.orderVisible ||
-  //     nextState !== this.state
-  //   ) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   render() {
     let mapOrders = null;

@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import "../scss/section.scss";
 import Title from "../elements/Title/Title";
+import * as actionTypes from "../store/actions";
+import { connect } from "react-redux";
 
-export default class AboutUs extends Component {
+class AboutUs extends Component {
+  componentDidMount() {
+    const value = this.refs.aboutUs.offsetTop;
+    this.props.refs_add("refAbout", value);
+  }
+
   render() {
     return (
-      <div id="about_us" className="margin-80">
+      <div id="about_us" className="margin-80" ref="aboutUs">
         <Title name="O NAS" />
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
@@ -20,3 +27,20 @@ export default class AboutUs extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    refs: state.refs
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    refs_add: (name, refs) => dispatch(actionTypes.refs_add(name, refs))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AboutUs);

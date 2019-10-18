@@ -15,6 +15,7 @@ import Orders from "./component/orders";
 import AccountSettings from "./component/accountSettings";
 import Modal from "./elements/Modal/Modal";
 import Summary from "./component/summary";
+import MenuMobile from "./component/menuMobile";
 
 class App extends React.Component {
   state = {};
@@ -93,38 +94,45 @@ class App extends React.Component {
                 {modalBuy}
               </div>
             </div>
-            <Route
+            <MenuMobile />
+            {/* <Route
               path="/"
               component={Login}
               basename={process.env.PUBLIC_URL}
-            />
-            <Route
+            /> */}
+            <Login />
+            {/* <Route
               path="/"
               component={Registration}
               basename={process.env.PUBLIC_URL}
-            />
-            <Route
+            /> */}
+            <Registration />
+            {/* <Route
               path="/"
               component={Orders}
               basename={process.env.PUBLIC_URL}
-            />
-            <Route
+            /> */}
+            <Orders />
+            {/* <Route
               path="/"
               component={AccountSettings}
               basename={process.env.PUBLIC_URL}
-            />
-            <Route
+            /> */}
+            <AccountSettings />
+            {/* <Route
               path="/"
               exact
               component={Header}
               basename={process.env.PUBLIC_URL}
-            />
-            <Route
+            /> */}
+            <Header />
+            {/* <Route
               path="/"
               exact
               component={Section}
               basename={process.env.PUBLIC_URL}
-            />
+            /> */}
+            <Section />
           </div>
 
           <Footer />
