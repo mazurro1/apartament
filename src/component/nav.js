@@ -71,6 +71,10 @@ class Nav extends Component {
     });
   };
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
