@@ -1,22 +1,22 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c89c35e64fafb6b417503b561be518ac",
+    "revision": "c3e9d568794b019d39d2320c9db3c796",
     "url": "/apartament/index.html"
   },
   {
-    "revision": "209cebae5df9361b7777",
-    "url": "/apartament/static/css/2.370684f3.chunk.css"
+    "revision": "34e1ef3ce59b2e244246",
+    "url": "/apartament/static/css/2.279a7b1f.chunk.css"
   },
   {
     "revision": "e1aaebcf5fcfe7d2a8bb",
     "url": "/apartament/static/css/3.c51b6406.chunk.css"
   },
   {
-    "revision": "930dfdc75e1163cf988f",
+    "revision": "053d0f58ccf771634d95",
     "url": "/apartament/static/css/main.baf7856c.chunk.css"
   },
   {
-    "revision": "209cebae5df9361b7777",
+    "revision": "34e1ef3ce59b2e244246",
     "url": "/apartament/static/js/2.42383da5.chunk.js"
   },
   {
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apartament/static/js/7.25dab60f.chunk.js"
   },
   {
-    "revision": "930dfdc75e1163cf988f",
-    "url": "/apartament/static/js/main.1c28234d.chunk.js"
+    "revision": "053d0f58ccf771634d95",
+    "url": "/apartament/static/js/main.0cf5f2f2.chunk.js"
   },
   {
     "revision": "db8aad1cbc0dcab1bf43",
