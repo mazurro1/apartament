@@ -17,8 +17,15 @@ class Summary extends Component {
       this.props.disabledDataValue,
       price
     );
-    // this.props.order_accept(false, true);
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.orderAccept !== this.props.orderAccept) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   render() {
     let dayMonth = new Date(this.props.orderValue.date);

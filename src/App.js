@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Redirect } from "react-router-dom";
 import Section from "./component/section";
 import * as actionTypes from "./store/actions";
 import "./scss/app.scss";
@@ -8,14 +8,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "./component/footer";
 import Nav from "./component/nav";
 import Header from "./component/header";
-import Login from "./component/login";
-import Registration from "./component/registration";
 import Spinner from "./elements/Spinner/Spinner";
 import Orders from "./component/orders";
-import AccountSettings from "./component/accountSettings";
 import Modal from "./elements/Modal/Modal";
 import Summary from "./component/summary";
 import MenuMobile from "./component/menuMobile";
+import asyncCompontnt from "./elements/asyncComponent/asyncComponent";
+const AsyncLogin = asyncCompontnt(() => {
+  return import("./component/login");
+});
+const AsyncRegistration = asyncCompontnt(() => {
+  return import("./component/registration");
+});
+const AsyncAccountSettings = asyncCompontnt(() => {
+  return import("./component/accountSettings");
+});
+// const AsyncHeader = asyncCompontnt(() => {
+//   return import("./component/header");
+// });
 
 class App extends React.Component {
   state = {};
@@ -77,14 +87,8 @@ class App extends React.Component {
         {spinner}
         <BrowserRouter>
           <Nav />
-          {/* JEZELI UZYTKOWNIK JEST ZALOGOWANY!! */}
           <div className="">
-            <Route
-              path="/"
-              exact
-              component={Summary}
-              basename={process.env.PUBLIC_URL}
-            />
+            <Summary />
           </div>
           <div className="positionRelative ">
             <div className="modalMenu">
@@ -95,43 +99,13 @@ class App extends React.Component {
               </div>
             </div>
             <MenuMobile />
-            {/* <Route
-              path="/"
-              component={Login}
-              basename={process.env.PUBLIC_URL}
-            /> */}
-            <Login />
-            {/* <Route
-              path="/"
-              component={Registration}
-              basename={process.env.PUBLIC_URL}
-            /> */}
-            <Registration />
-            {/* <Route
-              path="/"
-              component={Orders}
-              basename={process.env.PUBLIC_URL}
-            /> */}
+
+            <AsyncLogin />
+            <AsyncRegistration />
+            <AsyncAccountSettings />
+
             <Orders />
-            {/* <Route
-              path="/"
-              component={AccountSettings}
-              basename={process.env.PUBLIC_URL}
-            /> */}
-            <AccountSettings />
-            {/* <Route
-              path="/"
-              exact
-              component={Header}
-              basename={process.env.PUBLIC_URL}
-            /> */}
             <Header />
-            {/* <Route
-              path="/"
-              exact
-              component={Section}
-              basename={process.env.PUBLIC_URL}
-            /> */}
             <Section />
           </div>
 

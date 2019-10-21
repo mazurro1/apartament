@@ -5,14 +5,20 @@ import * as actionTypes from "../store/actions";
 import ClosePage from "../elements/closePage/closePage";
 
 class MenuMobile extends Component {
-  state = {};
-
   scrollTo = name => {
     this.props.menu_visible();
     window.scrollTo({
       top: this.props[name] - 50
     });
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.menuVisible !== this.props.menuVisible) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   render() {
     return (

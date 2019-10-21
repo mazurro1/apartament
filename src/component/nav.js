@@ -13,17 +13,6 @@ class Nav extends Component {
     olValue: 0
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextProps === this.props) {
-  //     if (nextState.olValue !== this.state.olValue) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // }
-
   handleScroll = e => {
     const newValue = window.pageYOffset;
     const nav = this.refs.nav;
@@ -81,10 +70,6 @@ class Nav extends Component {
       oldValue: newValue
     });
   };
-
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);

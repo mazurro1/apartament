@@ -52,13 +52,13 @@ class Login extends Component {
     validationDeleteAccount: false
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextProps !== this.props || nextState !== this.state) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps !== this.props || nextState !== this.state) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     let newState = {

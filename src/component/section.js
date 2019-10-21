@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "../scss/section.scss";
 import AboutUs from "../components/aboutUs";
 import Gallery from "../components/gallery";
-import Callendary from "../components/callendary";
 import Reservation from "../components/reservation";
 import Contact from "../components/contact";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
+import asyncCompontnt from "../elements/asyncComponent/asyncComponent";
+const AsyncCallendary = asyncCompontnt(() => {
+  return import("../components/callendary");
+});
 
 class Section extends Component {
   render() {
@@ -16,7 +19,7 @@ class Section extends Component {
           <div className="container">
             <AboutUs />
 
-            <Callendary />
+            <AsyncCallendary />
 
             <Reservation />
           </div>

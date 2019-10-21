@@ -30,13 +30,13 @@ class Login extends Component {
     // validation: false
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextProps !== this.props || nextState !== this.state) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps !== this.props || nextState !== this.state) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   checkValidity(value, validated, name) {
     let isValid = false;

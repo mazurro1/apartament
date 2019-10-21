@@ -18,6 +18,17 @@ class Login extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      nextProps.orderVisible !== this.props.orderVisible ||
+      nextState.userOrders !== this.state.userOrders
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.userId && this.props.orderVisible === true) {
       let url =
