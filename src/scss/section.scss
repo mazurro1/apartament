@@ -92,7 +92,7 @@ body {
 
   .positionAbsoluteWidth {
     position: absolute;
-    width: 100%;
+    width: 95%;
   }
 
   .dropdown-item.active,
@@ -356,6 +356,7 @@ body {
 
   .pagePosition {
     position: fixed;
+    // left: 0;
     z-index: 150;
     width: 100%;
     background-color: rgba(#0d0d0d, 0.95);
