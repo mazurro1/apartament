@@ -290,6 +290,7 @@ const settings_account_visible = (state, action) => {
     changeEmail: false,
     errorResetPassword: null,
     changeEmailBusy: false,
+    changePasswordVisible: false,
     changePassword: null,
     buy: false
   };
