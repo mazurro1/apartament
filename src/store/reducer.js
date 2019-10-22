@@ -221,7 +221,9 @@ const menu_visible = (state, action) => {
     ...state,
     menuVisible: !state.menuVisible,
     registrationVisible: false,
-    loginVisible: false
+    loginVisible: false,
+    settingsAccountVisible: false,
+    orderVisible: false
   };
 };
 
@@ -276,7 +278,8 @@ const order_visible = (state, action) => {
     errorResetPassword: null,
     changeEmailBusy: false,
     changePassword: null,
-    buy: false
+    buy: false,
+    menuVisible: false
   };
 };
 
@@ -292,7 +295,8 @@ const settings_account_visible = (state, action) => {
     changeEmailBusy: false,
     changePasswordVisible: false,
     changePassword: null,
-    buy: false
+    buy: false,
+    menuVisible: false
   };
 };
 

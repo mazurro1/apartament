@@ -17,10 +17,15 @@ import App from "./App";
 //   };
 // };
 
+// const composeEnhancers =
+//   process.env.NODE_ENV === "developmen"
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : null || compose;
+
 const composeEnhancers =
-  process.env.NODE_ENV === "developmen"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
+  (typeof window !== "undefined" &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
