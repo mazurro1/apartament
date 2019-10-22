@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/nerwus.5a033bc6.otf"
   },
   {
-    "revision": "0f533f32fc4dd17ee1ee",
-    "url": "/apartament/static/css/main.784a99c3.chunk.css"
+    "revision": "2b4ec35d2c2ea76f0d0f",
+    "url": "/apartament/static/css/main.52ae08b2.chunk.css"
   },
   {
     "revision": "3daccfce8762901ff583",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/nerwus.3c28d955.ttf"
   },
   {
-    "revision": "0f533f32fc4dd17ee1ee",
+    "revision": "2b4ec35d2c2ea76f0d0f",
     "url": "/apartament/static/js/main.32b07512.chunk.js"
   },
   {
@@ -120,7 +120,7 @@ self.__precacheManifest = [
     "url": "/apartament/static/css/2.d4321038.chunk.css"
   },
   {
-    "revision": "02f97f9d4e4a0df455c1499c62456704",
+    "revision": "18c048e0f1df25f2a0534ed052ae92c6",
     "url": "/apartament/index.html"
   }
 ];
