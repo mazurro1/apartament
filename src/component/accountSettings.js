@@ -10,6 +10,7 @@ import ChangeEmail from "./changeEmail";
 import ClosePage from "../elements/closePage/closePage";
 import ChangePassword from "./changePassword";
 import DeleteAccount from "./deleteAccount";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 class Login extends Component {
   state = {
@@ -52,13 +53,13 @@ class Login extends Component {
     validationDeleteAccount: false
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps !== this.props || nextState !== this.state) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps !== this.props || nextState !== this.state) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     let newState = {
@@ -521,82 +522,99 @@ class Login extends Component {
         disabled={item.disabled}
       />
     ));
+    const animationTiming = {
+      enter: 500,
+      exit: 400
+    };
 
     return (
-      <div
-        className={
-          this.props.settingsAccountVisible ? "login loginDown " : "login "
-        }
+      <CSSTransition
+        in={this.props.settingsAccountVisible}
+        timeout={animationTiming}
+        mountOnEnter
+        unmountOnExit
+        classNames="animationRight"
       >
-        {changePage}
-        {modalChangeEmail}
-        {modalChangePassword}
-        {modalChangeEmailBusy}
-        {modalBadPassword}
+        <div className="pagePosition">
+          {changePage}
+          {modalChangeEmail}
+          {modalChangePassword}
+          {modalChangeEmailBusy}
+          {modalBadPassword}
 
-        <div className="container positionRelative">
-          <ClosePage onClick={this.props.settings_account_visible} />
-          <div
-            className={
-              this.props.changeEmailVisible === false &&
-              this.props.changePasswordVisible === false &&
-              this.props.deleteAccountConfirm === false
-                ? "loginAccount loginAccountDown "
-                : "loginAccount"
-            }
-          >
-            <Title name="USTAWIENIA KONTA" />
-            <div className="text-center">
-              <FormButton
-                buttonName="Zmień adres e-mail"
-                buttonColor="gray"
-                buttonInline={true}
-                buttonOnClick={this.props.change_email_visible}
-              />
-            </div>
-            <div className="text-center">
-              <FormButton
-                buttonName="Zmień hasło"
-                buttonColor="gray"
-                buttonInline={true}
-                // buttonOnClick={() =>
-                //   this.props.onAuth_Reset_Password(this.props.userEmail)
-                // }
-                buttonOnClick={() => this.props.change_password_visible(true)}
-              />
-            </div>
-            <div className="text-center">
-              <FormButton
-                buttonName="Usuń konto"
-                buttonColor="red"
-                buttonInline={true}
-                buttonOnClick={this.props.delete_account_confirm}
-              />
-            </div>
+          <div className="container positionRelative">
+            <ClosePage onClick={this.props.settings_account_visible} />
+            <CSSTransition
+              in={
+                this.props.changeEmailVisible === false &&
+                this.props.changePasswordVisible === false &&
+                this.props.deleteAccountConfirm === false
+              }
+              timeout={animationTiming}
+              mountOnEnter
+              unmountOnExit
+              classNames="animationLeft"
+            >
+              <div className="accountSettings">
+                <Title name="USTAWIENIA KONTA" />
+                <div className="text-center">
+                  <FormButton
+                    buttonName="Zmień adres e-mail"
+                    buttonColor="gray"
+                    buttonInline={true}
+                    buttonOnClick={this.props.change_email_visible}
+                  />
+                </div>
+                <div className="text-center">
+                  <FormButton
+                    buttonName="Zmień hasło"
+                    buttonColor="gray"
+                    buttonInline={true}
+                    // buttonOnClick={() =>
+                    //   this.props.onAuth_Reset_Password(this.props.userEmail)
+                    // }
+                    buttonOnClick={() =>
+                      this.props.change_password_visible(true)
+                    }
+                  />
+                </div>
+                <div className="text-center">
+                  <FormButton
+                    buttonName="Usuń konto"
+                    buttonColor="red"
+                    buttonInline={true}
+                    buttonOnClick={this.props.delete_account_confirm}
+                  />
+                </div>
+              </div>
+            </CSSTransition>
           </div>
+          <ChangeEmail
+            inputs={formEmailsMap}
+            handleOnClickSave={this.handleOnClickSave}
+            changeEmailVisible={this.props.changeEmailVisible}
+            change_email_visible={this.handleEmailVisible}
+            animationTiming={this.props.animationTiming}
+          />
+          <ChangePassword
+            inputs={formPasswordsMap}
+            handleOnClickSavePassword={this.handleOnClickSavePassword}
+            changePasswordVisible={this.props.changePasswordVisible}
+            change_password_visible={this.handlePasswordVisible}
+            animationTiming={this.props.animationTiming}
+          />
+          <DeleteAccount
+            deleteAccountConfirm={this.props.deleteAccountConfirm}
+            validationDeleteAccount={this.state.validationDeleteAccount}
+            validated={this.state.formDeleteAccount.password.validated}
+            handleInputOnChange={this.handleInputOnChange}
+            value={this.state.formDeleteAccount.password.value}
+            delete_account_confirm={this.handleDeleteAccountVisible}
+            handleOnClickSaveDeleteAccount={this.handleOnClickSaveDeleteAccount}
+            animationTiming={this.props.animationTiming}
+          />
         </div>
-        <ChangeEmail
-          inputs={formEmailsMap}
-          handleOnClickSave={this.handleOnClickSave}
-          changeEmailVisible={this.props.changeEmailVisible}
-          change_email_visible={this.handleEmailVisible}
-        />
-        <ChangePassword
-          inputs={formPasswordsMap}
-          handleOnClickSavePassword={this.handleOnClickSavePassword}
-          changePasswordVisible={this.props.changePasswordVisible}
-          change_password_visible={this.handlePasswordVisible}
-        />
-        <DeleteAccount
-          deleteAccountConfirm={this.props.deleteAccountConfirm}
-          validationDeleteAccount={this.state.validationDeleteAccount}
-          validated={this.state.formDeleteAccount.password.validated}
-          handleInputOnChange={this.handleInputOnChange}
-          value={this.state.formDeleteAccount.password.value}
-          delete_account_confirm={this.handleDeleteAccountVisible}
-          handleOnClickSaveDeleteAccount={this.handleOnClickSaveDeleteAccount}
-        />
-      </div>
+      </CSSTransition>
     );
   }
 }
@@ -612,11 +630,11 @@ const mapStateToProps = state => {
     changeEmailVisible: state.changeEmailVisible,
     deleteAccountConfirm: state.deleteAccountConfirm,
     changeEmail: state.changeEmail,
-    // errorResetPassword: state.errorResetPassword,
     changeEmailBusy: state.changeEmailBusy,
     changePasswordVisible: state.changePasswordVisible,
     changePassword: state.changePassword,
-    badPassword: state.badPassword
+    badPassword: state.badPassword,
+    animationTiming: state.animationTiming
   };
 };
 

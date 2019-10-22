@@ -7,6 +7,7 @@ import ClosePage from "../elements/closePage/closePage";
 import FormItem from "../elements/formElement/formElement";
 import LoginAccount from "./loginAccount";
 import ResetPassword from "./resetPassword";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 class Login extends Component {
   state = {
@@ -257,31 +258,44 @@ class Login extends Component {
     ));
 
     return (
-      <div className={this.props.loginVisible ? "login loginDown" : "login"}>
-        {modalErrorEmail()}
-        {changePage}
-        {errorMessage}
-        {modalNewAccount}
+      <CSSTransition
+        in={this.props.loginVisible}
+        timeout={this.props.animationTiming}
+        mountOnEnter
+        unmountOnExit
+        classNames="animationRight"
+      >
+        <div className="pagePosition">
+          {modalErrorEmail()}
+          {changePage}
+          {errorMessage}
+          {modalNewAccount}
 
-        <div className="container positionRelative ">
-          <ClosePage onClick={this.props.login_visible} />
-          <LoginAccount
-            inputs={formInputsMap}
-            handleResetPassword={this.props.reset_password_visible}
-            handleOnClickSave={this.handleOnClickSave}
-            resetPasswordVisible={this.props.resetPasswordVisible}
-          />
-
-          <ResetPassword
-            resetPasswordVisible={this.props.resetPasswordVisible}
-            reset_password_visible={this.props.reset_password_visible}
-            resetPasswordValidation={this.state.resetPasswordValidation}
-            resetPassword={this.state.resetPassword}
-            handleInputOnChangePassword={this.handleInputOnChangePassword}
-            handleOnClickResetPassword={this.handleOnClickResetPassword}
-          />
+          <div className="container positionRelative ">
+            <ClosePage onClick={this.props.login_visible} />
+            <div className="positionAbsoluteWidth">
+              <LoginAccount
+                inputs={formInputsMap}
+                handleResetPassword={this.props.reset_password_visible}
+                handleOnClickSave={this.handleOnClickSave}
+                resetPasswordVisible={this.props.resetPasswordVisible}
+                animationTiming={this.props.animationTiming}
+              />
+            </div>
+            <div className="positionAbsoluteWidth">
+              <ResetPassword
+                resetPasswordVisible={this.props.resetPasswordVisible}
+                reset_password_visible={this.props.reset_password_visible}
+                resetPasswordValidation={this.state.resetPasswordValidation}
+                resetPassword={this.state.resetPassword}
+                handleInputOnChangePassword={this.handleInputOnChangePassword}
+                handleOnClickResetPassword={this.handleOnClickResetPassword}
+                animationTiming={this.props.animationTiming}
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </CSSTransition>
     );
   }
 }
@@ -296,7 +310,8 @@ const mapStateToProps = state => {
     resetPasswordVisible: state.resetPasswordVisible,
     errorResetPassword: state.errorResetPassword,
     loginValidation: state.loginValidation,
-    newAccount: state.newAccount
+    newAccount: state.newAccount,
+    animationTiming: state.animationTiming
   };
 };
 

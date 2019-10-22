@@ -2,6 +2,7 @@ import React from "react";
 import FormButton from "../elements/formButton/FormButton";
 import Title from "../elements/Title/Title";
 import FormElement from "../elements/formElement/formElement";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 const deleteAccount = ({
   deleteAccountConfirm,
@@ -10,50 +11,53 @@ const deleteAccount = ({
   handleInputOnChange,
   value,
   delete_account_confirm,
-  handleOnClickSaveDeleteAccount
+  handleOnClickSaveDeleteAccount,
+  animationTiming
 }) => {
   return (
-    <div
-      className={
-        deleteAccountConfirm
-          ? "loginAccount loginAccountDown mt-3"
-          : "loginAccount mt-3"
-      }
+    <CSSTransition
+      in={deleteAccountConfirm}
+      timeout={animationTiming}
+      mountOnEnter
+      unmountOnExit
+      classNames="animationRight"
     >
-      <Title name="USUŃ KONTO" />
-      <div className="container">
-        <FormElement
-          formName="Podaj hasło"
-          itemFalseName="Błędne hasło"
-          formValidation={validationDeleteAccount}
-          itemValidation={validated}
-          itemOnChange={handleInputOnChange}
-          itemValue={value}
-          itemName="password"
-          itemType="password"
-          itemPlaceholder=""
-          itemChecked={null}
-          disabled={false}
-        />
+      <div className="accountSettings">
+        <Title name="USUŃ KONTO" />
+        <div className="container">
+          <FormElement
+            formName="Podaj hasło"
+            itemFalseName="Błędne hasło"
+            formValidation={validationDeleteAccount}
+            itemValidation={validated}
+            itemOnChange={handleInputOnChange}
+            itemValue={value}
+            itemName="password"
+            itemType="password"
+            itemPlaceholder=""
+            itemChecked={null}
+            disabled={false}
+          />
+        </div>
+        <div className="text-center margin-top-40">
+          <FormButton
+            buttonName="Wróć"
+            buttonColor="green"
+            buttonInline={true}
+            buttonOnClick={delete_account_confirm}
+          />
+          <FormButton
+            buttonName="Usuń"
+            buttonColor="red"
+            buttonInline={true}
+            buttonOnClick={
+              // this.props.delete_account(this.props.userToken)
+              handleOnClickSaveDeleteAccount
+            }
+          />
+        </div>
       </div>
-      <div className="text-center margin-top-40">
-        <FormButton
-          buttonName="Wróć"
-          buttonColor="green"
-          buttonInline={true}
-          buttonOnClick={delete_account_confirm}
-        />
-        <FormButton
-          buttonName="Usuń"
-          buttonColor="red"
-          buttonInline={true}
-          buttonOnClick={
-            // this.props.delete_account(this.props.userToken)
-            handleOnClickSaveDeleteAccount
-          }
-        />
-      </div>
-    </div>
+    </CSSTransition>
   );
 };
 

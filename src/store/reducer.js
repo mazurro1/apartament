@@ -31,6 +31,10 @@ const initialState = {
   changePassword: null,
   badPassword: null,
   buy: false,
+  animationTiming: {
+    enter: 500,
+    exit: 400
+  },
   //END AUTH//
   disabledDate: null,
   disabledDataValue: null,

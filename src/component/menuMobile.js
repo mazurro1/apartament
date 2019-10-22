@@ -3,6 +3,7 @@ import Title from "../elements/Title/Title";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import ClosePage from "../elements/closePage/closePage";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 class MenuMobile extends Component {
   scrollTo = name => {
@@ -22,30 +23,34 @@ class MenuMobile extends Component {
 
   render() {
     return (
-      <div
-        className={
-          this.props.menuVisible
-            ? "registration registrationDown"
-            : "registration"
-        }
+      <CSSTransition
+        in={this.props.menuVisible}
+        timeout={this.props.animationTiming}
+        mountOnEnter
+        unmountOnExit
+        classNames="animationLeft"
       >
-        <div className="container positionRelative">
-          <ClosePage onClick={this.props.menu_visible} />
-          <div className="pt-1">
-            <Title name="MENU" />
-          </div>
-          <div className="text-center menuMobileClass">
-            <div onClick={() => this.scrollTo("refAbout")}>O NAS</div>
-            <div onClick={() => this.scrollTo("refCallendary")}>KALENDARZ</div>
-            <div onClick={() => this.scrollTo("refRezervation")}>
-              REZERWACJA
+        <div className="pagePosition">
+          <div className="container positionRelative">
+            <ClosePage onClick={this.props.menu_visible} />
+            <div className="pt-1">
+              <Title name="MENU" />
             </div>
-            {/* <div onClick={() => this.scrollTo("refPrice")}>CENNIK</div> */}
-            <div onClick={() => this.scrollTo("refGallery")}>GALERIA</div>
-            <div onClick={() => this.scrollTo("refContact")}>KONTAKT</div>
+            <div className="text-center menuMobileClass">
+              <div onClick={() => this.scrollTo("refAbout")}>O NAS</div>
+              <div onClick={() => this.scrollTo("refCallendary")}>
+                KALENDARZ
+              </div>
+              <div onClick={() => this.scrollTo("refRezervation")}>
+                REZERWACJA
+              </div>
+              {/* <div onClick={() => this.scrollTo("refPrice")}>CENNIK</div> */}
+              <div onClick={() => this.scrollTo("refGallery")}>GALERIA</div>
+              <div onClick={() => this.scrollTo("refContact")}>KONTAKT</div>
+            </div>
           </div>
         </div>
-      </div>
+      </CSSTransition>
     );
   }
 }
@@ -58,7 +63,8 @@ const mapStateToProps = state => {
     refPrice: state.refPrice,
     refRezervation: state.refRezervation,
     refCallendary: state.refCallendary,
-    refAbout: state.refAbout
+    refAbout: state.refAbout,
+    animationTiming: state.animationTiming
   };
 };
 

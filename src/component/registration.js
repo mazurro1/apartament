@@ -7,8 +7,9 @@ import Modal from "../elements/Modal/Modal";
 import ClosePage from "../elements/closePage/closePage";
 import FormItem from "../elements/formElement/formElement";
 import FormButton from "../elements/formButton/FormButton";
+import CSSTransition from "react-transition-group/CSSTransition";
 
-class Login extends Component {
+class Registration extends Component {
   state = {
     form: {
       email: {
@@ -211,32 +212,34 @@ class Login extends Component {
       />
     ));
     return (
-      <div
-        className={
-          this.props.registrationVisible
-            ? "registration registrationDown"
-            : "registration"
-        }
+      <CSSTransition
+        in={this.props.registrationVisible}
+        timeout={this.props.animationTiming}
+        mountOnEnter
+        unmountOnExit
+        classNames="animationLeft"
       >
-        {changePage}
-        {errorMessage}
+        <div className="pagePosition">
+          {changePage}
+          {errorMessage}
 
-        <div className="container positionRelative">
-          <ClosePage onClick={this.props.registration_visible} />
-          <div className="pt-1">
-            <Title name="ZAŁÓŻ KONTO" />
-            {formInputsMap}
-          </div>
-          <div className="text-center ">
-            <FormButton
-              buttonName="Utwórz konto"
-              buttonOnClick={this.handleOnClickSave}
-              buttonColor="gray"
-              buttonInline={true}
-            />
+          <div className="container positionRelative">
+            <ClosePage onClick={this.props.registration_visible} />
+            <div className="pt-1">
+              <Title name="ZAŁÓŻ KONTO" />
+              {formInputsMap}
+            </div>
+            <div className="text-center ">
+              <FormButton
+                buttonName="Utwórz konto"
+                buttonOnClick={this.handleOnClickSave}
+                buttonColor="gray"
+                buttonInline={true}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </CSSTransition>
     );
   }
 }
@@ -249,7 +252,8 @@ const mapStateToProps = state => {
     errorAccount: state.errorAccount,
     registrationVisible: state.registrationVisible,
     errorNetwork: state.errorNetwork,
-    registrationValidation: state.registrationValidation
+    registrationValidation: state.registrationValidation,
+    animationTiming: state.animationTiming
   };
 };
 
@@ -269,4 +273,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Registration);

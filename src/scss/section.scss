@@ -31,6 +31,7 @@ body::-webkit-scrollbar-thumb {
   font-style: normal;
 }
 body {
+  background-color: black;
   .App {
     // position: relative;
     // background-color: #000;
@@ -85,9 +86,13 @@ body {
   .positionRelative {
     position: relative;
   }
-
   .positionAbsolute {
     position: absolute;
+  }
+
+  .positionAbsoluteWidth {
+    position: absolute;
+    width: 100%;
   }
 
   .dropdown-item.active,
@@ -301,33 +306,136 @@ body {
     transition-timing-function: ease;
     overflow: hidden;
   }
+
   .loginDown {
     transform: translate(0, 0px);
     height: 100%;
     overflow: hidden;
   }
 
-  .summary {
+  .accountSettings {
     position: fixed;
-    top: 0;
-    z-index: 350;
-    transform: translate(150%, 0);
-    padding-top: 40px;
+    left: 0;
+    z-index: 150;
+    // transform: translate(150%, 0);
     width: 100%;
-    background-color: rgba(#0d0d0d, 0.99);
-    // padding-top: 20px;
-    height: 100vh;
+    background: transparent;
+    height: 100%;
+    color: white;
+    // transition-property: transform;
+    // transition-duration: 1s;
+    // transition-timing-function: ease;
+    overflow: hidden;
+  }
+
+  .loginAccount {
+    position: fixed;
+    left: 0;
+    z-index: 150;
+    transform: translate(150%, 0);
+    width: 100%;
+    background: transparent;
+    height: 100%;
     color: white;
     transition-property: transform;
     transition-duration: 1s;
     transition-timing-function: ease;
     overflow: hidden;
   }
-  .summaryDown {
+  .loginAccountDown {
     transform: translate(0, 0px);
     height: 100%;
     overflow: hidden;
   }
+  // .loginAccountAnimation-enter-active {
+  //   animation: openLeft 0.5s ease-out forwards;
+  // }
+  // .loginAccountAnimation-exit-active {
+  //   animation: closeLeft 0.4s ease-out forwards;
+  // }
+
+  .pagePosition {
+    position: fixed;
+    z-index: 150;
+    width: 100%;
+    background-color: rgba(#0d0d0d, 0.95);
+    padding: 40px 0;
+    padding-bottom: 0;
+    height: 100%;
+    color: white;
+    overflow: hidden;
+  }
+
+  // .animationRight-enter {
+  // }
+  .animationRight-enter-active {
+    animation: openRight 0.5s ease-out forwards;
+  }
+  // .animationRight-exit {
+  // }
+  .animationRight-exit-active {
+    animation: closeRight 0.4s ease-out forwards;
+  }
+
+  .animationLeft-enter-active {
+    animation: openLeft 0.5s ease-out forwards;
+  }
+  .animationLeft-exit-active {
+    animation: closeLeft 0.4s ease-out forwards;
+  }
+  @keyframes openRight {
+    0% {
+      transform: translate(150%, 0px);
+    }
+    100% {
+      transform: translate(0%, 0px);
+    }
+  }
+  @keyframes closeRight {
+    0% {
+      transform: translate(0%, 0px);
+    }
+    100% {
+      transform: translate(150%, 0px);
+    }
+  }
+  @keyframes openLeft {
+    0% {
+      transform: translate(-150%, 0px);
+    }
+    100% {
+      transform: translate(0%, 0px);
+    }
+  }
+  @keyframes closeLeft {
+    0% {
+      transform: translate(0%, 0px);
+    }
+    100% {
+      transform: translate(-150%, 0px);
+    }
+  }
+  .summary {
+    position: fixed;
+    top: 0;
+    z-index: 350;
+    // transform: translate(150%, 0);
+    padding-top: 40px;
+    width: 100%;
+    background-color: rgba(#0d0d0d, 0.99);
+    // padding-top: 20px;
+    height: 100vh;
+    color: white;
+    // transition-property: transform;
+    // transition-duration: 1s;
+    // transition-timing-function: ease;
+    overflow: hidden;
+  }
+  // .summaryDown {
+  //   transform: translate(0, 0px);
+  //   height: 100%;
+  //   overflow: hidden;
+  // }
 
   .positionCallendary {
     position: relative;
@@ -347,26 +455,6 @@ body {
     overflow: hidden;
   }
   .callendaryDown {
-    transform: translate(0, 0px);
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .loginAccount {
-    position: fixed;
-    left: 0;
-    z-index: 150;
-    transform: translate(150%, 0);
-    width: 100%;
-    background: transparent;
-    height: 100%;
-    color: white;
-    transition-property: transform;
-    transition-duration: 1s;
-    transition-timing-function: ease;
-    overflow: hidden;
-  }
-  .loginAccountDown {
     transform: translate(0, 0px);
     height: 100%;
     overflow: hidden;

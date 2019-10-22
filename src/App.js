@@ -123,7 +123,8 @@ const mapStateToProps = state => {
     spinner: state.spinner,
     errorNetwork: state.errorNetwork,
     deleteAccount: state.deleteAccount,
-    buy: state.buy
+    buy: state.buy,
+    loginVisible: state.loginVisible
     // newAccount: state.newAccount
   };
 };

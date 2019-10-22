@@ -6,8 +6,9 @@ import * as actionTypes from "../store/actions";
 import FormButton from "../elements/formButton/FormButton";
 import ClosePage from "../elements/closePage/closePage";
 import * as axios from "axios";
+import CSSTransition from "react-transition-group/CSSTransition";
 
-class Login extends Component {
+class Orders extends Component {
   state = {
     userOrders: null
   };
@@ -81,43 +82,45 @@ class Login extends Component {
       ));
     }
     return (
-      <div
-        className={
-          this.props.orderVisible
-            ? "registration registrationDown scrollbar scrollbar-primary"
-            : "registration scrollbar scrollbar-primary"
-        }
+      <CSSTransition
+        in={this.props.orderVisible}
+        timeout={this.props.animationTiming}
+        mountOnEnter
+        unmountOnExit
+        classNames="animationLeft"
       >
-        <div className="container positionRelative">
-          <ClosePage onClick={this.props.order_visible} />
-          <div className="pt-1">
-            <Title name="ZAMÓWIENIA" />
+        <div className="pagePosition scrollbar scrollbar-primary">
+          <div className="container positionRelative">
+            <ClosePage onClick={this.props.order_visible} />
+            <div className="pt-1">
+              <Title name="ZAMÓWIENIA" />
 
-            <div className="table-responsive">
-              <table className="table table-hover table-dark table-width">
-                <thead>
-                  <tr className="text-center">
-                    <th scope="col">#</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Godzina rozpoczęcia</th>
-                    <th scope="col">Godzina zakończenia</th>
-                    <th scope="col">Cena (bez kaucji)</th>
-                  </tr>
-                </thead>
-                <tbody>{mapOrders}</tbody>
-              </table>
-            </div>
-            <div className="text-center margin-90">
-              <FormButton
-                buttonName="Zamknij"
-                buttonOnClick={this.props.order_visible}
-                buttonColor="red"
-                buttonInline={true}
-              />
+              <div className="table-responsive">
+                <table className="table table-hover table-dark table-width">
+                  <thead>
+                    <tr className="text-center">
+                      <th scope="col">#</th>
+                      <th scope="col">Data</th>
+                      <th scope="col">Godzina rozpoczęcia</th>
+                      <th scope="col">Godzina zakończenia</th>
+                      <th scope="col">Cena (bez kaucji)</th>
+                    </tr>
+                  </thead>
+                  <tbody>{mapOrders}</tbody>
+                </table>
+              </div>
+              <div className="text-center margin-90">
+                <FormButton
+                  buttonName="Zamknij"
+                  buttonOnClick={this.props.order_visible}
+                  buttonColor="red"
+                  buttonInline={true}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </CSSTransition>
     );
   }
 }
@@ -126,7 +129,8 @@ const mapStateToProps = state => {
   return {
     orderVisible: state.orderVisible,
     userId: state.userId,
-    userToken: state.userToken
+    userToken: state.userToken,
+    animationTiming: state.animationTiming
   };
 };
 
@@ -140,4 +144,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Orders);
