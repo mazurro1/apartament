@@ -5,7 +5,8 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import reducer from "./store/reducer";
 import App from "./App";
-
+import createSagaMiddleware from "redux-saga";
+import { watchAuth, content } from "./saga/index";
 // const logger = store => {
 //   return next => {
 //     return action => {
@@ -21,13 +22,20 @@ import App from "./App";
 //   process.env.NODE_ENV === "developmen"
 //     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 //     : null || compose;
+const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers =
   (typeof window !== "undefined" &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
+);
+
+sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(content);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -387,33 +387,41 @@ body {
   @keyframes openRight {
     0% {
       transform: translate(150%, 0px);
+      opacity: 0;
     }
     100% {
       transform: translate(0%, 0px);
+      opacity: 1;
     }
   }
   @keyframes closeRight {
     0% {
       transform: translate(0%, 0px);
+      opacity: 1;
     }
     100% {
       transform: translate(150%, 0px);
+      opacity: 0;
     }
   }
   @keyframes openLeft {
     0% {
       transform: translate(-150%, 0px);
+      opacity: 0;
     }
     100% {
       transform: translate(0%, 0px);
+      opacity: 1;
     }
   }
   @keyframes closeLeft {
     0% {
       transform: translate(0%, 0px);
+      opacity: 1;
     }
     100% {
       transform: translate(-150%, 0px);
+      opacity: 0;
     }
   }
   .summary {

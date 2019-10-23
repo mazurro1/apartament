@@ -16,7 +16,7 @@ const loginAccount = ({
       timeout={animationTiming}
       mountOnEnter
       unmountOnExit
-      classNames="animationRight"
+      classNames="animationLeft"
     >
       <div className="accountSetting">
         <div className="container">
