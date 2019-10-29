@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/nerwus.5a033bc6.otf"
   },
   {
-    "revision": "9cf75cd80e1938a7fa4d",
+    "revision": "0b7209d37ac715dcf8a0",
     "url": "/apartament/static/css/main.62acedab.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/bgimage.8c91eeb9.jpg"
   },
   {
-    "revision": "4b52cda8be92091ec54e",
-    "url": "/apartament/static/js/2.a2199096.chunk.js"
+    "revision": "43e0ec2a2f12799f6d50",
+    "url": "/apartament/static/js/2.38f404e2.chunk.js"
   },
   {
     "revision": "fbaab6bbc9b63eeda3d03fc5acb2232d",
@@ -60,8 +60,8 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/nerwus.3c28d955.ttf"
   },
   {
-    "revision": "9cf75cd80e1938a7fa4d",
-    "url": "/apartament/static/js/main.d9a591f8.chunk.js"
+    "revision": "0b7209d37ac715dcf8a0",
+    "url": "/apartament/static/js/main.23818e0e.chunk.js"
   },
   {
     "revision": "167435b40b14fd2baa69b1fc9bab215d",
@@ -116,11 +116,11 @@ self.__precacheManifest = [
     "url": "/apartament/static/css/3.329251b7.chunk.css"
   },
   {
-    "revision": "4b52cda8be92091ec54e",
+    "revision": "43e0ec2a2f12799f6d50",
     "url": "/apartament/static/css/2.bcb5a4a4.chunk.css"
   },
   {
-    "revision": "506477e638c867c0b677659df777fefd",
+    "revision": "d3b3ed45a04788c0e348c0c6077ee107",
     "url": "/apartament/index.html"
   }
 ];
