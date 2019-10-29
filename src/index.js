@@ -18,17 +18,19 @@ import { watchAuth, content } from "./saga/index";
 //     };
 //   };
 // };
-
-// const composeEnhancers =
-//   process.env.NODE_ENV === "developmen"
-//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//     : null || compose;
 const sagaMiddleware = createSagaMiddleware();
 
+//wersja dla developera
 const composeEnhancers =
-  (typeof window !== "undefined" &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+  process.env.NODE_ENV === "developmen"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : null || compose;
+
+//wersja na produkcje
+// const composeEnhancers =
+//   (typeof window !== "undefined" &&
+//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+//   compose;
 
 const store = createStore(
   reducer,

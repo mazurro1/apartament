@@ -199,7 +199,7 @@ export const auth = (email, password, isSignUp) => {
   };
 };
 
-export const authChechState = () => {
+export const authChechStateSaga = () => {
   return {
     type: actionTypes.AUTH_CHECK_STATE_SAGA
   };
