@@ -14,7 +14,10 @@ import Modal from "./elements/Modal/Modal";
 import Summary from "./component/summary";
 import MenuMobile from "./component/menuMobile";
 import asyncCompontnt from "./elements/asyncComponent/asyncComponent";
-import Confetti from "./elements/confetti/confetti";
+// import Confetti from "./elements/confetti/confetti";
+const AsyncConfetti = asyncCompontnt(() => {
+  return import("./elements/confetti/confetti");
+});
 const AsyncLogin = asyncCompontnt(() => {
   return import("./component/login");
 });
@@ -116,7 +119,7 @@ class App extends Component {
             <Header />
             <Section />
           </div>
-          <Confetti
+          <AsyncConfetti
             buy={this.props.buy}
             height={window.innerHeight}
             width={window.innerWidth}
