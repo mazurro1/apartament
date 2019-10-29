@@ -1,51 +1,51 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3b04b0b43583678a64c78570dca4ce86",
+    "revision": "d89982d319ae065f8749b5498a3d933a",
     "url": "/apartament/index.html"
   },
   {
-    "revision": "ebe51575386bb186c335",
-    "url": "/apartament/static/css/2.c65b8e47.chunk.css"
+    "revision": "9744f3c85f07e3db4816",
+    "url": "/apartament/static/css/2.61fc07b3.chunk.css"
   },
   {
-    "revision": "aa25fb25ae3bf73b886c",
+    "revision": "c46402af60c61afe6cf3",
     "url": "/apartament/static/css/3.66d27208.chunk.css"
   },
   {
-    "revision": "88377e41f0e83aa00261",
+    "revision": "80ccda9b156593ab2732",
     "url": "/apartament/static/css/main.18c0c3dd.chunk.css"
   },
   {
-    "revision": "ebe51575386bb186c335",
-    "url": "/apartament/static/js/2.ce589193.chunk.js"
+    "revision": "9744f3c85f07e3db4816",
+    "url": "/apartament/static/js/2.0525734e.chunk.js"
   },
   {
-    "revision": "aa25fb25ae3bf73b886c",
-    "url": "/apartament/static/js/3.b398ea92.chunk.js"
+    "revision": "c46402af60c61afe6cf3",
+    "url": "/apartament/static/js/3.259b3392.chunk.js"
   },
   {
-    "revision": "62d44fb8f1b2bf96a673",
-    "url": "/apartament/static/js/4.e8dc7c61.chunk.js"
+    "revision": "fbf1665525a97159fe5d",
+    "url": "/apartament/static/js/4.0ebdda0c.chunk.js"
   },
   {
-    "revision": "421e7cebe98f7ea74d4f",
-    "url": "/apartament/static/js/5.ca263942.chunk.js"
+    "revision": "f60edbf73964756e321e",
+    "url": "/apartament/static/js/5.85e3ad3b.chunk.js"
   },
   {
-    "revision": "88e33fe206219a36f3c3",
-    "url": "/apartament/static/js/6.67ea0366.chunk.js"
+    "revision": "78a602985e4fb31cc3a2",
+    "url": "/apartament/static/js/6.f7732793.chunk.js"
   },
   {
-    "revision": "fa702c25dc8d1b660e41",
-    "url": "/apartament/static/js/7.93135860.chunk.js"
+    "revision": "97ae8b24d7a78c2ff4a8",
+    "url": "/apartament/static/js/7.0518c52d.chunk.js"
   },
   {
-    "revision": "88377e41f0e83aa00261",
-    "url": "/apartament/static/js/main.771dd9fb.chunk.js"
+    "revision": "80ccda9b156593ab2732",
+    "url": "/apartament/static/js/main.6e09f9ca.chunk.js"
   },
   {
-    "revision": "b89e72e7aeec5457d168",
-    "url": "/apartament/static/js/runtime-main.58423431.js"
+    "revision": "fe6141c080be2fc12584",
+    "url": "/apartament/static/js/runtime-main.d6425af7.js"
   },
   {
     "revision": "73c55abce431e1be001588e608f3c6b3",
