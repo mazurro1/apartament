@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/apartament/static/css/main.18c0c3dd.chunk.css",
-    "main.js": "/apartament/static/js/main.d7f096a8.chunk.js",
-    "main.js.map": "/apartament/static/js/main.d7f096a8.chunk.js.map",
+    "main.js": "/apartament/static/js/main.f803af9e.chunk.js",
+    "main.js.map": "/apartament/static/js/main.f803af9e.chunk.js.map",
     "runtime-main.js": "/apartament/static/js/runtime-main.d6425af7.js",
     "runtime-main.js.map": "/apartament/static/js/runtime-main.d6425af7.js.map",
     "static/css/2.61fc07b3.chunk.css": "/apartament/static/css/2.61fc07b3.chunk.css",
@@ -20,7 +20,7 @@
     "static/js/7.0518c52d.chunk.js": "/apartament/static/js/7.0518c52d.chunk.js",
     "static/js/7.0518c52d.chunk.js.map": "/apartament/static/js/7.0518c52d.chunk.js.map",
     "index.html": "/apartament/index.html",
-    "precache-manifest.da7241be0abd0eedd37dce160dcd826d.js": "/apartament/precache-manifest.da7241be0abd0eedd37dce160dcd826d.js",
+    "precache-manifest.8d7688c24f37d57b2e9a5e717bec944f.js": "/apartament/precache-manifest.8d7688c24f37d57b2e9a5e717bec944f.js",
     "service-worker.js": "/apartament/service-worker.js",
     "static/css/2.61fc07b3.chunk.css.map": "/apartament/static/css/2.61fc07b3.chunk.css.map",
     "static/css/3.66d27208.chunk.css.map": "/apartament/static/css/3.66d27208.chunk.css.map",
@@ -44,6 +44,6 @@
     "static/css/2.61fc07b3.chunk.css",
     "static/js/2.0525734e.chunk.js",
     "static/css/main.18c0c3dd.chunk.css",
-    "static/js/main.d7f096a8.chunk.js"
+    "static/js/main.f803af9e.chunk.js"
   ]
 }
