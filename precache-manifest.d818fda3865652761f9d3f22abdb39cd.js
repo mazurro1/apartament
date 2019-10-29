@@ -4,44 +4,44 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/nerwus.5a033bc6.otf"
   },
   {
-    "revision": "0b7209d37ac715dcf8a0",
+    "revision": "8d505996983c825b7659",
     "url": "/apartament/static/css/main.62acedab.chunk.css"
   },
   {
-    "revision": "3e97dfb0706866d03eae",
-    "url": "/apartament/static/js/runtime~main.66678620.js"
+    "revision": "1d9851eebf564187d08a",
+    "url": "/apartament/static/js/runtime~main.1ed9eb4d.js"
   },
   {
     "revision": "8c91eeb9e689c52e1a9a02ff56842460",
     "url": "/apartament/static/media/bgimage.8c91eeb9.jpg"
   },
   {
-    "revision": "43e0ec2a2f12799f6d50",
-    "url": "/apartament/static/js/2.38f404e2.chunk.js"
+    "revision": "735adeed915b67301b08",
+    "url": "/apartament/static/js/2.199597b2.chunk.js"
   },
   {
     "revision": "fbaab6bbc9b63eeda3d03fc5acb2232d",
     "url": "/apartament/static/media/video.fbaab6bb.mp4"
   },
   {
-    "revision": "09db5f851680eefd2b6d",
-    "url": "/apartament/static/js/3.b4960e62.chunk.js"
+    "revision": "e1b45d69c1e3caebefa3",
+    "url": "/apartament/static/js/3.c21ade84.chunk.js"
   },
   {
-    "revision": "23fe91d7ff586978ce38",
-    "url": "/apartament/static/js/4.50b998eb.chunk.js"
+    "revision": "a488ce156db145759c38",
+    "url": "/apartament/static/js/4.c936615c.chunk.js"
   },
   {
-    "revision": "10e5179f9bdd31e8c3f4",
-    "url": "/apartament/static/js/5.a3e95e59.chunk.js"
+    "revision": "732228059bc9cdcaf126",
+    "url": "/apartament/static/js/5.2b2e0889.chunk.js"
   },
   {
-    "revision": "cf6901bdc671a9c18a86",
-    "url": "/apartament/static/js/6.ff537161.chunk.js"
+    "revision": "b61baa6a4747981838ff",
+    "url": "/apartament/static/js/6.63d0acf6.chunk.js"
   },
   {
-    "revision": "2928870e2f74898e2f2f",
-    "url": "/apartament/static/js/7.fad13e5f.chunk.js"
+    "revision": "c4cf41182c097ed584eb",
+    "url": "/apartament/static/js/7.6f7fca5c.chunk.js"
   },
   {
     "revision": "ad9626a4df4a3f89f9086520c5f0f79d",
@@ -52,16 +52,16 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/nerwus.36da487f.woff"
   },
   {
-    "revision": "162a801f011040cb28849384ad7ebc72",
-    "url": "/apartament/static/media/nerwus.162a801f.eot"
-  },
-  {
     "revision": "3c28d955655f7c241c6ad241f4e99293",
     "url": "/apartament/static/media/nerwus.3c28d955.ttf"
   },
   {
-    "revision": "0b7209d37ac715dcf8a0",
-    "url": "/apartament/static/js/main.23818e0e.chunk.js"
+    "revision": "162a801f011040cb28849384ad7ebc72",
+    "url": "/apartament/static/media/nerwus.162a801f.eot"
+  },
+  {
+    "revision": "8d505996983c825b7659",
+    "url": "/apartament/static/js/main.d96d5ff8.chunk.js"
   },
   {
     "revision": "167435b40b14fd2baa69b1fc9bab215d",
@@ -112,15 +112,15 @@ self.__precacheManifest = [
     "url": "/apartament/static/media/11.76f28d89.JPG"
   },
   {
-    "revision": "09db5f851680eefd2b6d",
+    "revision": "e1b45d69c1e3caebefa3",
     "url": "/apartament/static/css/3.329251b7.chunk.css"
   },
   {
-    "revision": "43e0ec2a2f12799f6d50",
+    "revision": "735adeed915b67301b08",
     "url": "/apartament/static/css/2.bcb5a4a4.chunk.css"
   },
   {
-    "revision": "d3b3ed45a04788c0e348c0c6077ee107",
+    "revision": "aaac9171606cc492af501c190ae192ca",
     "url": "/apartament/index.html"
   }
 ];
