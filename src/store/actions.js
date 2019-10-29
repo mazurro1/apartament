@@ -253,6 +253,14 @@ export const change_password = (userId, newPassword) => {
 };
 
 /////////////////////////////END AUTH///////////////////////////////////
+
+export const user_orders = userOrders => {
+  return {
+    type: actionTypes.USER_ORDERS,
+    userOrders: userOrders
+  };
+};
+
 export const order_value = (
   date,
   timeDay,
@@ -288,6 +296,12 @@ export const refs_add = (name, refs) => {
 export const buy_bool = () => {
   return {
     type: actionTypes.BUY_BOOL
+  };
+};
+
+export const buy_timeout = () => {
+  return {
+    type: actionTypes.BUY_TIMEOUT
   };
 };
 
@@ -355,5 +369,12 @@ export const add_new_order = (
     actualObjectName: actualObjectName,
     userId: userId,
     disabledDataValue: disabledDataValue
+  };
+};
+
+export const add_new_order_reducer = authData => {
+  return {
+    type: actionTypes.ADD_NEW_ORDER_REDUCER,
+    authData: authData
   };
 };

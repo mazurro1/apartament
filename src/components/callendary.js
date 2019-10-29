@@ -56,7 +56,6 @@ class Callendary extends Component {
       const getDate = `${date.getFullYear()}-${date.getMonth() +
         1}-${date.getDate()}`;
       let dateBool = false;
-
       disabledDate.map(item => {
         if (
           item.date === getDate &&
@@ -73,8 +72,11 @@ class Callendary extends Component {
   handleOrder = () => {
     let actualArray = this.state.actualArray;
     let date = this.state.date;
+    const month =
+      date.getMonth() + 1 < 10 ? "" + date.getMonth() + 1 : date.getMonth() + 1;
+    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    const year = date.getFullYear();
     let validation = true;
-    // this.props.order_accept(false);
 
     let filterArray = null;
     if (this.state.actualArray) {
@@ -83,18 +85,11 @@ class Callendary extends Component {
       );
     }
     if (date) {
-      const getDate = `${date.getFullYear()}-${date.getMonth() +
-        1}-${date.getDate()}`;
+      const getDate = `${year}-${month}-${day}`;
       if (this.state.actualArray) {
         if (this.state.date && this.state.timeDay && this.state.timeNight) {
           // console.log("1 z tablicy");
-          // this.props.update_disabled_data(
-          //   getDate,
-          //   this.state.timeDay,
-          //   this.state.timeNight,
-          //   "actualReservation",
-          //   this.state.actualObjectName
-          // );
+
           this.props.order_value(
             getDate,
             this.state.timeDay,
@@ -113,13 +108,7 @@ class Callendary extends Component {
         if (this.state.date) {
           if (this.state.timeDay && this.state.timeNight) {
             // console.log("2 bez tablicy");
-            // this.props.add_new_disabled_data(
-            //   getDate,
-            //   this.state.timeDay,
-            //   this.state.timeNight,
-            //   "actualReservation",
-            //   this.state.actualObjectName
-            // );
+
             this.props.order_value(
               getDate,
               this.state.timeDay,
@@ -142,13 +131,6 @@ class Callendary extends Component {
               this.state.actualObjectName
             );
             this.props.order_accept(true);
-            // this.props.add_new_disabled_data(
-            //   getDate,
-            //   this.state.timeDay,
-            //   this.state.timeNight,
-            //   "actualReservation",
-            //   this.state.actualObjectName
-            // );
 
             validation = false;
             date = null;

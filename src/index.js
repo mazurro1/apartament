@@ -7,6 +7,7 @@ import reducer from "./store/reducer";
 import App from "./App";
 import createSagaMiddleware from "redux-saga";
 import { watchAuth, content } from "./saga/index";
+
 // const logger = store => {
 //   return next => {
 //     return action => {

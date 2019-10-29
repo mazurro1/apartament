@@ -38,6 +38,7 @@ body {
     // background-size: 100%;
     // background-attachment: scroll;
     margin-bottom: 50px;
+    // overflow: hidden;
   }
 
   .marginAuto {
@@ -384,6 +385,32 @@ body {
   .animationLeft-exit-active {
     animation: closeLeft 0.4s ease-out forwards;
   }
+
+  .animationOpacity-enter-active {
+    animation: startOpacity 0.5s ease-out forwards;
+  }
+  .animationOpacity-exit-active {
+    animation: closeOpacity 0.5s ease-out forwards;
+  }
+
+  @keyframes startOpacity {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes closeOpacity {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   @keyframes openRight {
     0% {
       transform: translate(150%, 0px);
@@ -1448,6 +1475,12 @@ body {
       // border: 1px solid black;
       border-color: black;
     }
+  }
+
+  .confetti {
+    position: fixed;
+    top: 0;
+    z-index: 50;
   }
   // .summary {
   //   position: sticky;

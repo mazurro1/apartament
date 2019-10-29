@@ -33,7 +33,9 @@ export const SAVE_ALL_DISPATCH_ARRAY = "SAVE_ALL_DISPATCH_ARRAY";
 export const ORDER_ACCEPT = "ORDER_ACCEPT";
 export const ORDER_VALUE = "ORDER_VALUE";
 export const BUY_BOOL = "BUY_BOOL";
+export const BUY_TIMEOUT = "BUY_TIMEOUT";
 export const REFS_ADD = "REFS_ADD";
+export const USER_ORDERS = "USER_ORDERS";
 
 /////////////////////////////AUTH///////////////////////////////////
 /////////////////////////////SAGA///////////////////////////////////
@@ -51,3 +53,4 @@ export const GET_DISABLED_DATA_SAGA = "GET_DISABLED_DATA_SAGA";
 export const GET_ORDER_SAGA = "GET_ORDER_SAGA";
 export const ADD_NEW_DISABLED_DATA_SAGA = "ADD_NEW_DISABLED_DATA_SAGA";
 export const ADD_NEW_ORDER_SAGA = "ADD_NEW_ORDER_SAGA";
+export const ADD_NEW_ORDER_REDUCER = "ADD_NEW_ORDER_REDUCER";

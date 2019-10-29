@@ -64,6 +64,7 @@ export function* authSaga(action) {
         response.data.email
       )
     );
+    yield put(actions.get_order(response.data.localId, response.data.idToken));
   } catch (error) {
     yield put(actions.error_network(false));
     yield put(actions.spinner(false));
@@ -111,6 +112,7 @@ export function* authChechStateSaga(action) {
         const email = yield response.data.users[0].email;
         yield put(actions.is_signed_token(token, userId, email));
         yield put(actions.spinner(false));
+        yield put(actions.get_order(userId, token));
       } catch (error) {
         yield put(actions.spinner(false));
       }

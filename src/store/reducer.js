@@ -51,7 +51,8 @@ const initialState = {
   refRezervation: null,
   refPrice: null,
   refGallery: null,
-  refContact: null
+  refContact: null,
+  userOrders: []
 };
 
 const save_all_dispatch_array = (state, action) => {
@@ -61,6 +62,56 @@ const save_all_dispatch_array = (state, action) => {
     ...state,
     disabledDate: allArray,
     disabledDataValue: allArrayValue
+  };
+};
+
+const user_orders = (state, action) => {
+  return {
+    ...state,
+    userOrders: action.userOrders
+  };
+};
+
+const add_new_order_reducer = (state, action) => {
+  const radomNumber = Math.floor(Math.random() * 100000000) + 1;
+  const date = new Date(action.authData.date);
+  const month =
+    date.getMonth() + 1 < 10 ? "" + date.getMonth() + 1 : date.getMonth() + 1;
+  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  const year = date.getFullYear();
+  const newDate = `${year}-${month}-${day}`;
+  let newOrder = {};
+  if (action.authData.timeDay && action.authData.timeNight) {
+    newOrder = {
+      date: newDate,
+      price: action.authData.price,
+      timeDay: action.authData.timeDay,
+      timeNight: action.authData.timeNight
+    };
+  } else {
+    if (action.authData.timeDay && !action.authData.timeNight) {
+      newOrder = {
+        date: newDate,
+        price: action.authData.price,
+        timeDay: action.authData.timeDay
+      };
+    } else {
+      newOrder = {
+        date: newDate,
+        price: action.authData.price,
+        timeNight: action.authData.timeNight
+      };
+    }
+  }
+  const order = {
+    [radomNumber]: {
+      ...newOrder
+    }
+  };
+  const userOrdersNew = { ...state.userOrders, ...order };
+  return {
+    ...state,
+    userOrders: userOrdersNew
   };
 };
 
@@ -98,6 +149,13 @@ const buy_bool = (state, action) => {
   return {
     ...state,
     buy: !state.buy
+  };
+};
+
+const buy_timeout = (state, action) => {
+  return {
+    ...state,
+    buy: false
   };
 };
 
@@ -487,8 +545,17 @@ const reducer = (state = initialState, action) => {
     case actionTypes.BUY_BOOL:
       return buy_bool(state, action);
 
+    case actionTypes.BUY_TIMEOUT:
+      return buy_timeout(state, action);
+
     case actionTypes.REFS_ADD:
       return refs_add(state, action);
+
+    case actionTypes.ADD_NEW_ORDER_REDUCER:
+      return add_new_order_reducer(state, action);
+
+    case actionTypes.USER_ORDERS:
+      return user_orders(state, action);
 
     default:
       return state;

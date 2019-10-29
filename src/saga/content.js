@@ -17,26 +17,31 @@ export function* getDisabledDataSaga(action) {
 }
 
 export function* getOrderSaga(action) {
-  //   yield put(actions.spinner(true));
-  //   let url =
-  //     "https://apartment-3c7b9.firebaseio.com/orders.json?auth=" +
-  //     action.userToken +
-  //     '&orderBy="userId"&equalTo="' +
-  //     action.userId +
-  //     '"';
-  //   try {
-  //     const response = yield axios.get(url);
-  //     yield put(actions.save_all_dispatch_array(response.data));
-  //     yield put(actions.spinner(false));
-  //   } catch (error) {
-  //     yield put(actions.spinner(false));
-  //   }
+  // yield put(actions.spinner(true));
+  let url =
+    "https://apartment-3c7b9.firebaseio.com/orders.json?auth=" +
+    action.userToken +
+    '&orderBy="userId"&equalTo="' +
+    action.userId +
+    '"';
+  try {
+    const response = yield axios.get(url);
+    yield put(actions.user_orders(response.data));
+    // yield put(actions.spinner(false));
+  } catch (error) {
+    // yield put(actions.spinner(false));
+  }
 }
 
 export function* addNewDisabledDataSaga(action) {
   yield put(actions.spinner(true));
+  const date = new Date(action.date);
+  const day = Number(date.getDate());
+  const month = Number(date.getMonth() + 1);
+  const year = date.getFullYear();
+  const newDate = `${year}-${month}-${day}`;
   const authData = {
-    date: action.date,
+    date: newDate,
     timeDay: action.timeDay,
     timeNight: action.timeNight
     // actualReservation: action.actualReservation
@@ -85,54 +90,67 @@ export function* addNewDisabledDataSaga(action) {
 }
 
 export function* addNewOrderSaga(action) {
+  const date = yield new Date(action.date);
+  const month =
+    date.getMonth() + 1 < 10 ? "" + date.getMonth() + 1 : date.getMonth() + 1;
+  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  const year = date.getFullYear();
+  const newDate = `${year}-${month}-${day}`;
   yield put(actions.spinner(true));
   let authData = {
-    date: action.date,
+    date: newDate,
     userId: action.userId,
     price: action.price
   };
   if (action.timeDay && action.timeNight) {
     authData = {
-      date: action.date,
+      date: newDate,
       timeDay: action.timeDay,
       timeNight: action.timeNight,
       userId: action.userId,
       price: action.price
     };
-  } else if (action.timeDay && !action.timeNight) {
-    authData = {
-      date: action.date,
-      timeDay: action.timeDay,
-      userId: action.userId,
-      price: action.price
-    };
-  } else if (!action.timeDay && action.timeNight) {
-    authData = {
-      date: action.date,
-      timeNight: action.timeNight,
-      userId: action.userId,
-      price: action.price
-    };
+  } else {
+    if (action.timeDay) {
+      authData = {
+        date: newDate,
+        timeDay: action.timeDay,
+        userId: action.userId,
+        price: action.price
+      };
+    }
+    if (action.timeNight) {
+      authData = {
+        date: newDate,
+        timeNight: action.timeNight,
+        userId: action.userId,
+        price: action.price
+      };
+    }
   }
-
   let filterArray = null;
   if (action.disabledDataValue) {
-    filterArray = action.disabledDataValue.filter(
-      item => item.date === action.date
-    );
+    filterArray = action.disabledDataValue.filter(item => {
+      const date = new Date(item.date);
+      const day = Number(date.getDate());
+      const month = Number(date.getMonth() + 1);
+      const year = date.getFullYear();
+      const newDate = `${year}-${month}-${day}`;
+      return item.date === newDate;
+    });
   }
 
   if (filterArray) {
     if (filterArray[0].timeDay) {
       authData = {
-        date: action.date,
+        date: newDate,
         timeNight: action.timeNight,
         userId: action.userId,
         price: action.price
       };
     } else if (filterArray[0].timeNight) {
       authData = {
-        date: action.date,
+        date: newDate,
         timeDay: action.timeDay,
         userId: action.userId,
         price: action.price
@@ -145,6 +163,7 @@ export function* addNewOrderSaga(action) {
     yield axios.post(url, authData);
     yield put(actions.order_accept(false));
     yield put(actions.buy_bool());
+    yield put(actions.add_new_order_reducer(authData));
     yield put(actions.spinner(false));
   } catch (error) {
     yield put(actions.spinner(false));

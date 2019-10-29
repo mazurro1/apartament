@@ -84,14 +84,13 @@ class Nav extends Component {
       top: this.props[name] - 50
     });
   };
-
   render() {
     const buttonsLogin = this.props.signed ? (
       <>
         <div className="user">
           <div className="ml-3">{this.props.userName}</div>
         </div>
-        <div className="dropDownMenu text-right">
+        <div className="dropDownMenu text-right" ref="xd">
           <div className="d-inline-block">
             <DropdownButton
               variant=""

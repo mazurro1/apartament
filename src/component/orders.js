@@ -5,24 +5,13 @@ import * as actionTypes from "../store/actions";
 // import { Redirect } from "react-router-dom";
 import FormButton from "../elements/formButton/FormButton";
 import ClosePage from "../elements/closePage/closePage";
-import * as axios from "axios";
 import CSSTransition from "react-transition-group/CSSTransition";
 
 class Orders extends Component {
-  state = {
-    userOrders: null
-  };
-
-  componentDidMount() {
-    if (this.props.userId) {
-      this.props.get_order(this.props.userId, this.props.userToken);
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     if (
       nextProps.orderVisible !== this.props.orderVisible ||
-      nextState.userOrders !== this.state.userOrders
+      nextProps.userOrders !== this.props.userOrders
     ) {
       return true;
     } else {
@@ -30,36 +19,14 @@ class Orders extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.userId && this.props.orderVisible === true) {
-      let url =
-        "https://apartment-3c7b9.firebaseio.com/orders.json?auth=" +
-        prevProps.userToken +
-        '&orderBy="userId"&equalTo="' +
-        prevProps.userId +
-        '"';
-      axios
-        .get(url)
-        .then(response => {
-          const values = Object.values(response.data);
-          values.sort((a, b) => {
-            const x = a.date;
-            const y = b.date;
-            return x > y ? -1 : x < y ? 1 : 0;
-          });
-
-          this.setState({
-            userOrders: values
-          });
-        })
-        .catch(error => {});
-    }
-  }
-
   render() {
+    const userOrdersReducer = Object.values(this.props.userOrders);
+    userOrdersReducer.sort((a, b) => {
+      return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+    });
     let mapOrders = null;
-    if (this.state.userOrders) {
-      mapOrders = this.state.userOrders.map((item, index) => (
+    if (userOrdersReducer.length > 0) {
+      mapOrders = userOrdersReducer.map((item, index) => (
         <tr key={index} className="text-center">
           <th scope="row">{index + 1}</th>
           <td>{item.date}</td>
@@ -130,7 +97,8 @@ const mapStateToProps = state => {
     orderVisible: state.orderVisible,
     userId: state.userId,
     userToken: state.userToken,
-    animationTiming: state.animationTiming
+    animationTiming: state.animationTiming,
+    userOrders: state.userOrders
   };
 };
 
