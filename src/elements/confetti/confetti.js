@@ -2,7 +2,7 @@ import React from "react";
 import Confetti from "react-confetti";
 import CSSTransition from "react-transition-group/CSSTransition";
 
-const confetti = props => {
+const confetti = React.memo(props => {
   return (
     <CSSTransition
       in={props.buy}
@@ -20,6 +20,6 @@ const confetti = props => {
       </div>
     </CSSTransition>
   );
-};
+});
 
 export default confetti;
