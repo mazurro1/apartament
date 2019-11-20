@@ -46,12 +46,6 @@ const initialState = {
     filterArray: null,
     objectName: null
   },
-  refAbout: null,
-  refCallendary: null,
-  refRezervation: null,
-  refPrice: null,
-  refGallery: null,
-  refContact: null,
   userOrders: []
 };
 
@@ -112,13 +106,6 @@ const add_new_order_reducer = (state, action) => {
   return {
     ...state,
     userOrders: userOrdersNew
-  };
-};
-
-const refs_add = (state, action) => {
-  return {
-    ...state,
-    [action.name]: action.refs
   };
 };
 
@@ -547,9 +534,6 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.BUY_TIMEOUT:
       return buy_timeout(state, action);
-
-    case actionTypes.REFS_ADD:
-      return refs_add(state, action);
 
     case actionTypes.ADD_NEW_ORDER_REDUCER:
       return add_new_order_reducer(state, action);

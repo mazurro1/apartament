@@ -105,18 +105,34 @@ nav {
 }
 
 .elementNav {
+  cursor: pointer;
   // padding: 28px;
   padding: 12px;
   // padding-right: 20px;
   // padding-left: 10px;
   // margin: 0 auto;
-  color: white;
+  color: white !important;
   font-weight: 700;
   &:hover {
     text-decoration: none;
     color: #c82333;
   }
 }
+
+.elementNavActive {
+  padding: 12px;
+  color: #c82333 !important;
+  font-weight: 700;
+}
+
+.elementActive {
+  color: #c82333 !important;
+}
+
+.elementActive2 {
+  color: #e0a800 !important;
+}
+
 .menuMobilePosition {
   position: relative;
   width: 100%;
@@ -188,6 +204,18 @@ nav {
   }
 }
 
+.menuMobileClassOnly {
+  font-size: 1.4rem;
+  width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-radius: 5px;
+}
+
+.width100 {
+  width: 100%;
+}
+
 .menuMobileClass {
   div {
     font-size: 1.4rem;
@@ -199,10 +227,10 @@ nav {
     transition-duration: 0.1s;
     transition-timing-function: ease;
     &:hover {
-      background-color: rgba(#c82333, 0.6);
+      background-color: rgba(white, 0.4);
     }
     &:active {
-      background-color: rgba(#c82333, 0.8);
+      background-color: rgba(white, 0.6);
     }
   }
 }

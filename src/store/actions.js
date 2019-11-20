@@ -285,14 +285,6 @@ export const order_accept = value => {
   };
 };
 
-export const refs_add = (name, refs) => {
-  return {
-    type: actionTypes.REFS_ADD,
-    name: name,
-    refs: refs
-  };
-};
-
 export const buy_bool = () => {
   return {
     type: actionTypes.BUY_BOOL

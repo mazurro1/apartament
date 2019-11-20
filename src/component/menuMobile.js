@@ -4,15 +4,9 @@ import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
 import ClosePage from "../elements/closePage/closePage";
 import CSSTransition from "react-transition-group/CSSTransition";
+import { Link } from "react-scroll";
 
 class MenuMobile extends Component {
-  scrollTo = name => {
-    this.props.menu_visible();
-    window.scrollTo({
-      top: this.props[name] - 50
-    });
-  };
-
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.menuVisible !== this.props.menuVisible) {
       return true;
@@ -37,16 +31,76 @@ class MenuMobile extends Component {
               <Title name="MENU" />
             </div>
             <div className="text-center menuMobileClass">
-              <div onClick={() => this.scrollTo("refAbout")}>O NAS</div>
-              <div onClick={() => this.scrollTo("refCallendary")}>
-                KALENDARZ
-              </div>
-              <div onClick={() => this.scrollTo("refRezervation")}>
-                REZERWACJA
-              </div>
-              {/* <div onClick={() => this.scrollTo("refPrice")}>CENNIK</div> */}
-              <div onClick={() => this.scrollTo("refGallery")}>GALERIA</div>
-              <div onClick={() => this.scrollTo("refContact")}>KONTAKT</div>
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
+                to="about"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">O NAS</div>
+              </Link>
+
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
+                to="callendary"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">KALENDARZ </div>
+              </Link>
+
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
+                to="rezervation"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">REZERWACJA </div>
+              </Link>
+
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
+                to="gallery"
+                spy={true}
+                offset={-100}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">GALERIA </div>
+              </Link>
+
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
+                to="contact"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">KONTAKT </div>
+              </Link>
+
+              {/* <div onClick={this.props.menu_visible}>KALENDARZ</div> */}
+              {/* <div onClick={this.props.menu_visible}>REZERWACJA</div> */}
+              {/* <div onClick={this.props.menu_visible}>CENNIK</div> */}
+              {/* <div onClick={this.props.menu_visible}>GALERIA</div> */}
+              {/* <div onClick={this.props.menu_visible}>KONTAKT</div> */}
             </div>
           </div>
         </div>
@@ -58,12 +112,6 @@ class MenuMobile extends Component {
 const mapStateToProps = state => {
   return {
     menuVisible: state.menuVisible,
-    refContact: state.refContact,
-    refGallery: state.refGallery,
-    refPrice: state.refPrice,
-    refRezervation: state.refRezervation,
-    refCallendary: state.refCallendary,
-    refAbout: state.refAbout,
     animationTiming: state.animationTiming
   };
 };
@@ -75,7 +123,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuMobile);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuMobile);

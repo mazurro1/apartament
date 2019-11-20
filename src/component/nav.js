@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import "../scss/nav.scss";
 import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
@@ -7,11 +7,20 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
+import { Link, scrollSpy } from "react-scroll";
 
 class Nav extends Component {
   state = {
     olValue: 0
   };
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+    scrollSpy.update();
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 
   handleScroll = e => {
     const newValue = window.pageYOffset;
@@ -71,19 +80,6 @@ class Nav extends Component {
     });
   };
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  scrollTo = name => {
-    window.scrollTo({
-      top: this.props[name] - 50
-    });
-  };
   render() {
     const buttonsLogin = this.props.signed ? (
       <>
@@ -191,58 +187,82 @@ class Nav extends Component {
           </div>
           <ul className="m-0 p-0 d-none d-lg-block">
             <li>
-              <NavLink
-                to="/"
+              <Link
+                activeClass="elementNavActive"
                 className="elementNav"
-                onClick={() => this.scrollTo("refAbout")}
+                to="about"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
               >
                 O NAS
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/"
+              <Link
+                activeClass="elementNavActive"
                 className="elementNav"
-                onClick={() => this.scrollTo("refCallendary")}
+                to="callendary"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
               >
                 KALENDARZ
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/"
+              <Link
+                activeClass="elementNavActive"
                 className="elementNav"
-                onClick={() => this.scrollTo("refRezervation")}
+                to="rezervation"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
               >
                 REZERWACJA
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/"
+              <Link
+                activeClass="elementNavActive"
                 className="elementNav"
-                // onClick={() => this.scrollTo("refPrice")}
+                to="price"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
               >
                 CENNIK
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/"
+              <Link
+                activeClass="elementNavActive"
                 className="elementNav"
-                onClick={() => this.scrollTo("refGallery")}
+                to="gallery"
+                spy={true}
+                offset={-100}
+                duration={500}
+                onSetActive={this.handleSetActive}
               >
                 GALERIA
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink
-                to="/"
+              <Link
                 className="elementNav"
-                onClick={() => this.scrollTo("refContact")}
+                activeClass="elementNavActive"
+                to="contact"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
               >
                 KONTAKT
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </div>
@@ -258,13 +278,7 @@ const mapStateToProps = state => {
     registrationVisible: state.registrationVisible,
     loginVisible: state.loginVisible,
     settingsAccountVisible: state.settingsAccountVisible,
-    menuVisible: state.menuVisible,
-    refContact: state.refContact,
-    refGallery: state.refGallery,
-    refPrice: state.refPrice,
-    refRezervation: state.refRezervation,
-    refCallendary: state.refCallendary,
-    refAbout: state.refAbout
+    menuVisible: state.menuVisible
   };
 };
 
@@ -281,7 +295,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

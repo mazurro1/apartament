@@ -5,6 +5,7 @@ import Calendar from "react-calendar";
 import FormButton from "../elements/formButton/FormButton";
 import * as actionTypes from "../store/actions";
 import { connect } from "react-redux";
+import { Element } from "react-scroll";
 
 class Callendary extends Component {
   state = {
@@ -16,12 +17,6 @@ class Callendary extends Component {
     actualArray: null,
     actualObjectName: null
   };
-
-  componentDidMount() {
-    this.props.get_disabled_date();
-    const value = this.refs.callendary.offsetTop;
-    this.props.refs_add("refCallendary", value);
-  }
 
   onChange = date => {
     let timeDayNewValue = false;
@@ -257,23 +252,24 @@ class Callendary extends Component {
         <h5 className="text-white">Godziny do wyboru</h5>
       ) : null;
     return (
-      <div className="margin-80" id="callendary" ref="callendary">
-        <Title name="KALENDARZ" />
-        <div className="mt-4 mb-4">
-          <Calendar
-            onChange={this.onChange}
-            minDate={minDay}
-            maxDate={maxDay}
-            activeStartDate={this.state.date}
-            value={this.state.date}
-            locale="pl-PL"
-            tileDisabled={({ date, view }) => this.renderDisabled(date, view)}
-          />
-        </div>
-        <div className="text-center positionRelative">
-          {selectTime}
-          <div className="selectTime mb-4">
-            {/* <button
+      <Element name="callendary">
+        <div className="margin-80">
+          <Title name="KALENDARZ" />
+          <div className="mt-4 mb-4">
+            <Calendar
+              onChange={this.onChange}
+              minDate={minDay}
+              maxDate={maxDay}
+              activeStartDate={this.state.date}
+              value={this.state.date}
+              locale="pl-PL"
+              tileDisabled={({ date, view }) => this.renderDisabled(date, view)}
+            />
+          </div>
+          <div className="text-center positionRelative">
+            {selectTime}
+            <div className="selectTime mb-4">
+              {/* <button
               className={`btn mr-1 ${dayDayClass}`}
               name="timeDay"
               onClick={e => this.handleAddTime(e, "timeDay")}
@@ -281,14 +277,14 @@ class Callendary extends Component {
             >
               9-18
             </button> */}
-            <FormButton
-              buttonName="9-18"
-              buttonOnClick={e => this.handleAddTime(e, "timeDay")}
-              buttonColor={dayDayClass}
-              buttonInline={true}
-              width="60"
-            />
-            {/* <button
+              <FormButton
+                buttonName="9-18"
+                buttonOnClick={e => this.handleAddTime(e, "timeDay")}
+                buttonColor={dayDayClass}
+                buttonInline={true}
+                width="60"
+              />
+              {/* <button
               className={`btn ml-1 ${dayNightClass}`}
               name="timeNight"
               onClick={e => this.handleAddTime(e, "timeNight")}
@@ -296,17 +292,18 @@ class Callendary extends Component {
             >
               19-03
             </button> */}
-            <FormButton
-              buttonName="19-03"
-              buttonOnClick={e => this.handleAddTime(e, "timeNight")}
-              buttonColor={dayNightClass}
-              buttonInline={true}
-              width="60"
-            />
+              <FormButton
+                buttonName="19-03"
+                buttonOnClick={e => this.handleAddTime(e, "timeNight")}
+                buttonColor={dayNightClass}
+                buttonInline={true}
+                width="60"
+              />
+            </div>
           </div>
+          {toOrder}
         </div>
-        {toOrder}
-      </div>
+      </Element>
     );
   }
 }
@@ -360,7 +357,6 @@ const mapDispatchToProps = dispatch => {
     //     )
     //   ),
     get_disabled_date: () => dispatch(actionTypes.get_disabled_date()),
-    refs_add: (name, refs) => dispatch(actionTypes.refs_add(name, refs)),
     order_accept: value => dispatch(actionTypes.order_accept(value)),
     order_value: (date, timeDay, timeNight, filterArray, objectName) =>
       dispatch(
@@ -375,7 +371,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Callendary);
+export default connect(mapStateToProps, mapDispatchToProps)(Callendary);
