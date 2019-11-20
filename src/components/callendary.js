@@ -18,6 +18,10 @@ class Callendary extends Component {
     actualObjectName: null
   };
 
+  componentDidMount() {
+    this.props.get_disabled_date();
+  }
+
   onChange = date => {
     let timeDayNewValue = false;
     let timeNightNewValue = false;
@@ -67,10 +71,7 @@ class Callendary extends Component {
   handleOrder = () => {
     let actualArray = this.state.actualArray;
     let date = this.state.date;
-    const month =
-      date.getMonth() + 1 < 10 ? "" + date.getMonth() + 1 : date.getMonth() + 1;
-    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    const year = date.getFullYear();
+
     let validation = true;
 
     let filterArray = null;
@@ -80,6 +81,12 @@ class Callendary extends Component {
       );
     }
     if (date) {
+      const month =
+        date.getMonth() + 1 < 10
+          ? "" + date.getMonth() + 1
+          : date.getMonth() + 1;
+      const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+      const year = date.getFullYear();
       const getDate = `${year}-${month}-${day}`;
       if (this.state.actualArray) {
         if (this.state.date && this.state.timeDay && this.state.timeNight) {

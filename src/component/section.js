@@ -3,6 +3,7 @@ import "../scss/section.scss";
 import AboutUs from "../components/aboutUs";
 import Gallery from "../components/gallery";
 import Reservation from "../components/reservation";
+import PriceList from "../components/priceList";
 import Contact from "../components/contact";
 import { connect } from "react-redux";
 import * as actionTypes from "../store/actions";
@@ -18,10 +19,9 @@ class Section extends Component {
         <div className="jumbotron-fluid">
           <div className="container">
             <AboutUs />
-
             <AsyncCallendary />
-
             <Reservation />
+            <PriceList />
           </div>
           <Gallery />
           <div className="container">

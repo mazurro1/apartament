@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
 import { Link, scrollSpy } from "react-scroll";
+// import logo from "../img/logo.png";
 
 class Nav extends Component {
   state = {
@@ -123,6 +124,9 @@ class Nav extends Component {
       </>
     ) : (
       <div className="paddingNav">
+        {/* <div className="logoImage">
+          <img src={logo} />
+        </div> */}
         <div className="row">
           <div className="col-6">
             <FormButton
@@ -229,7 +233,7 @@ class Nav extends Component {
               <Link
                 activeClass="elementNavActive"
                 className="elementNav"
-                to="price"
+                to="priceList"
                 spy={true}
                 offset={-150}
                 duration={500}

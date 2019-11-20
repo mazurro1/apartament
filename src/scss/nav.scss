@@ -19,6 +19,18 @@ nav {
   }
 }
 
+.logoImage {
+  position: absolute;
+  z-index: 1000;
+  left: 50%;
+  transform: translate(-50%, 0);
+  // background-color: #fff;
+
+  img {
+    max-width: 50px;
+  }
+}
+
 .paddingNav {
   position: relative;
   // z-index: 10;

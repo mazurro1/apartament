@@ -73,6 +73,19 @@ class MenuMobile extends Component {
               <Link
                 activeClass="elementActive"
                 className="menuMobileClassOnly"
+                to="priceList"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">CENNIK </div>
+              </Link>
+
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
                 to="gallery"
                 spy={true}
                 offset={-100}

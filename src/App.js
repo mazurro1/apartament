@@ -98,6 +98,11 @@ class App extends Component {
       <div className="App">
         {spinner}
         <BrowserRouter>
+          <AsyncConfetti
+            buy={this.props.buy}
+            height={window.innerHeight}
+            width={window.innerWidth}
+          />
           <Nav />
 
           <div className="">
@@ -119,11 +124,7 @@ class App extends Component {
             <Header />
             <Section />
           </div>
-          <AsyncConfetti
-            buy={this.props.buy}
-            height={window.innerHeight}
-            width={window.innerWidth}
-          />
+
           <Footer />
 
           <Redirect to="/" />
