@@ -20,4 +20,17 @@ header {
       transform: translate(-50%, 0);
     }
   }
+
+  .headerLogo {
+    position: relative;
+    top: 60px;
+    background-color: rgba(white, 0.8);
+    width: 100%;
+    padding: 10px;
+
+    img {
+      max-width: 220px;
+      text-align: center;
+    }
+  }
 }
