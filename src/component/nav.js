@@ -7,7 +7,16 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import FormButton from "../elements/formButton/FormButton";
-import { Link, scrollSpy } from "react-scroll";
+import * as Scroll from "react-scroll";
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller
+} from "react-scroll";
+
 // import logo from "../img/logo.png";
 
 class Nav extends Component {
@@ -81,6 +90,10 @@ class Nav extends Component {
     });
   };
 
+  // scrollToBottom = () => {
+  //   scroll.scrollToBottom();
+  //   console.log("xd");
+  // };
   render() {
     const buttonsLogin = this.props.signed ? (
       <>
@@ -263,7 +276,7 @@ class Nav extends Component {
                 spy={true}
                 offset={-150}
                 duration={500}
-                onSetActive={this.handleSetActive}
+                // onClick={this.scrollToBottom}
               >
                 KONTAKT
               </Link>
