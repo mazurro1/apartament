@@ -262,6 +262,15 @@ class Callendary extends Component {
       <Element name="callendary">
         <div className="margin-80">
           <Title name="KALENDARZ" />
+          <div className="firstTextWidth">
+            <p>
+              Ciekaw jesteś jak wyglądają najbliższe wolne terminy? Zapraszamy
+              do zapoznania się z naszym kalendarzem. Dni na czerwono są
+              zajętymi terminami, z kolei dni na zielono - wolne - śmiało możesz
+              je rezerwować. A więc.. miejmy nadzieję, do zobaczenia!
+            </p>
+          </div>
+
           <div className="mt-4 mb-4">
             <Calendar
               onChange={this.onChange}

@@ -55,6 +55,21 @@ body {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
       sans-serif;
     color: rgb(201, 201, 201);
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+
+  ul {
+    // list-style-type: decimal;
+    li {
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+      font-size: 1.1rem;
+    }
+  }
+
+  .textColor {
+    color: rgb(201, 201, 201) !important;
   }
 
   .sectionBg {
@@ -750,8 +765,8 @@ body {
     margin-bottom: 120px;
   }
 
-  .margin-320 {
-    margin-bottom: 320px;
+  .margin-50 {
+    margin-bottom: 50px;
   }
 
   .margin-90 {
@@ -1490,6 +1505,11 @@ body {
     position: fixed;
     top: 0;
     z-index: 50;
+  }
+
+  .firstTextWidth {
+    max-width: 800px;
+    margin: 0 auto;
   }
   // .summary {
   //   position: sticky;

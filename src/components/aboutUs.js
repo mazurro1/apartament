@@ -11,15 +11,48 @@ class AboutUs extends Component {
       <Element name="about">
         <div className="margin-80">
           <Title name="O NAS" />
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
-            reiciendis placeat porro, error sed fugit laboriosam? Quasi
-            molestiae temporibus ipsum aliquid possimus libero repudiandae unde
-            enim, quisquam nulla consequatur nostrum?Illum explicabo quisquam
-            voluptatum alias. Earum numquam accusantium minus. Eligendi fugit
-            quod tempora rem enim omnis, eos, odio tempore numquam, nobis nam
-            dolore fugiat sequi. Distinctio asperiores sint debitis ut!
-          </p>
+          <div className="firstTextWidth textColor">
+            <p className="">
+              Poszujesz lokalu, gdzie nie będziesz musiał płacić "od talerzyka"?
+              Chciałabyś/byś zorganizować:
+            </p>
+            <ul>
+              <li>imprezę,</li>
+              <li>urdziny,</li>
+              <li>spotkanie rodzinne,</li>
+              <li>event biznesowy,</li>
+              <li>konferencję?</li>
+            </ul>
+            <p className="">
+              Jeśli na któreś z tych pytań odpowiedziałeś tak, to trafiłeś
+              idealnie! Umów się i zobacz nowoczesny, luksusowy lokal tuż w
+              centrum Radomia! Wynajmujemy apartament o powierzchni 150m2, w
+              którego w skład wchodzą:
+            </p>
+            <ul>
+              <li>1 łazienka,</li>
+              <li>VIP ROOM - pokój o powierzchni ... (za dodatkową opłatą),</li>
+              <li>
+                projektor (jeśli będziesz chciał/a, aby był razem z Wami podczas
+                organizowanego wydarzenia pobierana jest dodatkowa kaucja),
+              </li>
+              <li>
+                niezbędne wyposażenie, takie jak stoły, krzesła, czy wieszaki na
+                ubrania.{" "}
+              </li>
+            </ul>
+            <p>
+              Słoneczny Apartament znajduje się w Radomiu na Struga 18 (II
+              piętro bez windy) tuż obok Galerii Słonecznej. Wszystkich
+              zainteresowanych zapraszamy serdecznie na spotkanie, w celu
+              zobacznia oferowanego przez nas miejsca. Liczba osób, jaką będzie
+              mógł pomieścić lokal to 50 osób.
+            </p>
+            <p>
+              Masz więcej pytań? Chciałabyś porozmawiać o szczegółach?
+              Zapraszamy do kontaktu. Z chęcią odpowiemy na wszystkie pytania.
+            </p>
+          </div>
         </div>
       </Element>
     );
