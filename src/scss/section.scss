@@ -1296,11 +1296,13 @@ body {
     bottom: 25px;
     // transform: translate(25px, 0);
     height: 505px;
+    min-height: 80vh;
     overflow: hidden;
     iframe {
       position: absolute;
       left: 50%;
-      transform: translate(-50%, 0);
+      top: 50%;
+      transform: translate(-50%, -50%);
       border-radius: 5px;
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
