@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "33dd19991b39f3faa9560ca9a07cefcf",
+    "revision": "0ab40bf93024bee3dbbda834001f1550",
     "url": "/apartament/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apartament/static/css/3.66d27208.chunk.css"
   },
   {
-    "revision": "defaf04e3bb030ce4c9b",
-    "url": "/apartament/static/css/main.9185500d.chunk.css"
+    "revision": "66efc3d5e190acbfd334",
+    "url": "/apartament/static/css/main.9a4c53fb.chunk.css"
   },
   {
     "revision": "892f03f945e07d1f2e60",
@@ -40,16 +40,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apartament/static/js/7.3b9202ad.chunk.js"
   },
   {
-    "revision": "b53e82c4846474fefc5c",
-    "url": "/apartament/static/js/8.2c9e8ead.chunk.js"
+    "revision": "fd13bb2b29bb1ca4cfe1",
+    "url": "/apartament/static/js/8.9826f4fb.chunk.js"
   },
   {
-    "revision": "defaf04e3bb030ce4c9b",
-    "url": "/apartament/static/js/main.5054da95.chunk.js"
+    "revision": "66efc3d5e190acbfd334",
+    "url": "/apartament/static/js/main.8a33b411.chunk.js"
   },
   {
-    "revision": "6a2cd33acfb91ea18371",
-    "url": "/apartament/static/js/runtime-main.cdcb5026.js"
+    "revision": "3cc67b4efb9a8dcdd144",
+    "url": "/apartament/static/js/runtime-main.95ab84a7.js"
   },
   {
     "revision": "73c55abce431e1be001588e608f3c6b3",
