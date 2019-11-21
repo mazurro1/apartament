@@ -36,7 +36,7 @@ class Contact extends Component {
                 <div className="col-6 text-right">
                   <h6>Adres e-mail:</h6>
                 </div>
-                <div className="col-6  text-left">
+                <div className="col-6  text-left d-none">
                   <h6>slonecznyradom@gmail.com</h6>
                 </div>
               </div>
