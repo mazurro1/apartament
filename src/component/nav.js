@@ -10,6 +10,7 @@ import FormButton from "../elements/formButton/FormButton";
 import { Link, scrollSpy } from "react-scroll";
 
 // import logo from "../img/logo.png";
+import logoOnly from "../img/logoOnly.png";
 
 class Nav extends Component {
   state = {
@@ -87,6 +88,12 @@ class Nav extends Component {
   //   console.log("xd");
   // };
   render() {
+    const classLogoNav =
+      this.props.menuVisible ||
+      this.props.registrationVisible ||
+      this.props.loginVisible
+        ? "transformNavLogoUp animation d-none d-md-block"
+        : "transformNavLogo animation d-none d-md-block";
     const buttonsLogin = this.props.signed ? (
       <>
         <div className="user">
@@ -129,6 +136,14 @@ class Nav extends Component {
       </>
     ) : (
       <div className="paddingNav">
+        <div className={classLogoNav}>
+          <div className="logoNav">
+            <div className="logoCircle">
+              <img src={logoOnly} alt="logo" />
+            </div>
+            <div className="textLogo">SŁONECZNY APARTAMENT</div>
+          </div>
+        </div>
         {/* <div className="logoImage">
           <img src={logo} />
         </div> */}

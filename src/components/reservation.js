@@ -11,15 +11,19 @@ class Reservation extends Component {
       <Element name="rezervation">
         <div className="margin-80">
           <Title name="REZERWACJA" />
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim
-            reiciendis placeat porro, error sed fugit laboriosam? Quasi
-            molestiae temporibus ipsum aliquid possimus libero repudiandae unde
-            enim, quisquam nulla consequatur nostrum?Illum explicabo quisquam
-            voluptatum alias. Earum numquam accusantium minus. Eligendi fugit
-            quod tempora rem enim omnis, eos, odio tempore numquam, nobis nam
-            dolore fugiat sequi. Distinctio asperiores sint debitis ut!
-          </p>
+          <div className="firstTextWidth textColor">
+            <p>
+              Jak na ten moment o dostępne terminy prosimy dopytywać się
+              telefonicznie pod numerem telefonu 666-196-075. Kwotę za najem
+              lokalu należy uiścić jak najszybciej po jego rezerwacji- kartą i
+              gotówką (na Struga 18) lub przelewem. Wszystkie niezbedne dane do
+              przelewu bedą mieli Państwo podane w umowie. Nasz programista jest
+              na etapie tworzenia aplikacji, dzieki ktorej bedziecie widzieli
+              kalendarz zarówno z dostępnymi jak i zajetymi terminami. Oprócz
+              tego, będziecie mogli tez od razu opłacić rezerwacje, dzięki czemu
+              będziecie mieli pewnosc, ze nikt Wam nie zarezerwuje terminu.
+            </p>
+          </div>
         </div>
       </Element>
     );

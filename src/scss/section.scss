@@ -132,6 +132,12 @@ body {
     font-weight: 500;
   }
 
+  .animation {
+    transition-property: transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+
   .dropDownMenu {
     // position: absolute;
     position: relative;
@@ -1512,6 +1518,53 @@ body {
   .firstTextWidth {
     max-width: 800px;
     margin: 0 auto;
+  }
+
+  .transformNavLogo {
+    position: relative;
+    transform: translateY(-0px);
+    z-index: 200;
+  }
+
+  .transformNavLogoUp {
+    position: relative;
+    transform: translateY(-50px);
+    z-index: 200;
+  }
+
+  .logoNav {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    // font-weight: 700;
+    font-size: 1.3rem;
+    // background-color: white;
+    // border-radius: 10px;
+
+    .textLogo {
+      position: relative;
+      display: inline-block;
+      top: -11px;
+      left: 10px;
+    }
+
+    .logoCircle {
+      position: relative;
+      display: inline-block;
+      background-color: rgba(white, 1);
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    img {
+      position: absolute;
+      max-width: 30px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   // .summary {
   //   position: sticky;
