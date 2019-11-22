@@ -19,7 +19,7 @@ class Section extends Component {
         <div className="jumbotron-fluid">
           <div className="container">
             <AboutUs />
-            <AsyncCallendary />
+            {/* <AsyncCallendary /> */}
             <Reservation />
             <PriceList />
           </div>

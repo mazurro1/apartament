@@ -21,22 +21,22 @@ class Contact extends Component {
             </div>
             <div className="contactWidth">
               <div className="row mt-4">
-                <div className=" col-6 text-right">
+                <div className="col-md-6 col-12 text-md-right text-center mt-4 mt-md-0">
                   <h6>Adres:</h6>
                 </div>
-                <div className="col-6 text-left">
+                <div className="col-md-6 col-12 text-md-left text-center">
                   <h6>26-600 Radom, ul. Struga 18</h6>
                 </div>
-                <div className="col-6 text-right">
+                <div className="col-md-6 col-12 text-md-right text-center mt-4 mt-md-0">
                   <h6>Telefon:</h6>
                 </div>
-                <div className="col-6 text-left">
+                <div className="col-md-6 col-12 text-md-left text-center">
                   <h6>666-196-075</h6>
                 </div>
-                <div className="col-6 text-right">
+                <div className="col-md-6 col-12 text-md-right text-center mt-4 mt-md-0">
                   <h6>Adres e-mail:</h6>
                 </div>
-                <div className="col-6  text-left d-none">
+                <div className="col-md-6 col-12 text-md-left text-center">
                   <h6>slonecznyradom@gmail.com</h6>
                 </div>
               </div>

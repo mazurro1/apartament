@@ -148,7 +148,7 @@ class Nav extends Component {
           <img src={logo} />
         </div> */}
         <div className="row">
-          <div className="col-6">
+          <div className="col-6 d-none">
             <FormButton
               buttonName="Rejestracja"
               buttonOnClick={this.props.registration_visible}
@@ -158,7 +158,7 @@ class Nav extends Component {
               className="buttonEffectIndex"
             />
           </div>
-          <div className="col-6 text-right">
+          <div className="col-6 text-right d-none">
             <FormButton
               buttonName="Logowanie"
               buttonOnClick={this.props.login_visible}
