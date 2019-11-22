@@ -43,7 +43,7 @@ class MenuMobile extends Component {
               >
                 <div className="width100">O NAS</div>
               </Link>
-
+              {/* 
               <Link
                 activeClass="elementActive"
                 className="menuMobileClassOnly"
@@ -55,7 +55,7 @@ class MenuMobile extends Component {
                 onClick={this.props.menu_visible}
               >
                 <div className="width100">KALENDARZ </div>
-              </Link>
+              </Link> */}
 
               <Link
                 activeClass="elementActive"

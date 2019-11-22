@@ -223,7 +223,7 @@ class Nav extends Component {
                 O NAS
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 activeClass="elementNavActive"
                 className="elementNav"
@@ -235,7 +235,7 @@ class Nav extends Component {
               >
                 KALENDARZ
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 activeClass="elementNavActive"
