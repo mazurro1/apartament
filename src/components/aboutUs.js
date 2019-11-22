@@ -18,7 +18,7 @@ class AboutUs extends Component {
             </p>
             <ul>
               <li>imprezę,</li>
-              <li>urdziny,</li>
+              <li>urodziny,</li>
               <li>spotkanie rodzinne,</li>
               <li>event biznesowy,</li>
               <li>konferencję?</li>
@@ -31,7 +31,9 @@ class AboutUs extends Component {
             </p>
             <ul>
               <li>1 łazienka,</li>
-              <li>VIP ROOM - pokój o powierzchni ... (za dodatkową opłatą),</li>
+              <li>
+                VIP ROOM - pokój o powierzchni 15m2 (za dodatkową opłatą),
+              </li>
               <li>
                 projektor (jeśli będziesz chciał/a, aby był razem z Wami podczas
                 organizowanego wydarzenia pobierana jest dodatkowa kaucja),

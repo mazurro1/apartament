@@ -15,13 +15,15 @@ class Reservation extends Component {
             <p>
               Jak na ten moment o dostępne terminy prosimy dopytywać się
               telefonicznie pod numerem telefonu 666-196-075. Kwotę za najem
-              lokalu należy uiścić jak najszybciej po jego rezerwacji- kartą i
-              gotówką (na Struga 18) lub przelewem. Wszystkie niezbedne dane do
-              przelewu bedą mieli Państwo podane w umowie. Nasz programista jest
-              na etapie tworzenia aplikacji, dzieki ktorej bedziecie widzieli
-              kalendarz zarówno z dostępnymi jak i zajetymi terminami. Oprócz
+              lokalu należy uiścić jak najszybciej po jego rezerwacji - kartą i
+              gotówką (na Struga 18) lub przelewem. Wszystkie niezbędne dane do
+              przelewu będą mieli Państwo podane w umowie. Nasz programista jest
+              na etapie tworzenia aplikacji, dzięki której będziecie widzieli
+              kalendarz zarówno z dostępnymi jak i zajętymi terminami. Oprócz
               tego, będziecie mogli tez od razu opłacić rezerwacje, dzięki czemu
-              będziecie mieli pewnosc, ze nikt Wam nie zarezerwuje terminu.
+              będziecie mieli pewność, ze nikt nie zarezerwuje terminu nagle
+              przed Wami. Wszystko już wiecie? Jeśli tak to działamy -
+              zapraszamy do współpracy.
             </p>
           </div>
         </div>
