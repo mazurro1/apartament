@@ -5,6 +5,7 @@ import * as actionTypes from "../store/actions";
 import ClosePage from "../elements/closePage/closePage";
 import CSSTransition from "react-transition-group/CSSTransition";
 import { Link } from "react-scroll";
+import logoOnly from "../img/logoOnly.png";
 
 class MenuMobile extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -43,19 +44,7 @@ class MenuMobile extends Component {
               >
                 <div className="width100">O NAS</div>
               </Link>
-              {/* 
-              <Link
-                activeClass="elementActive"
-                className="menuMobileClassOnly"
-                to="callendary"
-                spy={true}
-                offset={-150}
-                duration={500}
-                onSetActive={this.handleSetActive}
-                onClick={this.props.menu_visible}
-              >
-                <div className="width100">KALENDARZ </div>
-              </Link> */}
+
 
               <Link
                 activeClass="elementActive"
@@ -68,6 +57,20 @@ class MenuMobile extends Component {
                 onClick={this.props.menu_visible}
               >
                 <div className="width100">REZERWACJA </div>
+              </Link>
+
+
+              <Link
+                activeClass="elementActive"
+                className="menuMobileClassOnly"
+                to="callendary"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+                onClick={this.props.menu_visible}
+              >
+                <div className="width100">KALENDARZ </div>
               </Link>
 
               <Link

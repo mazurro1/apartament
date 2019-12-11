@@ -90,8 +90,8 @@ class Nav extends Component {
   render() {
     const classLogoNav =
       this.props.menuVisible ||
-      this.props.registrationVisible ||
-      this.props.loginVisible
+        this.props.registrationVisible ||
+        this.props.loginVisible
         ? "transformNavLogoUp animation d-none d-md-block"
         : "transformNavLogo animation d-none d-md-block";
     const buttonsLogin = this.props.signed ? (
@@ -135,42 +135,42 @@ class Nav extends Component {
         </div>
       </>
     ) : (
-      <div className="paddingNav">
-        <div className={classLogoNav}>
-          <div className="logoNav">
-            <div className="logoCircle">
-              <img src={logoOnly} alt="logo" />
+        <div className="paddingNav">
+          <div className={classLogoNav}>
+            <div className="logoNav">
+              <div className="logoCircle">
+                <img src={logoOnly} alt="logo" />
+              </div>
+              <div className="textLogo">SŁONECZNY APARTAMENT</div>
             </div>
-            <div className="textLogo">SŁONECZNY APARTAMENT</div>
           </div>
-        </div>
-        {/* <div className="logoImage">
+          {/* <div className="logoImage">
           <img src={logo} />
         </div> */}
-        <div className="row">
-          <div className="col-6 d-none">
-            <FormButton
-              buttonName="Rejestracja"
-              buttonOnClick={this.props.registration_visible}
-              buttonColor="gray"
-              buttonInline={true}
-              width="120"
-              className="buttonEffectIndex"
-            />
-          </div>
-          <div className="col-6 text-right d-none">
-            <FormButton
-              buttonName="Logowanie"
-              buttonOnClick={this.props.login_visible}
-              buttonColor="red"
-              buttonInline={true}
-              width="120"
-              className="buttonEffectIndex"
-            />
+          <div className="row">
+            <div className="col-6 d-none">
+              <FormButton
+                buttonName="Rejestracja"
+                buttonOnClick={this.props.registration_visible}
+                buttonColor="gray"
+                buttonInline={true}
+                width="120"
+                className="buttonEffectIndex"
+              />
+            </div>
+            <div className="col-6 text-right d-none">
+              <FormButton
+                buttonName="Logowanie"
+                buttonOnClick={this.props.login_visible}
+                buttonColor="red"
+                buttonInline={true}
+                width="120"
+                className="buttonEffectIndex"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
     const navBgClass = this.props.signed
       ? "navBacgdround navBacgdroundDown"
       : "navBacgdround navBacgdroundDown";
@@ -180,8 +180,8 @@ class Nav extends Component {
       : this.props.registrationVisible ||
         this.props.loginVisible ||
         this.props.menuVisible
-      ? "menuNav menuNavUp"
-      : "menuNav menuNavDown";
+        ? "menuNav menuNavUp"
+        : "menuNav menuNavDown";
 
     const menuMobileClass = !this.props.menuVisible
       ? "menuMobile"
@@ -189,16 +189,23 @@ class Nav extends Component {
 
     const navClass =
       this.props.menuVisible ||
-      this.props.registrationVisible ||
-      this.props.loginVisible ||
-      this.props.signed
+        this.props.registrationVisible ||
+        this.props.loginVisible ||
+        this.props.signed
         ? "navDown"
         : "navUp";
     return (
       <nav className={navClass} ref="nav">
         <div className={navBgClass}></div>
+
         {buttonsLogin}
         <div className={menuNavClass} ref="menuNav">
+          <div className="logoNavMobile">
+            <div className="logoCircle">
+              <img src={logoOnly} alt="logo" />
+            </div>
+            <div className="textLogo">SŁONECZNY APARTAMENT</div>
+          </div>
           <div
             className="d-lg-none menuMobilePosition"
             onClick={this.props.menu_visible}
@@ -223,19 +230,7 @@ class Nav extends Component {
                 O NAS
               </Link>
             </li>
-            {/* <li>
-              <Link
-                activeClass="elementNavActive"
-                className="elementNav"
-                to="callendary"
-                spy={true}
-                offset={-150}
-                duration={500}
-                onSetActive={this.handleSetActive}
-              >
-                KALENDARZ
-              </Link>
-            </li> */}
+
             <li>
               <Link
                 activeClass="elementNavActive"
@@ -247,6 +242,19 @@ class Nav extends Component {
                 onSetActive={this.handleSetActive}
               >
                 REZERWACJA
+              </Link>
+            </li>
+            <li>
+              <Link
+                activeClass="elementNavActive"
+                className="elementNav"
+                to="callendary"
+                spy={true}
+                offset={-150}
+                duration={500}
+                onSetActive={this.handleSetActive}
+              >
+                KALENDARZ
               </Link>
             </li>
             <li>
@@ -283,7 +291,7 @@ class Nav extends Component {
                 spy={true}
                 offset={-150}
                 duration={500}
-                // onClick={this.scrollToBottom}
+              // onClick={this.scrollToBottom}
               >
                 KONTAKT
               </Link>

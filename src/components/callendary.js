@@ -197,17 +197,17 @@ class Callendary extends Component {
         dayDayClass = filterArray[0][1].timeDay
           ? "red"
           : this.state.timeDay
-          ? "yellow"
-          : "green";
+            ? "yellow"
+            : "green";
         dayNightClass = filterArray[0][1].timeNight
           ? "red"
           : this.state.timeNight
-          ? "yellow"
-          : "green";
+            ? "yellow"
+            : "green";
         noSelectHourClass =
           this.state.validation &&
-          this.state.date &&
-          !(this.state.timeNight && this.state.timeDay)
+            this.state.date &&
+            !(this.state.timeNight && this.state.timeDay)
             ? "goDownText"
             : "";
       } else {
@@ -217,8 +217,8 @@ class Callendary extends Component {
           this.state.date && this.state.timeNight ? "yellow" : "green";
         noSelectHourClass =
           this.state.validation &&
-          this.state.date &&
-          !(this.state.timeNight || this.state.timeDay)
+            this.state.date &&
+            !(this.state.timeNight || this.state.timeDay)
             ? "goDownText"
             : "";
       }
@@ -226,38 +226,38 @@ class Callendary extends Component {
 
     const toOrder =
       this.props.userEmail &&
-      this.props.userName &&
-      this.props.userId &&
-      this.props.userToken ? (
-        <div className="text-center positionRelative">
-          <div className="buttonIndex">
-            <FormButton
-              buttonName="Przejdź dalej"
-              buttonOnClick={this.handleOrder}
-              buttonColor="red"
-              buttonInline={true}
-            />
-          </div>
+        this.props.userName &&
+        this.props.userId &&
+        this.props.userToken ? (
+          <div className="text-center positionRelative">
+            <div className="buttonIndex">
+              <FormButton
+                buttonName="Przejdź dalej"
+                buttonOnClick={this.handleOrder}
+                buttonColor="red"
+                buttonInline={true}
+              />
+            </div>
 
-          <div className={`textSelectDay ${noSelectDayClass}`}>
-            Wybierz dzień
+            <div className={`textSelectDay ${noSelectDayClass}`}>
+              Wybierz dzień
           </div>
-          <div className={`textSelectDay ${noSelectHourClass}`}>
-            Wybierz godzinę
+            <div className={`textSelectDay ${noSelectHourClass}`}>
+              Wybierz godzinę
           </div>
-        </div>
-      ) : (
-        <div className="text-center text-danger">
-          <h5>Zaloguj się, aby dokonać rezerwacji</h5>
-        </div>
-      );
+          </div>
+        ) : (
+          <div className="text-center text-danger">
+            <h5>Zaloguj się, aby dokonać rezerwacji</h5>
+          </div>
+        );
     const selectTime =
       this.props.userEmail &&
-      this.props.userName &&
-      this.props.userId &&
-      this.props.userToken ? (
-        <h5 className="text-white">Godziny do wyboru</h5>
-      ) : null;
+        this.props.userName &&
+        this.props.userId &&
+        this.props.userToken ? (
+          <h5 className="text-white">Godziny do wyboru</h5>
+        ) : null;
     return (
       <Element name="callendary">
         <div className="margin-80">
@@ -266,8 +266,10 @@ class Callendary extends Component {
             <p>
               Ciekaw jesteś jak wyglądają najbliższe wolne terminy? Zapraszamy
               do zapoznania się z naszym kalendarzem. Dni na czerwono są
-              zajętymi terminami, z kolei dni na zielono - wolne - śmiało możesz
-              je rezerwować. A więc.. miejmy nadzieję, do zobaczenia!
+              zajętymi terminami, z kolei dni na zielono - wolne.
+            </p>
+            <p className="text-center">
+              A więc.. miejmy nadzieję, do zobaczenia!
             </p>
           </div>
 
@@ -294,11 +296,11 @@ class Callendary extends Component {
               9-18
             </button> */}
               <FormButton
-                buttonName="9-18"
+                buttonName="9:00 - 16:00"
                 buttonOnClick={e => this.handleAddTime(e, "timeDay")}
                 buttonColor={dayDayClass}
                 buttonInline={true}
-                width="60"
+                width="100"
               />
               {/* <button
               className={`btn ml-1 ${dayNightClass}`}
@@ -309,15 +311,15 @@ class Callendary extends Component {
               19-03
             </button> */}
               <FormButton
-                buttonName="19-03"
+                buttonName="17:00 -05:00"
                 buttonOnClick={e => this.handleAddTime(e, "timeNight")}
                 buttonColor={dayNightClass}
                 buttonInline={true}
-                width="60"
+                width="100"
               />
             </div>
           </div>
-          {toOrder}
+          {/* {toOrder} */}
         </div>
       </Element>
     );

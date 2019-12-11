@@ -13,47 +13,29 @@ class AboutUs extends Component {
           <Title name="O NAS" />
           <div className="firstTextWidth textColor">
             <p className="">
-              Poszujesz lokalu, gdzie nie będziesz musiał płacić "od talerzyka"?
-              Chciałabyś/byś zorganizować:
+              Poszukujecie lokalu, gdzie chcielibyście zorganizować:
             </p>
             <ul>
               <li>imprezę,</li>
               <li>urodziny,</li>
+              <li>wieczór kawalerski, panieński,</li>
               <li>spotkanie rodzinne,</li>
+              <li>rocznicę, jubileusz,</li>
               <li>event biznesowy,</li>
+              <li>filmówkę,</li>
+              <li>wspólne oglądanie meczów,</li>
+              <li>konsolację,</li>
+              <li>sesję zdjęciową,</li>
               <li>konferencję?</li>
+
             </ul>
             <p className="">
-              Jeśli na któreś z tych pytań odpowiedziałeś tak, to trafiłeś
-              idealnie! Umów się i zobacz nowoczesny, luksusowy lokal tuż w
-              centrum Radomia! Wynajmujemy apartament o powierzchni 150m2, w
-              którego w skład wchodzą:
+              Jeśli tak, to dobrze trafiliście! Zapraszamy Was serdecznie do nowoczesnego, luksusowego i klimatyzowanego apartamentu o powierzchni 150 m2 w centrum Radomia, tuż obok Galerii Słonecznej. Lokal wyposażony jest w: stoły, krzesła, kanapy, łazienkę oraz sprzęt multimedialny i nagłośnieniowy bardzo wysokiej jakości.
+              Posiadamy również VIP ROOM (pokój o powierzchni 15m2) - dodatkowo płatny.
+              Dodatkowe informacje uzyskacie pod nr telefonu: 666-196-075.
+
             </p>
-            <ul>
-              <li>1 łazienka,</li>
-              <li>
-                VIP ROOM - pokój o powierzchni 15m2 (za dodatkową opłatą),
-              </li>
-              <li>
-                projektor (jeśli będziesz chciał/a, aby był razem z Wami podczas
-                organizowanego wydarzenia pobierana jest dodatkowa kaucja),
-              </li>
-              <li>
-                niezbędne wyposażenie, takie jak stoły, krzesła, czy wieszaki na
-                ubrania.{" "}
-              </li>
-            </ul>
-            <p>
-              Słoneczny Apartament znajduje się w Radomiu na Struga 18 (II
-              piętro bez windy) tuż obok Galerii Słonecznej. Wszystkich
-              zainteresowanych zapraszamy serdecznie na spotkanie, w celu
-              zobacznia oferowanego przez nas miejsca. Liczba osób, jaką będzie
-              mógł pomieścić lokal to 50 osób.
-            </p>
-            <p>
-              Masz więcej pytań? Chciałabyś porozmawiać o szczegółach?
-              Zapraszamy do kontaktu. Z chęcią odpowiemy na wszystkie pytania.
-            </p>
+
           </div>
         </div>
       </Element>

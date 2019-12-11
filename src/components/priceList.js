@@ -14,13 +14,10 @@ class Reservation extends Component {
             <ul>
               <li>kaucja za lokal 1000 zl</li>
               <li>
-                od poniedziałku do czwartku w godzinach porannych i
-                popołudniowych 300 zł
+                od poniedziałku do czwartku w godzinach porannych i popołudniowych - 300 zł
               </li>
               <li>
-                od piatku do niedzieli w godzinach porannych (np. 6:00-16:00)
-                500 zl, z kolei w godzinach popoludniowych np. (17:00-6:00) 900
-                zl
+                od piątku do niedzieli w godzinach porannych (np. 9:00-16:00) - 500 zł, z kolei w godzinach popołudniowych (np. 17:00 do 5:00) - 900 zł.
               </li>
             </ul>
             <p>Opcje dodatkowe:</p>
@@ -30,9 +27,10 @@ class Reservation extends Component {
               <li>kaucja za projektor 2000 zł</li>
             </ul>
             <p>
-              Godziny startu i końca organizowanej imprezy ustalane sa
-              indywidualnie. Powyższe zakresy godzinowe podane zostaly
-              przykładowo.
+              Godziny startu i końca organizowanej imprezy ustalane są indywidualnie. Powyższe zakresy godzinowe podane zostały przykładowo.
+            </p>
+            <p>
+              Macie więcej pytań? Z miłą chęcią odpowiemy na wszystkie pytania. Zapraszamy do kontaktu!
             </p>
           </div>
         </div>

@@ -1532,6 +1532,58 @@ body {
     z-index: 200;
   }
 
+  .logoNavMobile {
+    position: absolute;
+    left: 0px;
+    top: 18px;
+    width: 100%;
+    // margin-left: auto;
+    // left: 50%;
+    // transform: translate(-50%, 0);
+    color: white;
+    // font-weight: 700;
+    font-size: 1.3rem;
+    // background-color: white;
+    // border-radius: 10px;
+    text-align: center;
+
+    @media all and (min-width: 768px) {
+      & {
+        display: none;
+      }
+    }
+
+    .textLogo {
+      position: relative;
+      display: inline-block;
+      top: -11px;
+      left: 10px;
+
+      @media all and (max-width: 450px) {
+              & {
+                display: none;
+              }
+            }
+    }
+
+    .logoCircle {
+      position: relative;
+      display: inline-block;
+      background-color: rgba(white, 1);
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    img {
+      position: absolute;
+      max-width: 30px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .logoNav {
     position: absolute;
     left: 50%;
